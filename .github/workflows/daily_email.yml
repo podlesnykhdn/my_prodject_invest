@@ -26,6 +26,6 @@ jobs:
 
       - name: Отправить письмо
         env:
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
           LESSON_NUM: ${{ steps.lesson.outputs.num }}
         run: python send_email.py
