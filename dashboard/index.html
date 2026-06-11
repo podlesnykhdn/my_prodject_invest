@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOEX Portfolio — Дмитрий</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0f1117; color: #e8eaed; min-height: 100vh; }
+    header { background: #1a1d2e; padding: 24px 32px; border-bottom: 1px solid #2a2d3e; display: flex; align-items: center; gap: 16px; }
+    header h1 { font-size: 1.5rem; font-weight: 600; }
+    header span { color: #7c83fd; font-size: 0.9rem; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 32px 16px; }
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .card { background: #1a1d2e; border-radius: 12px; padding: 20px 24px; border: 1px solid #2a2d3e; }
+    .card .label { font-size: 0.8rem; color: #8b8fa8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .card .value { font-size: 1.6rem; font-weight: 700; color: #e8eaed; }
+    .card .value.green { color: #4ade80; }
+    table { width: 100%; border-collapse: collapse; background: #1a1d2e; border-radius: 12px; overflow: hidden; border: 1px solid #2a2d3e; }
+    th { background: #14172a; padding: 14px 16px; text-align: left; font-size: 0.8rem; color: #8b8fa8; text-transform: uppercase; letter-spacing: 0.05em; }
+    td { padding: 14px 16px; border-top: 1px solid #2a2d3e; font-size: 0.95rem; }
+    tr:hover td { background: #1f2235; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .badge.div { background: #1a3a2a; color: #4ade80; }
+    .badge.nodiv { background: #2a2a1a; color: #facc15; }
+    .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: #c8cadc; }
+    footer { text-align: center; padding: 32px; color: #8b8fa8; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>📈 MOEX Portfolio</h1>
+    <span>Московская биржа · Портфель Дмитрия</span>
+  </div>
+</header>
+<div class="container">
+  <div class="summary">
+    <div class="card">
+      <div class="label">Стоимость портфеля</div>
+      <div class="value">~280 000 ₽</div>
+    </div>
+    <div class="card">
+      <div class="label">Позиций</div>
+      <div class="value">5</div>
+    </div>
+    <div class="card">
+      <div class="label">Дивидендных</div>
+      <div class="value green">3</div>
+    </div>
+    <div class="card">
+      <div class="label">Обновлено</div>
+      <div class="value" style="font-size:1rem; padding-top:6px">Июнь 2026</div>
+    </div>
+  </div>
+
+  <div class="section-title">💼 Состав портфеля</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Компания</th>
+        <th>Тикер</th>
+        <th>Кол-во</th>
+        <th>Дивиденды</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Корпоративный центр X5</td>
+        <td><b>X5</b></td>
+        <td>42</td>
+        <td><span class="badge div">Да</span></td>
+      </tr>
+      <tr>
+        <td>Лента</td>
+        <td><b>LENT</b></td>
+        <td>53</td>
+        <td><span class="badge nodiv">Нет</span></td>
+      </tr>
+      <tr>
+        <td>Сбербанк</td>
+        <td><b>SBER</b></td>
+        <td>74</td>
+        <td><span class="badge div">Да</span></td>
+      </tr>
+      <tr>
+        <td>Novabev Group</td>
+        <td><b>BELU</b></td>
+        <td>12</td>
+        <td><span class="badge div">Да</span></td>
+      </tr>
+      <tr>
+        <td>Фонд Золото (TGLD)</td>
+        <td><b>TGLD</b></td>
+        <td>4 618</td>
+        <td><span class="badge nodiv">ETF</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<footer>moex-portfolio · github.com/podlesnykhdn/moex-portfolio</footer>
+</body>
+</html>
