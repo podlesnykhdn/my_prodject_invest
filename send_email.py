@@ -4,32 +4,29 @@ import json
 from datetime import datetime
 
 RESEND_API_KEY = os.environ["RESEND_API_KEY"]
+GROQ_API_KEY = os.environ["GROQ_API_KEY"]
 TO_EMAIL = "podlesnykhdn@gmail.com"
-ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 
-def ask_claude(prompt):
+def ask_groq(prompt):
     payload = json.dumps({
-        "model": "claude-haiku-4-5-20251001",
+        "model": "llama-3.3-70b-versatile",
         "max_tokens": 1000,
         "messages": [{"role": "user", "content": prompt}]
     }).encode("utf-8")
     req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
+        "https://api.groq.com/openai/v1/chat/completions",
         data=payload,
         headers={
-            "x-api-key": ANTHROPIC_API_KEY,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json"
+            "Authorization": f"Bearer {GROQ_API_KEY}",
+            "Content-Type": "application/json"
         }
     )
     with urllib.request.urlopen(req) as resp:
         data = json.loads(resp.read())
-        return data["content"][0]["text"]
+        return data["choices"][0]["message"]["content"]
 
-# Get lesson number from env (set by workflow, increments daily)
 lesson_num = int(os.environ.get("LESSON_NUM", "1"))
-
-today = datetime.now().strftime("%d %B %Y")
+today = datetime.now().strftime("%d.%m.%Y")
 
 mentor_prompt = f"""Ты — ментор по инвестициям для абсолютного новичка. Обучай структурированно, шаг за шагом.
 
@@ -66,12 +63,12 @@ analyst_prompt = f"""Ты — инвестиционный аналитик. Д�
 Будь честным — не выдумывай конкретные цены. Максимум 300 слов. Только русский язык."""
 
 print("Запрашиваю урок у Ментора...")
-mentor_text = ask_claude(mentor_prompt)
+mentor_text = ask_groq(mentor_prompt)
 
 print("Запрашиваю сводку у Аналитика...")
-analyst_text = ask_claude(analyst_prompt)
+analyst_text = ask_groq(analyst_prompt)
 
-def to_html_paragraphs(text):
+def to_html(text):
     lines = text.strip().split("\n")
     result = []
     for line in lines:
@@ -79,16 +76,15 @@ def to_html_paragraphs(text):
         if not line:
             continue
         if line.startswith("### ") or line.startswith("## "):
-            result.append(f"<h3 style=\'color:#2563eb;font-size:15px;margin:16px 0 6px;\'>{line.lstrip('#').strip()}</h3>")
+            result.append(f'<h3 style="color:#1d4ed8;font-size:15px;margin:16px 0 6px;">{line.lstrip("#").strip()}</h3>')
         elif line.startswith("**") and line.endswith("**"):
-            result.append(f"<p style=\'margin:6px 0;\'><strong>{line.strip(\'*\')}</strong></p>")
+            result.append(f'<p style="margin:6px 0;"><strong>{line.strip("*")}</strong></p>')
         else:
-            line = line.replace("**", "<strong>").replace("**", "</strong>")
-            result.append(f"<p style=\'margin:6px 0;color:#374151;\'>{line}</p>")
+            line = line.replace("**", "<strong>", 1).replace("**", "</strong>", 1)
+            result.append(f'<p style="margin:6px 0;color:#374151;">{line}</p>')
     return "\n".join(result)
 
-html_email = f"""
-<!DOCTYPE html>
+html_email = f"""<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"></head>
 <body style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f9fafb;padding:20px;">
@@ -101,15 +97,15 @@ html_email = f"""
   <div style="background:#fff;padding:24px;border-left:1px solid #e5e7eb;border-right:1px solid #e5e7eb;">
 
     <div style="border-left:4px solid #2563eb;padding-left:16px;margin-bottom:28px;">
-      <p style="color:#2563eb;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin:0 0 4px;">🎓 Ментор · Урок №{lesson_num}</p>
-      {to_html_paragraphs(mentor_text)}
+      <p style="color:#2563eb;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px;">🎓 Ментор · Урок №{lesson_num}</p>
+      {to_html(mentor_text)}
     </div>
 
     <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;">
 
     <div style="border-left:4px solid #059669;padding-left:16px;">
-      <p style="color:#059669;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin:0 0 4px;">📊 Аналитик · Сводка по портфелю</p>
-      {to_html_paragraphs(analyst_text)}
+      <p style="color:#059669;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px;">📊 Аналитик · Сводка по портфелю</p>
+      {to_html(analyst_text)}
     </div>
 
   </div>
@@ -121,8 +117,7 @@ html_email = f"""
   </div>
 
 </body>
-</html>
-"""
+</html>"""
 
 print("Отправляю письмо...")
 payload = json.dumps({
