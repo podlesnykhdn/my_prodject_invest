@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "2.2",
+    "version": "2.3",
     "updated": "2026-06-11",
     "description": "Движок правил для анализа портфеля. Используется сборщиком, письмами и Telegram ботами.",
     "thresholds": {
@@ -1370,5 +1370,161 @@
       ]
     },
     "retention_days": 90
+  },
+  "watchlist_assets": {
+    "description": "Перспективные активы на MOEX — рублёвые инструменты",
+    "updated": "2026-06-11",
+    "commodities": [
+      {
+        "name": "Золото",
+        "ticker": "TGLD",
+        "board": "TQTF",
+        "type": "etf",
+        "currency": "RUB",
+        "underlying": "XAU/USD × USD/RUB",
+        "in_portfolio": true,
+        "why_watch": "Защитный актив. Растёт при ослаблении рубля, геополитике, инфляции и снижении ставки ФРС.",
+        "signals": {
+          "buy_zone": "Рубль ослабляется (USD > +2%) + мировое золото растёт",
+          "risk_zone": "Рубль укрепляется + ставка ФРС растёт",
+          "neutral": "Стабильный курс рубля и нейтральная ФРС"
+        },
+        "alternatives_moex": [
+          "GOLD",
+          "GLDRUB_TOM"
+        ]
+      },
+      {
+        "name": "Нефть (рублёвая)",
+        "ticker": "OILR",
+        "board": "TQTF",
+        "type": "etf",
+        "currency": "RUB",
+        "underlying": "Brent × USD/RUB",
+        "in_portfolio": false,
+        "why_watch": "Влияет на курс рубля и весь российский рынок. Рост нефти → укрепление рубля → позитив для акций.",
+        "signals": {
+          "buy_zone": "Нефть Brent растёт + рубль стабилен",
+          "risk_zone": "Нефть падает > 3% + ОПЕК+ снимает ограничения",
+          "neutral": "Нефть в диапазоне $70-85"
+        },
+        "alternatives_moex": [
+          "BR-",
+          "CL-"
+        ]
+      },
+      {
+        "name": "Серебро",
+        "ticker": "SLVR",
+        "board": "TQTF",
+        "type": "etf",
+        "currency": "RUB",
+        "underlying": "XAG/USD × USD/RUB",
+        "in_portfolio": false,
+        "why_watch": "Более волатильный аналог золота. Реагирует на промышленный спрос (электроника, солнечные панели) + защитный актив.",
+        "signals": {
+          "buy_zone": "Золото растёт + промышленный спрос растёт + рубль слабеет",
+          "risk_zone": "Промышленный спрос падает (рецессия) + рубль укрепляется",
+          "neutral": "Золото стабильно, промышленность без изменений"
+        },
+        "alternatives_moex": [
+          "SILV",
+          "SLVRUB_TOM"
+        ],
+        "note": "Серебро исторически растёт быстрее золота в бычьем цикле и падает быстрее в медвежьем"
+      }
+    ],
+    "scoring_assets": {
+      "description": "Критерии оценки перспективности актива на текущий момент",
+      "criteria": [
+        {
+          "id": "TREND_UP",
+          "name": "Восходящий тренд",
+          "weight": 30,
+          "condition": "price_change_7day > 0 and price_change_today > 0",
+          "description": "Актив растёт и сегодня и за неделю — устойчивый тренд"
+        },
+        {
+          "id": "VOLUME_GROWING",
+          "name": "Растущий объём",
+          "weight": 25,
+          "condition": "volume_today > volume_avg_5day * 1.2",
+          "description": "Объём торгов выше среднего — растущий интерес"
+        },
+        {
+          "id": "RUB_WEAK",
+          "name": "Ослабление рубля",
+          "weight": 20,
+          "condition": "usd_change > 1.0",
+          "description": "Рубль слабеет → рублёвые цены золота и нефти растут"
+        },
+        {
+          "id": "WORLD_PRICE_UP",
+          "name": "Мировая цена растёт",
+          "weight": 15,
+          "condition": "world_price_change > 0",
+          "description": "Мировая цена актива в долларах растёт"
+        },
+        {
+          "id": "NEAR_YEAR_LOW",
+          "name": "У годового минимума",
+          "weight": 10,
+          "condition": "price <= year_low * 1.10",
+          "description": "Актив у годового минимума — потенциал восстановления"
+        }
+      ],
+      "grade_thresholds": {
+        "A": {
+          "min_score": 70,
+          "label": "Высокий потенциал",
+          "emoji": "🟢"
+        },
+        "B": {
+          "min_score": 45,
+          "label": "Умеренный потенциал",
+          "emoji": "🟡"
+        },
+        "C": {
+          "min_score": 20,
+          "label": "Наблюдать",
+          "emoji": "🟠"
+        },
+        "D": {
+          "min_score": 0,
+          "label": "Не интересно",
+          "emoji": "🔴"
+        }
+      }
+    },
+    "portfolio_correlation": {
+      "description": "Как отслеживаемые активы связаны с твоим портфелем",
+      "correlations": [
+        {
+          "asset": "Золото (TGLD)",
+          "portfolio_ticker": "TGLD",
+          "relation": "direct",
+          "note": "Уже в портфеле — 4618 паёв. Мониторинг для решения о докупке или фиксации прибыли."
+        },
+        {
+          "asset": "Нефть (OILR)",
+          "portfolio_tickers": [
+            "SBER",
+            "X5",
+            "LENT",
+            "BELU"
+          ],
+          "relation": "indirect",
+          "note": "Нефть влияет на рубль → рубль влияет на весь портфель. Рост нефти обычно позитивен для акций."
+        },
+        {
+          "asset": "Серебро (SLVR)",
+          "portfolio_tickers": [
+            "TGLD"
+          ],
+          "relation": "correlated",
+          "note": "Серебро и золото движутся в одном направлении. Рост серебра — подтверждение тренда для TGLD."
+        }
+      ]
+    }
   }
 }
