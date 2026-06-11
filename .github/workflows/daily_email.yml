@@ -1,32 +1,5 @@
-name: Ежедневная рассылка
-
-on:
-  schedule:
-    - cron: '0 4 * * *'
-  workflow_dispatch:
-
-jobs:
-  send-email:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Рассчитать номер урока
-        id: lesson
-        run: |
-          START_DATE="2026-06-11"
-          TODAY=$(date +%Y-%m-%d)
-          DAYS=$(( ( $(date -d "$TODAY" +%s) - $(date -d "$START_DATE" +%s) ) / 86400 + 1 ))
-          echo "num=$DAYS" >> $GITHUB_OUTPUT
-
-      - name: Отправить письмо
+- name: Отправить письмо
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LESSON_NUM: ${{ steps.lesson.outputs.num }}
         run: python send_email.py
