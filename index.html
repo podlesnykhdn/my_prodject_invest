@@ -1,478 +1,420 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>my_prodject_invest</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>my_prodject_invest</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+:root {
+  --bg: #0b0e1a; --surface: #111827; --surface2: #1a2235;
+  --border: #1f2d45; --accent: #3b82f6; --green: #10b981;
+  --red: #ef4444; --warn: #f59e0b; --purple: #8b5cf6;
+  --text: #e2e8f0; --muted: #64748b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.logo { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--accent); }
+.logo span { color: var(--muted); }
+.hdr-right { display: flex; align-items: center; gap: 16px; }
+.last-update { font-size: 0.75rem; color: var(--muted); }
+.refresh-btn { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 6px; padding: 5px 12px; font-size: 0.75rem; cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+.refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
+nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 28px; display: flex; gap: 2px; }
+.tab { padding: 11px 18px; font-size: 0.85rem; font-weight: 500; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; user-select: none; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+main { max-width: 980px; margin: 0 auto; padding: 28px 16px; }
+.panel { display: none; }
+.panel.active { display: block; }
 
-    :root {
-      --bg: #0b0e1a;
-      --surface: #111827;
-      --surface2: #1a2235;
-      --border: #1f2d45;
-      --accent: #3b82f6;
-      --accent2: #10b981;
-      --warn: #f59e0b;
-      --text: #e2e8f0;
-      --muted: #64748b;
-      --red: #ef4444;
-    }
+/* SUMMARY CARDS */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; }
+.card .lbl { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 5px; }
+.card .val { font-size: 1.3rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--text); }
+.card .val.up { color: var(--green); }
+.card .val.dn { color: var(--red); }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+/* PORTFOLIO TABLE */
+.section-title { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 12px; margin-top: 24px; }
+.tbl-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 24px; }
+table { width: 100%; border-collapse: collapse; }
+th { background: #0d1525; padding: 10px 14px; text-align: left; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; }
+td { padding: 12px 14px; border-top: 1px solid var(--border); font-size: 0.88rem; }
+tr:hover td { background: var(--surface2); }
+.mono { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; }
+.badge.yes { background: #052e16; color: #4ade80; border: 1px solid #166534; }
+.badge.no  { background: #1c1004; color: #fbbf24; border: 1px solid #92400e; }
+.badge.etf { background: #0c1a3a; color: #60a5fa; border: 1px solid #1d4ed8; }
+.up { color: var(--green); }
+.dn { color: var(--red); }
+.neu { color: var(--muted); }
+.loading-cell { color: var(--muted); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+/* SPINNER */
+.spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-    /* HEADER */
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-    }
-    .logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
-      color: var(--accent);
-      letter-spacing: 0.02em;
-    }
-    .logo span { color: var(--muted); }
-    .portfolio-val {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-    .portfolio-val strong { color: var(--accent2); font-size: 1rem; }
+/* SCREENER */
+.screener-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 600px) { .screener-grid { grid-template-columns: 1fr; } }
+.screener-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.screener-card-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.screener-card-header .icon { font-size: 1rem; }
+.screener-card-header h3 { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+.screener-card-header p { font-size: 0.72rem; color: var(--muted); }
+.screener-item { padding: 10px 16px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.screener-item:first-child { border-top: none; }
+.si-left .name { font-size: 0.85rem; font-weight: 500; }
+.si-left .ticker { font-size: 0.72rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+.si-right { text-align: right; }
+.si-right .price { font-size: 0.88rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+.si-right .change { font-size: 0.72rem; }
 
-    /* TABS */
-    nav {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0 32px;
-      display: flex;
-      gap: 4px;
-    }
-    .tab {
-      padding: 12px 20px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--muted);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all 0.15s;
-      user-select: none;
-    }
-    .tab:hover { color: var(--text); }
-    .tab.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
-
-    /* MAIN */
-    main { max-width: 900px; margin: 0 auto; padding: 32px 16px; }
-
-    /* PANEL */
-    .panel { display: none; }
-    .panel.active { display: block; }
-
-    /* CARDS ROW */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 20px;
-    }
-    .card .lbl {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    .card .val {
-      font-size: 1.4rem;
-      font-weight: 700;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .card .val.green { color: var(--accent2); }
-    .card .val.blue { color: var(--accent); }
-
-    /* TABLE */
-    .tbl-wrap {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    table { width: 100%; border-collapse: collapse; }
-    th {
-      background: #0f1929;
-      padding: 11px 16px;
-      text-align: left;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-    }
-    td {
-      padding: 13px 16px;
-      border-top: 1px solid var(--border);
-      font-size: 0.9rem;
-    }
-    tr:hover td { background: var(--surface2); }
-    .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
-    .badge {
-      display: inline-block;
-      padding: 2px 9px;
-      border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 600;
-    }
-    .badge.yes { background: #052e16; color: #4ade80; border: 1px solid #166534; }
-    .badge.no  { background: #1c1004; color: #fbbf24; border: 1px solid #92400e; }
-    .badge.etf { background: #0c1a3a; color: #60a5fa; border: 1px solid #1d4ed8; }
-
-    /* AI PANEL */
-    .ai-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .ai-header h2 { font-size: 1rem; font-weight: 600; }
-    .ai-header p { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
-    .btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 9px 18px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity 0.15s;
-      font-family: 'Inter', sans-serif;
-      white-space: nowrap;
-    }
-    .btn:hover { opacity: 0.85; }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .btn.green { background: var(--accent2); }
-
-    .ai-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 28px 32px;
-      min-height: 200px;
-      line-height: 1.75;
-      font-size: 0.92rem;
-    }
-    .ai-box.loading {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted);
-    }
-    .spinner {
-      width: 18px; height: 18px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      flex-shrink: 0;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .ai-box h3 { font-size: 1rem; font-weight: 600; margin: 18px 0 8px; color: var(--accent); }
-    .ai-box h3:first-child { margin-top: 0; }
-    .ai-box p { margin-bottom: 10px; color: #cbd5e1; }
-    .ai-box ul { padding-left: 20px; margin-bottom: 10px; }
-    .ai-box li { margin-bottom: 6px; color: #cbd5e1; }
-    .ai-box strong { color: var(--text); }
-    .ai-box em { color: var(--warn); font-style: normal; font-weight: 500; }
-
-    .lesson-num {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 4px;
-      margin-bottom: 14px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .placeholder {
-      color: var(--muted);
-      text-align: center;
-      padding: 48px 0;
-    }
-    .placeholder .icon { font-size: 2.5rem; margin-bottom: 12px; }
-    .placeholder p { font-size: 0.9rem; }
-  </style>
+/* AI PANEL */
+.ai-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.ai-header h2 { font-size: 0.95rem; font-weight: 600; }
+.ai-header p { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s; font-family: 'Inter', sans-serif; white-space: nowrap; }
+.btn:hover { opacity: 0.85; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn.green { background: var(--green); }
+.ai-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px 28px; min-height: 180px; line-height: 1.75; font-size: 0.9rem; }
+.ai-box.loading { display: flex; align-items: center; gap: 12px; color: var(--muted); }
+.ai-box h3 { font-size: 0.92rem; font-weight: 600; margin: 16px 0 6px; color: var(--accent); }
+.ai-box h3:first-child { margin-top: 0; }
+.ai-box p { margin-bottom: 8px; color: #cbd5e1; }
+.ai-box ul { padding-left: 20px; margin-bottom: 8px; }
+.ai-box li { margin-bottom: 5px; color: #cbd5e1; }
+.ai-box strong { color: var(--text); }
+.lesson-num { display: inline-block; background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; }
+.placeholder { color: var(--muted); text-align: center; padding: 48px 0; }
+.placeholder .icon { font-size: 2rem; margin-bottom: 10px; }
+.placeholder p { font-size: 0.88rem; }
+</style>
 </head>
 <body>
 
 <header>
   <div class="logo">my_prodject_invest <span>/ MOEX</span></div>
-  <div class="portfolio-val">Портфель: <strong>~280 000 ₽</strong></div>
+  <div class="hdr-right">
+    <span class="last-update" id="last-update">Загрузка...</span>
+    <button class="refresh-btn" onclick="loadAll()">Обновить</button>
+  </div>
 </header>
 
 <nav>
-  <div class="tab active" onclick="switchTab('portfolio')">💼 Портфель</div>
-  <div class="tab" onclick="switchTab('mentor')">🎓 Ментор</div>
-  <div class="tab" onclick="switchTab('analyst')">📊 Аналитик</div>
+  <div class="tab active" onclick="switchTab('portfolio')">Портфель</div>
+  <div class="tab" onclick="switchTab('screener')">Скринер</div>
+  <div class="tab" onclick="switchTab('mentor')">Ментор</div>
+  <div class="tab" onclick="switchTab('analyst')">Аналитик</div>
 </nav>
 
 <main>
 
-  <!-- PORTFOLIO TAB -->
-  <div class="panel active" id="tab-portfolio">
-    <div class="cards">
-      <div class="card">
-        <div class="lbl">Стоимость</div>
-        <div class="val blue">280 000 ₽</div>
-      </div>
-      <div class="card">
-        <div class="lbl">Позиций</div>
-        <div class="val">5</div>
-      </div>
-      <div class="card">
-        <div class="lbl">С дивидендами</div>
-        <div class="val green">3</div>
-      </div>
-      <div class="card">
-        <div class="lbl">Обновлено</div>
-        <div class="val" style="font-size:0.95rem;padding-top:4px">Июнь 2026</div>
-      </div>
-    </div>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Компания</th>
-            <th>Тикер</th>
-            <th>Кол-во</th>
-            <th>Дивиденды</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Корпоративный центр X5</td>
-            <td class="mono">X5</td>
-            <td>42</td>
-            <td><span class="badge yes">Да</span></td>
-          </tr>
-          <tr>
-            <td>Лента</td>
-            <td class="mono">LENT</td>
-            <td>53</td>
-            <td><span class="badge no">Нет</span></td>
-          </tr>
-          <tr>
-            <td>Сбербанк</td>
-            <td class="mono">SBER</td>
-            <td>74</td>
-            <td><span class="badge yes">Да</span></td>
-          </tr>
-          <tr>
-            <td>Novabev Group</td>
-            <td class="mono">BELU</td>
-            <td>12</td>
-            <td><span class="badge yes">Да</span></td>
-          </tr>
-          <tr>
-            <td>Фонд Золото (TGLD)</td>
-            <td class="mono">TGLD</td>
-            <td>4 618</td>
-            <td><span class="badge etf">ETF</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<!-- PORTFOLIO TAB -->
+<div class="panel active" id="tab-portfolio">
+  <div class="cards" id="summary-cards">
+    <div class="card"><div class="lbl">Стоимость портфеля</div><div class="val" id="total-val">—</div></div>
+    <div class="card"><div class="lbl">Изменение за день</div><div class="val" id="total-change">—</div></div>
+    <div class="card"><div class="lbl">Позиций</div><div class="val">5</div></div>
+    <div class="card"><div class="lbl">Данные MOEX</div><div class="val" id="data-status" style="font-size:0.75rem;padding-top:4px">Загрузка...</div></div>
   </div>
 
-  <!-- MENTOR TAB -->
-  <div class="panel" id="tab-mentor">
-    <div class="ai-header">
-      <div>
-        <h2>🎓 Ментор — урок дня</h2>
-        <p>Короткий структурированный урок об инвестициях и фондовом рынке</p>
-      </div>
-      <button class="btn" id="btn-mentor" onclick="loadMentor()">Получить урок</button>
-    </div>
-    <div class="ai-box" id="mentor-box">
-      <div class="placeholder">
-        <div class="icon">🎓</div>
-        <p>Нажми «Получить урок» — Ментор подготовит для тебя материал</p>
-      </div>
-    </div>
+  <div class="section-title">Мой портфель</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Компания</th><th>Тикер</th><th>Кол-во</th>
+          <th>Цена</th><th>Изм. за день</th><th>Объём торгов</th><th>Стоимость</th><th>Дивиденды</th>
+        </tr>
+      </thead>
+      <tbody id="portfolio-tbody">
+        <tr><td colspan="8" class="loading-cell" style="text-align:center;padding:20px;"><span class="spinner"></span> Загрузка данных MOEX...</td></tr>
+      </tbody>
+    </table>
   </div>
+</div>
 
-  <!-- ANALYST TAB -->
-  <div class="panel" id="tab-analyst">
-    <div class="ai-header">
-      <div>
-        <h2>📊 Аналитик — сводка по портфелю</h2>
-        <p>Анализ новостей и факторов, влияющих на твои акции</p>
+<!-- SCREENER TAB -->
+<div class="panel" id="tab-screener">
+  <div class="section-title" style="margin-top:0">Скринер рынка</div>
+  <div class="screener-grid">
+    <div class="screener-card">
+      <div class="screener-card-header">
+        <div class="icon">🔥</div>
+        <div><h3>Топ по объёму торгов</h3><p>Самые активно торгуемые акции сегодня</p></div>
       </div>
-      <button class="btn green" id="btn-analyst" onclick="loadAnalyst()">Получить сводку</button>
+      <div id="top-volume">
+        <div style="padding:20px;text-align:center;color:var(--muted);font-size:0.82rem;"><span class="spinner"></span> Загрузка...</div>
+      </div>
     </div>
-    <div class="ai-box" id="analyst-box">
-      <div class="placeholder">
-        <div class="icon">📊</div>
-        <p>Нажми «Получить сводку» — Аналитик проверит, что происходит с твоим портфелем</p>
+    <div class="screener-card">
+      <div class="screener-card-header">
+        <div class="icon">📈</div>
+        <div><h3>Недооценённые с потенциалом</h3><p>Низкая цена + рост за месяц</p></div>
+      </div>
+      <div id="top-growth">
+        <div style="padding:20px;text-align:center;color:var(--muted);font-size:0.82rem;"><span class="spinner"></span> Загрузка...</div>
       </div>
     </div>
   </div>
+</div>
+
+<!-- MENTOR TAB -->
+<div class="panel" id="tab-mentor">
+  <div class="ai-header">
+    <div><h2>Ментор — урок дня</h2><p>Структурированное обучение инвестициям с нуля</p></div>
+    <button class="btn" id="btn-mentor" onclick="loadMentor()">Получить урок</button>
+  </div>
+  <div class="ai-box" id="mentor-box">
+    <div class="placeholder"><div class="icon">🎓</div><p>Нажми «Получить урок»</p></div>
+  </div>
+</div>
+
+<!-- ANALYST TAB -->
+<div class="panel" id="tab-analyst">
+  <div class="ai-header">
+    <div><h2>Аналитик — сводка по портфелю</h2><p>Новости и факторы влияния на твои акции</p></div>
+    <button class="btn green" id="btn-analyst" onclick="loadAnalyst()">Получить сводку</button>
+  </div>
+  <div class="ai-box" id="analyst-box">
+    <div class="placeholder"><div class="icon">📊</div><p>Нажми «Получить сводку»</p></div>
+  </div>
+</div>
 
 </main>
 
 <script>
-  // --- TAB SWITCHING ---
-  function switchTab(name) {
-    document.querySelectorAll('.tab').forEach((t, i) => {
-      const names = ['portfolio', 'mentor', 'analyst'];
-      t.classList.toggle('active', names[i] === name);
+const PORTFOLIO = [
+  { name: "Корп. центр X5",  ticker: "X5",   qty: 42,   div: true  },
+  { name: "Лента",            ticker: "LENT",  qty: 53,   div: false },
+  { name: "Сбербанк",         ticker: "SBER",  qty: 74,   div: true  },
+  { name: "Novabev Group",    ticker: "BELU",  qty: 12,   div: true  },
+  { name: "Фонд Золото",      ticker: "TGLD",  qty: 4618, div: false, etf: true },
+];
+
+function switchTab(name) {
+  const names = ['portfolio','screener','mentor','analyst'];
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', names[i]===name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+function fmt(n) { return new Intl.NumberFormat('ru-RU').format(Math.round(n)); }
+function fmtVol(v) {
+  if (!v || v === 0) return '—';
+  if (v >= 1e9) return (v/1e9).toFixed(1)+'B';
+  if (v >= 1e6) return (v/1e6).toFixed(0)+'M';
+  if (v >= 1e3) return (v/1e3).toFixed(0)+'K';
+  return v;
+}
+
+async function fetchMOEX(tickers) {
+  const url = `https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?securities=${tickers.join(',')}&iss.meta=off&iss.only=securities,marketdata&callback=?`;
+  // Use JSONP-style or direct fetch
+  const res = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?securities=${tickers.join(',')}&iss.meta=off&iss.only=marketdata`);
+  const data = await res.json();
+  const cols = data.marketdata.columns;
+  const result = {};
+  for (const row of data.marketdata.data) {
+    const d = Object.fromEntries(cols.map((c,i)=>[c, row[i]]));
+    result[d.SECID] = {
+      price: d.LAST || d.PREVPRICE || 0,
+      change: d.CHANGE || 0,
+      changePct: d.LASTTOPREVPRICE ? (d.LASTTOPREVPRICE - 1)*100 : 0,
+      volume: d.VOLTODAY || 0,
+      turnover: d.VALTODAY || 0,
+    };
+  }
+  return result;
+}
+
+async function fetchTopByVolume() {
+  const res = await fetch('https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.meta=off&iss.only=marketdata&sort_column=VALTODAY&sort_order=desc');
+  const data = await res.json();
+  const cols = data.marketdata.columns;
+  return data.marketdata.data
+    .map(row => Object.fromEntries(cols.map((c,i)=>[c,row[i]])))
+    .filter(d => d.LAST && d.VALTODAY > 0)
+    .sort((a,b) => b.VALTODAY - a.VALTODAY)
+    .slice(0, 8);
+}
+
+async function fetchTopGrowth() {
+  const res = await fetch('https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.meta=off&iss.only=marketdata,securities');
+  const data = await res.json();
+  const mktCols = data.marketdata.columns;
+  const secCols = data.securities.columns;
+  const secMap = {};
+  for (const row of data.securities.data) {
+    const d = Object.fromEntries(secCols.map((c,i)=>[c,row[i]]));
+    secMap[d.SECID] = d.SHORTNAME || d.SECID;
+  }
+  return data.marketdata.data
+    .map(row => {
+      const d = Object.fromEntries(mktCols.map((c,i)=>[c,row[i]]));
+      return { ...d, NAME: secMap[d.SECID] || d.SECID };
+    })
+    .filter(d => d.LAST && d.LAST > 0 && d.LAST < 500 && d.CHANGE > 0)
+    .sort((a,b) => (b.CHANGE/b.PREVPRICE||0) - (a.CHANGE/a.PREVPRICE||0))
+    .slice(0, 8);
+}
+
+async function loadPortfolio() {
+  const tickers = PORTFOLIO.map(p => p.ticker);
+  try {
+    const quotes = await fetchMOEX(tickers);
+    let totalVal = 0, totalChange = 0;
+    const rows = PORTFOLIO.map(pos => {
+      const q = quotes[pos.ticker] || {};
+      const price = q.price || 0;
+      const change = q.change || 0;
+      const changePct = q.changePct || 0;
+      const vol = q.turnover || 0;
+      const posVal = price * pos.qty;
+      totalVal += posVal;
+      totalChange += change * pos.qty;
+      const chCls = change > 0 ? 'up' : change < 0 ? 'dn' : 'neu';
+      const chSign = change > 0 ? '+' : '';
+      const badge = pos.etf ? '<span class="badge etf">ETF</span>' : pos.div ? '<span class="badge yes">Да</span>' : '<span class="badge no">Нет</span>';
+      return `<tr>
+        <td>${pos.name}</td>
+        <td class="mono">${pos.ticker}</td>
+        <td>${fmt(pos.qty)}</td>
+        <td class="mono">${price ? fmt(price)+' ₽' : '—'}</td>
+        <td class="mono ${chCls}">${price ? chSign+change.toFixed(2)+' ('+chSign+changePct.toFixed(1)+'%)' : '—'}</td>
+        <td class="mono">${fmtVol(vol)} ₽</td>
+        <td class="mono">${price ? fmt(posVal)+' ₽' : '—'}</td>
+        <td>${badge}</td>
+      </tr>`;
     });
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('tab-' + name).classList.add('active');
+    document.getElementById('portfolio-tbody').innerHTML = rows.join('');
+    const chCls = totalChange >= 0 ? 'up' : 'dn';
+    const chSign = totalChange >= 0 ? '+' : '';
+    document.getElementById('total-val').textContent = fmt(totalVal) + ' ₽';
+    document.getElementById('total-change').className = 'val ' + chCls;
+    document.getElementById('total-change').textContent = chSign + fmt(totalChange) + ' ₽';
+    document.getElementById('data-status').textContent = 'MOEX Live';
+    document.getElementById('data-status').style.color = '#10b981';
+  } catch(e) {
+    document.getElementById('portfolio-tbody').innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px;color:var(--muted);font-size:0.82rem;">Биржа закрыта или нет данных. Открывается по будням 10:00–18:40 МСК.</td></tr>';
+    document.getElementById('data-status').textContent = 'Биржа закрыта';
+    document.getElementById('data-status').style.color = '#f59e0b';
   }
+}
 
-  // --- LESSON COUNTER (stored in localStorage) ---
-  function getLessonNum() {
-    const n = parseInt(localStorage.getItem('lessonNum') || '0') + 1;
-    localStorage.setItem('lessonNum', n);
-    return n;
+async function loadScreener() {
+  try {
+    const volData = await fetchTopByVolume();
+    document.getElementById('top-volume').innerHTML = volData.map(d => {
+      const chPct = d.PREVPRICE ? ((d.LAST - d.PREVPRICE)/d.PREVPRICE*100) : 0;
+      const cls = chPct >= 0 ? 'up' : 'dn';
+      const sign = chPct >= 0 ? '+' : '';
+      return `<div class="screener-item">
+        <div class="si-left"><div class="name">${d.SHORTNAME||d.SECID}</div><div class="ticker">${d.SECID} · ${fmtVol(d.VALTODAY)} ₽</div></div>
+        <div class="si-right"><div class="price mono">${fmt(d.LAST)} ₽</div><div class="change ${cls}">${sign}${chPct.toFixed(1)}%</div></div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    document.getElementById('top-volume').innerHTML = '<div style="padding:16px;text-align:center;color:var(--muted);font-size:0.82rem;">Биржа закрыта</div>';
   }
-
-  // --- MARKDOWN-LITE RENDERER ---
-  function renderMarkdown(text) {
-    return text
-      .replace(/### (.+)/g, '<h3>$1</h3>')
-      .replace(/## (.+)/g, '<h3>$1</h3>')
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.+?)\*/g, '<em>$1</em>')
-      .replace(/^- (.+)/gm, '<li>$1</li>')
-      .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
-      .replace(/\n\n/g, '</p><p>')
-      .replace(/^(?!<[hul])(.+)$/gm, (m) => m.startsWith('<') ? m : '<p>' + m + '</p>');
+  try {
+    const growthData = await fetchTopGrowth();
+    document.getElementById('top-growth').innerHTML = growthData.map(d => {
+      const chPct = d.PREVPRICE ? ((d.LAST - d.PREVPRICE)/d.PREVPRICE*100) : 0;
+      return `<div class="screener-item">
+        <div class="si-left"><div class="name">${d.NAME}</div><div class="ticker">${d.SECID} · до 500 ₽</div></div>
+        <div class="si-right"><div class="price mono">${fmt(d.LAST)} ₽</div><div class="change up">+${chPct.toFixed(1)}%</div></div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    document.getElementById('top-growth').innerHTML = '<div style="padding:16px;text-align:center;color:var(--muted);font-size:0.82rem;">Нет данных</div>';
   }
+}
 
-  // --- MENTOR ---
-  async function loadMentor() {
-    const box = document.getElementById('mentor-box');
-    const btn = document.getElementById('btn-mentor');
-    btn.disabled = true;
-    box.innerHTML = '<div class="loading"><div class="spinner"></div> Ментор готовит урок...</div>';
-    box.className = 'ai-box loading';
+function getLessonNum() {
+  const n = parseInt(localStorage.getItem('lessonNum')||'0')+1;
+  localStorage.setItem('lessonNum',n); return n;
+}
 
-    const lessonNum = getLessonNum();
+function renderMd(text) {
+  return text
+    .replace(/### (.+)/g,'<h3>$1</h3>')
+    .replace(/## (.+)/g,'<h3>$1</h3>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^- (.+)/gm,'<li>$1</li>')
+    .replace(/(<li>[\s\S]+?<\/li>)/g,'<ul>$1</ul>')
+    .split(/
 
-    const prompt = `Ты — ментор по инвестициям для абсолютного новичка. Твоя задача — обучать структурированно, шаг за шагом, начиная с самых основ.
++/).map(p => p.startsWith('<') ? p : '<p>'+p+'</p>').join('');
+}
 
-Это урок №${lessonNum}. Уроки должны идти в логичной последовательности:
-- Уроки 1-5: что такое акции, биржа, как всё устроено
-- Уроки 6-10: как читать котировки, что такое дивиденды, P/E и базовые показатели
-- Уроки 11+: стратегии, риски, диверсификация
-
-Напиши короткий, понятный урок №${lessonNum}. Требования:
-- Максимум 300 слов
-- Простой язык, без жаргона (или с объяснением жаргона)
-- Конкретные примеры из реального мира
-- В конце — одна ключевая мысль для запоминания
-- Структура: заголовок урока, основной текст, ключевая мысль
-
-Отвечай только на русском языке.`;
-
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-      const data = await res.json();
-      const text = data.content.map(b => b.text || '').join('');
-      box.className = 'ai-box';
-      box.innerHTML = `<div class="lesson-num">УРОК ${lessonNum}</div>` + renderMarkdown(text);
-    } catch (e) {
-      box.className = 'ai-box';
-      box.innerHTML = '<p style="color:var(--red)">Ошибка загрузки. Попробуй ещё раз.</p>';
-    }
-    btn.disabled = false;
+async function loadMentor() {
+  const box = document.getElementById('mentor-box');
+  const btn = document.getElementById('btn-mentor');
+  btn.disabled = true;
+  box.innerHTML = '<div class="loading"><span class="spinner"></span> Ментор готовит урок...</div>';
+  box.className = 'ai-box loading';
+  const n = getLessonNum();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:1000,
+        messages:[{role:'user',content:`Ты ментор по инвестициям для новичка. Урок №${n}. Уроки 1-5: основы акций и биржи. Уроки 6-10: котировки, дивиденды, P/E. Уроки 11+: стратегии и риски. Напиши урок №${n}: до 250 слов, простой язык, конкретные примеры, ключевая мысль в конце. Только русский.`}]
+      })
+    });
+    const data = await res.json();
+    const text = data.content.map(b=>b.text||'').join('');
+    box.className = 'ai-box';
+    box.innerHTML = `<div class="lesson-num">УРОК ${n}</div>${renderMd(text)}`;
+  } catch(e) {
+    box.className = 'ai-box';
+    box.innerHTML = '<p style="color:var(--red)">Ошибка. Попробуй ещё раз.</p>';
   }
+  btn.disabled = false;
+}
 
-  // --- ANALYST ---
-  async function loadAnalyst() {
-    const box = document.getElementById('analyst-box');
-    const btn = document.getElementById('btn-analyst');
-    btn.disabled = true;
-    box.innerHTML = '<div class="loading"><div class="spinner"></div> Аналитик изучает рынок...</div>';
-    box.className = 'ai-box loading';
-
-    const today = new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-
-    const prompt = `Ты — инвестиционный аналитик. Твоя задача — давать честную, реалистичную сводку по портфелю начинающего инвестора на Московской бирже.
-
-Портфель инвестора (данные на ${today}):
-- X5 (Корпоративный центр X5) — 42 акции, дивидендные
-- LENT (Лента) — 53 акции, без дивидендов
-- SBER (Сбербанк) — 74 акции, дивидендные
-- BELU (Novabev Group) — 12 акций, дивидендные
-- TGLD (Фонд Золото ТБанк) — 4618 паёв, ETF на золото
-
-Общая стоимость портфеля: ~280 000 ₽
-Стратегия инвестора: дивидендная, долгосрочная, без активной торговли.
-
-Дай сводку по каждой позиции:
-1. Что сейчас происходит с этой компанией/активом в целом
-2. Какие общие факторы (санкции, ставка ЦБ, нефть, геополитика) могут влиять
-3. Краткий вывод: держать / наблюдать / есть риски
-
-Важно: будь честным. Не выдумывай конкретные цены или события — говори об общих тенденциях и факторах. Если чего-то не знаешь точно — скажи об этом.
-
-Отвечай только на русском языке. Максимум 400 слов.`;
-
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-      const data = await res.json();
-      const text = data.content.map(b => b.text || '').join('');
-      box.className = 'ai-box';
-      box.innerHTML = `<div class="lesson-num">СВОДКА · ${today.toUpperCase()}</div>` + renderMarkdown(text);
-    } catch (e) {
-      box.className = 'ai-box';
-      box.innerHTML = '<p style="color:var(--red)">Ошибка загрузки. Попробуй ещё раз.</p>';
-    }
-    btn.disabled = false;
+async function loadAnalyst() {
+  const box = document.getElementById('analyst-box');
+  const btn = document.getElementById('btn-analyst');
+  btn.disabled = true;
+  box.innerHTML = '<div class="loading"><span class="spinner"></span> Аналитик изучает рынок...</div>';
+  box.className = 'ai-box loading';
+  const today = new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:1000,
+        messages:[{role:'user',content:`Ты инвестиционный аналитик. Портфель на ${today}: X5 (42 акц., дивид.), Лента LENT (53 акц.), Сбербанк SBER (74 акц., дивид.), Novabev BELU (12 акц., дивид.), TGLD золото (4618 паёв). ~280 000 руб. Стратегия: дивидендная, долгосрочная. По каждой позиции: ситуация, факторы влияния, вывод (держать/наблюдать/риски). Честно, без выдуманных цен. До 350 слов. Только русский.`}]
+      })
+    });
+    const data = await res.json();
+    const text = data.content.map(b=>b.text||'').join('');
+    box.className = 'ai-box';
+    box.innerHTML = `<div class="lesson-num">СВОДКА · ${today.toUpperCase()}</div>${renderMd(text)}`;
+  } catch(e) {
+    box.className = 'ai-box';
+    box.innerHTML = '<p style="color:var(--red)">Ошибка. Попробуй ещё раз.</p>';
   }
+  btn.disabled = false;
+}
+
+async function loadAll() {
+  const now = new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('last-update').textContent = 'Обновлено в '+now;
+  await Promise.all([loadPortfolio(), loadScreener()]);
+}
+
+loadAll();
 </script>
-
 </body>
 </html>
