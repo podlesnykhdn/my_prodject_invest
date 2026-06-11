@@ -1,0 +1,45 @@
+{
+  "owner": "Дмитрий",
+  "github": "podlesnykhdn",
+  "last_updated": "2026-06-11",
+  "total_value_rub": 280000,
+  "currency": "RUB",
+  "exchange": "MOEX",
+  "holdings": [
+    {
+      "name": "Корпоративный центр X5",
+      "ticker": "X5",
+      "quantity": 42,
+      "dividends": true,
+      "notes": ""
+    },
+    {
+      "name": "Лента",
+      "ticker": "LENT",
+      "quantity": 53,
+      "dividends": false,
+      "notes": ""
+    },
+    {
+      "name": "Сбербанк",
+      "ticker": "SBER",
+      "quantity": 74,
+      "dividends": true,
+      "notes": ""
+    },
+    {
+      "name": "Novabev Group",
+      "ticker": "BELU",
+      "quantity": 12,
+      "dividends": true,
+      "notes": ""
+    },
+    {
+      "name": "Фонд Золото ТБанк",
+      "ticker": "TGLD",
+      "quantity": 4618,
+      "dividends": false,
+      "notes": "ETF на золото, не дивидендный"
+    }
+  ]
+}
