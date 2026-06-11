@@ -1,0 +1,51 @@
+name: Telegram боты
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+    - cron: '30 9 * * 1-5'
+    - cron: '30 11 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Режим'
+        required: true
+        default: 'morning'
+        type: choice
+        options: [morning, alerts, command]
+
+jobs:
+  run-bots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Сборщик данных
+        run: python collector.py
+      - name: Определить режим
+        id: mode
+        run: |
+          HOUR=$(date -u +%H)
+          INPUT="${{ github.event.inputs.mode }}"
+          if [ -n "$INPUT" ]; then echo "mode=$INPUT" >> $GITHUB_OUTPUT
+          elif [ "$HOUR" = "04" ]; then echo "mode=morning" >> $GITHUB_OUTPUT
+          else echo "mode=alerts" >> $GITHUB_OUTPUT; fi
+      - name: Ментор
+        env:
+          MENTOR_BOT_TOKEN: ${{ secrets.MENTOR_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BOT_MODE: ${{ steps.mode.outputs.mode }}
+        run: python mentor_bot.py
+      - name: Советник
+        env:
+          ADVISOR_BOT_TOKEN: ${{ secrets.ADVISOR_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BOT_MODE: ${{ steps.mode.outputs.mode }}
+        run: python advisor_bot.py
+      - name: Сохранить логи
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "logs ${{ steps.mode.outputs.mode }}"
+          file_pattern: 'logs/**'
