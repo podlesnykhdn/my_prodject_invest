@@ -254,10 +254,96 @@ def _grade(score):
     if score >= 30: return "🟠 C"
     return "🔴 D"
 
-# ─── 5. НОВОСТИ (RSS) ─────────────────────────────────────────────────────────
+
+# ─── 5. АКТИВЫ: ЗОЛОТО, НЕФТЬ, СЕРЕБРО (MOEX) ───────────────────────────────
+
+def collect_assets(rules):
+    print("[5/7] Активы на MOEX (золото, нефть, серебро)...")
+    assets_config = rules.get("watchlist_assets", {}).get("commodities", [])
+    scoring_criteria = rules.get("watchlist_assets", {}).get("scoring_assets", {})
+    usd_change = 0  # будет передан позже через run_rules
+
+    # Тикеры для запроса
+    tickers = [a["ticker"] for a in assets_config]
+    result = {}
+
+    try:
+        url = (f"https://iss.moex.com/iss/engines/stock/markets/shares/"
+               f"boards/TQTF/securities.json"
+               f"?securities={','.join(tickers)}&iss.meta=off&iss.only=marketdata")
+        data = safe_fetch(url)
+        if data:
+            d = json.loads(data)
+            cols = d["marketdata"]["columns"]
+            for row in d["marketdata"]["data"]:
+                r = dict(zip(cols, row))
+                price = r.get("LAST") or r.get("PREVPRICE") or 0
+                prev  = r.get("PREVPRICE") or price
+                vol   = r.get("VALTODAY") or 0
+                if price:
+                    pct = round((price - prev) / prev * 100, 2) if prev else 0
+                    result[r["SECID"]] = {
+                        "price":  round(price, 2),
+                        "prev":   round(prev, 2),
+                        "change": round(price - prev, 2),
+                        "pct":    pct,
+                        "volume": vol,
+                        "score":  0,
+                        "grade":  "🔴 D",
+                    }
+                    print(f"  {r['SECID']}: {price} руб. ({pct:+.1f}%)")
+    except Exception as e:
+        print(f"  [ERROR] assets: {e}")
+
+    # Оценка перспективности по критериям (упрощённая — без истории)
+    for ticker, q in result.items():
+        score = 0
+        reasons = []
+        # Тренд сегодня
+        if q["pct"] > 0:
+            score += 30
+            reasons.append("растёт сегодня")
+        # Объём
+        if q["volume"] >= 1_000_000:
+            score += 25
+            reasons.append("объём активный")
+        # Рост > 1%
+        if q["pct"] >= 1.0:
+            score += 15
+            reasons.append(f"рост +{q['pct']:.1f}%")
+        q["score"] = min(score, 100)
+        q["grade"] = _grade(q["score"])
+        q["reasons"] = reasons
+
+    # Добавляем метаданные из конфига
+    assets_out = []
+    for asset in assets_config:
+        ticker = asset["ticker"]
+        q = result.get(ticker, {})
+        assets_out.append({
+            "name":         asset["name"],
+            "ticker":       ticker,
+            "in_portfolio": asset["in_portfolio"],
+            "why_watch":    asset["why_watch"],
+            "price":        q.get("price", 0),
+            "change":       q.get("change", 0),
+            "pct":          q.get("pct", 0),
+            "volume":       q.get("volume", 0),
+            "score":        q.get("score", 0),
+            "grade":        q.get("grade", "🔴 D"),
+            "reasons":      q.get("reasons", []),
+            "signals":      asset["signals"],
+            "note":         asset.get("note", ""),
+        })
+
+    print(f"  Активов получено: {len([a for a in assets_out if a['price'] > 0])}/3")
+    return assets_out
+
+
+# ─── 6. НОВОСТИ (RSS) ─────────────────────────────────────────────────────────
 
 def collect_news(rules):
-    print("[5/6] Новости RSS...")
+    print("[6/7] Новости RSS...")
     feeds = rules["data_sources"]["rss_feeds"]
     keywords_map = rules["rules"]["news_keywords"]
     global_events = rules["rules"]["global_events"]
@@ -326,7 +412,7 @@ def collect_news(rules):
 # ─── 6. ДВИЖОК ПРАВИЛ ─────────────────────────────────────────────────────────
 
 def run_rules(rules, currency, oil, quotes, news):
-    print("[6/6] Применяю правила...")
+    print("[7/7] Применяю правила...")
     fired = []
     portfolio_signals = {}
 
@@ -480,6 +566,7 @@ def collect():
     oil      = collect_oil()
     quotes   = collect_moex(rules)
     screener = collect_screener(rules)
+    assets   = collect_assets(rules)
     news     = collect_news(rules)
 
     fired_rules, portfolio_signals = run_rules(rules, currency, oil, quotes, news)
@@ -507,6 +594,7 @@ def collect():
         "portfolio": portfolio,
         "quotes":    quotes,
         "screener":  screener,
+        "assets":    assets,
         "news":      news,
         "rules_fired":        fired_rules,
         "portfolio_signals":  portfolio_signals,
