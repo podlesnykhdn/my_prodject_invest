@@ -3,54 +3,476 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>my_prodject_invest — Дмитрий</title>
+  <title>my_prodject_invest</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #0b0e1a;
+      --surface: #111827;
+      --surface2: #1a2235;
+      --border: #1f2d45;
+      --accent: #3b82f6;
+      --accent2: #10b981;
+      --warn: #f59e0b;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --red: #ef4444;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', sans-serif; background: #0f1117; color: #e8eaed; min-height: 100vh; }
-    header { background: #1a1d2e; padding: 24px 32px; border-bottom: 1px solid #2a2d3e; }
-    header h1 { font-size: 1.5rem; font-weight: 600; }
-    header span { color: #7c83fd; font-size: 0.9rem; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 32px 16px; }
-    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .card { background: #1a1d2e; border-radius: 12px; padding: 20px 24px; border: 1px solid #2a2d3e; }
-    .card .label { font-size: 0.8rem; color: #8b8fa8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
-    .card .value { font-size: 1.6rem; font-weight: 700; }
-    .card .value.green { color: #4ade80; }
-    table { width: 100%; border-collapse: collapse; background: #1a1d2e; border-radius: 12px; overflow: hidden; border: 1px solid #2a2d3e; }
-    th { background: #14172a; padding: 14px 16px; text-align: left; font-size: 0.8rem; color: #8b8fa8; text-transform: uppercase; }
-    td { padding: 14px 16px; border-top: 1px solid #2a2d3e; }
-    tr:hover td { background: #1f2235; }
-    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
-    .badge.div { background: #1a3a2a; color: #4ade80; }
-    .badge.nodiv { background: #2a2a1a; color: #facc15; }
-    .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: #c8cadc; }
-    footer { text-align: center; padding: 32px; color: #8b8fa8; font-size: 0.85rem; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+    .logo span { color: var(--muted); }
+    .portfolio-val {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .portfolio-val strong { color: var(--accent2); font-size: 1rem; }
+
+    /* TABS */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      gap: 4px;
+    }
+    .tab {
+      padding: 12px 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .tab:hover { color: var(--text); }
+    .tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* MAIN */
+    main { max-width: 900px; margin: 0 auto; padding: 32px 16px; }
+
+    /* PANEL */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* CARDS ROW */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .card .lbl {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .card .val {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .card .val.green { color: var(--accent2); }
+    .card .val.blue { color: var(--accent); }
+
+    /* TABLE */
+    .tbl-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: #0f1929;
+      padding: 11px 16px;
+      text-align: left;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    td {
+      padding: 13px 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    tr:hover td { background: var(--surface2); }
+    .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .badge.yes { background: #052e16; color: #4ade80; border: 1px solid #166534; }
+    .badge.no  { background: #1c1004; color: #fbbf24; border: 1px solid #92400e; }
+    .badge.etf { background: #0c1a3a; color: #60a5fa; border: 1px solid #1d4ed8; }
+
+    /* AI PANEL */
+    .ai-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .ai-header h2 { font-size: 1rem; font-weight: 600; }
+    .ai-header p { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn.green { background: var(--accent2); }
+
+    .ai-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 32px;
+      min-height: 200px;
+      line-height: 1.75;
+      font-size: 0.92rem;
+    }
+    .ai-box.loading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+    }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .ai-box h3 { font-size: 1rem; font-weight: 600; margin: 18px 0 8px; color: var(--accent); }
+    .ai-box h3:first-child { margin-top: 0; }
+    .ai-box p { margin-bottom: 10px; color: #cbd5e1; }
+    .ai-box ul { padding-left: 20px; margin-bottom: 10px; }
+    .ai-box li { margin-bottom: 6px; color: #cbd5e1; }
+    .ai-box strong { color: var(--text); }
+    .ai-box em { color: var(--warn); font-style: normal; font-weight: 500; }
+
+    .lesson-num {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .placeholder {
+      color: var(--muted);
+      text-align: center;
+      padding: 48px 0;
+    }
+    .placeholder .icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .placeholder p { font-size: 0.9rem; }
   </style>
 </head>
 <body>
+
 <header>
-  <h1>📈 my_prodject_invest</h1>
-  <span>Московская биржа · Портфель Дмитрия</span>
+  <div class="logo">my_prodject_invest <span>/ MOEX</span></div>
+  <div class="portfolio-val">Портфель: <strong>~280 000 ₽</strong></div>
 </header>
-<div class="container">
-  <div class="summary">
-    <div class="card"><div class="label">Стоимость портфеля</div><div class="value">~280 000 ₽</div></div>
-    <div class="card"><div class="label">Позиций</div><div class="value">5</div></div>
-    <div class="card"><div class="label">Дивидендных</div><div class="value green">3</div></div>
-    <div class="card"><div class="label">Обновлено</div><div class="value" style="font-size:1rem;padding-top:6px">Июнь 2026</div></div>
+
+<nav>
+  <div class="tab active" onclick="switchTab('portfolio')">💼 Портфель</div>
+  <div class="tab" onclick="switchTab('mentor')">🎓 Ментор</div>
+  <div class="tab" onclick="switchTab('analyst')">📊 Аналитик</div>
+</nav>
+
+<main>
+
+  <!-- PORTFOLIO TAB -->
+  <div class="panel active" id="tab-portfolio">
+    <div class="cards">
+      <div class="card">
+        <div class="lbl">Стоимость</div>
+        <div class="val blue">280 000 ₽</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Позиций</div>
+        <div class="val">5</div>
+      </div>
+      <div class="card">
+        <div class="lbl">С дивидендами</div>
+        <div class="val green">3</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Обновлено</div>
+        <div class="val" style="font-size:0.95rem;padding-top:4px">Июнь 2026</div>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Компания</th>
+            <th>Тикер</th>
+            <th>Кол-во</th>
+            <th>Дивиденды</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Корпоративный центр X5</td>
+            <td class="mono">X5</td>
+            <td>42</td>
+            <td><span class="badge yes">Да</span></td>
+          </tr>
+          <tr>
+            <td>Лента</td>
+            <td class="mono">LENT</td>
+            <td>53</td>
+            <td><span class="badge no">Нет</span></td>
+          </tr>
+          <tr>
+            <td>Сбербанк</td>
+            <td class="mono">SBER</td>
+            <td>74</td>
+            <td><span class="badge yes">Да</span></td>
+          </tr>
+          <tr>
+            <td>Novabev Group</td>
+            <td class="mono">BELU</td>
+            <td>12</td>
+            <td><span class="badge yes">Да</span></td>
+          </tr>
+          <tr>
+            <td>Фонд Золото (TGLD)</td>
+            <td class="mono">TGLD</td>
+            <td>4 618</td>
+            <td><span class="badge etf">ETF</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="section-title">💼 Состав портфеля</div>
-  <table>
-    <thead><tr><th>Компания</th><th>Тикер</th><th>Кол-во</th><th>Дивиденды</th></tr></thead>
-    <tbody>
-      <tr><td>Корпоративный центр X5</td><td><b>X5</b></td><td>42</td><td><span class="badge div">Да</span></td></tr>
-      <tr><td>Лента</td><td><b>LENT</b></td><td>53</td><td><span class="badge nodiv">Нет</span></td></tr>
-      <tr><td>Сбербанк</td><td><b>SBER</b></td><td>74</td><td><span class="badge div">Да</span></td></tr>
-      <tr><td>Novabev Group</td><td><b>BELU</b></td><td>12</td><td><span class="badge div">Да</span></td></tr>
-      <tr><td>Фонд Золото (TGLD)</td><td><b>TGLD</b></td><td>4 618</td><td><span class="badge nodiv">ETF</span></td></tr>
-    </tbody>
-  </table>
-</div>
-<footer>my_prodject_invest · github.com/podlesnykhdn/my_prodject_invest</footer>
+
+  <!-- MENTOR TAB -->
+  <div class="panel" id="tab-mentor">
+    <div class="ai-header">
+      <div>
+        <h2>🎓 Ментор — урок дня</h2>
+        <p>Короткий структурированный урок об инвестициях и фондовом рынке</p>
+      </div>
+      <button class="btn" id="btn-mentor" onclick="loadMentor()">Получить урок</button>
+    </div>
+    <div class="ai-box" id="mentor-box">
+      <div class="placeholder">
+        <div class="icon">🎓</div>
+        <p>Нажми «Получить урок» — Ментор подготовит для тебя материал</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYST TAB -->
+  <div class="panel" id="tab-analyst">
+    <div class="ai-header">
+      <div>
+        <h2>📊 Аналитик — сводка по портфелю</h2>
+        <p>Анализ новостей и факторов, влияющих на твои акции</p>
+      </div>
+      <button class="btn green" id="btn-analyst" onclick="loadAnalyst()">Получить сводку</button>
+    </div>
+    <div class="ai-box" id="analyst-box">
+      <div class="placeholder">
+        <div class="icon">📊</div>
+        <p>Нажми «Получить сводку» — Аналитик проверит, что происходит с твоим портфелем</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // --- TAB SWITCHING ---
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach((t, i) => {
+      const names = ['portfolio', 'mentor', 'analyst'];
+      t.classList.toggle('active', names[i] === name);
+    });
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  // --- LESSON COUNTER (stored in localStorage) ---
+  function getLessonNum() {
+    const n = parseInt(localStorage.getItem('lessonNum') || '0') + 1;
+    localStorage.setItem('lessonNum', n);
+    return n;
+  }
+
+  // --- MARKDOWN-LITE RENDERER ---
+  function renderMarkdown(text) {
+    return text
+      .replace(/### (.+)/g, '<h3>$1</h3>')
+      .replace(/## (.+)/g, '<h3>$1</h3>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^- (.+)/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/^(?!<[hul])(.+)$/gm, (m) => m.startsWith('<') ? m : '<p>' + m + '</p>');
+  }
+
+  // --- MENTOR ---
+  async function loadMentor() {
+    const box = document.getElementById('mentor-box');
+    const btn = document.getElementById('btn-mentor');
+    btn.disabled = true;
+    box.innerHTML = '<div class="loading"><div class="spinner"></div> Ментор готовит урок...</div>';
+    box.className = 'ai-box loading';
+
+    const lessonNum = getLessonNum();
+
+    const prompt = `Ты — ментор по инвестициям для абсолютного новичка. Твоя задача — обучать структурированно, шаг за шагом, начиная с самых основ.
+
+Это урок №${lessonNum}. Уроки должны идти в логичной последовательности:
+- Уроки 1-5: что такое акции, биржа, как всё устроено
+- Уроки 6-10: как читать котировки, что такое дивиденды, P/E и базовые показатели
+- Уроки 11+: стратегии, риски, диверсификация
+
+Напиши короткий, понятный урок №${lessonNum}. Требования:
+- Максимум 300 слов
+- Простой язык, без жаргона (или с объяснением жаргона)
+- Конкретные примеры из реального мира
+- В конце — одна ключевая мысль для запоминания
+- Структура: заголовок урока, основной текст, ключевая мысль
+
+Отвечай только на русском языке.`;
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      const data = await res.json();
+      const text = data.content.map(b => b.text || '').join('');
+      box.className = 'ai-box';
+      box.innerHTML = `<div class="lesson-num">УРОК ${lessonNum}</div>` + renderMarkdown(text);
+    } catch (e) {
+      box.className = 'ai-box';
+      box.innerHTML = '<p style="color:var(--red)">Ошибка загрузки. Попробуй ещё раз.</p>';
+    }
+    btn.disabled = false;
+  }
+
+  // --- ANALYST ---
+  async function loadAnalyst() {
+    const box = document.getElementById('analyst-box');
+    const btn = document.getElementById('btn-analyst');
+    btn.disabled = true;
+    box.innerHTML = '<div class="loading"><div class="spinner"></div> Аналитик изучает рынок...</div>';
+    box.className = 'ai-box loading';
+
+    const today = new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    const prompt = `Ты — инвестиционный аналитик. Твоя задача — давать честную, реалистичную сводку по портфелю начинающего инвестора на Московской бирже.
+
+Портфель инвестора (данные на ${today}):
+- X5 (Корпоративный центр X5) — 42 акции, дивидендные
+- LENT (Лента) — 53 акции, без дивидендов
+- SBER (Сбербанк) — 74 акции, дивидендные
+- BELU (Novabev Group) — 12 акций, дивидендные
+- TGLD (Фонд Золото ТБанк) — 4618 паёв, ETF на золото
+
+Общая стоимость портфеля: ~280 000 ₽
+Стратегия инвестора: дивидендная, долгосрочная, без активной торговли.
+
+Дай сводку по каждой позиции:
+1. Что сейчас происходит с этой компанией/активом в целом
+2. Какие общие факторы (санкции, ставка ЦБ, нефть, геополитика) могут влиять
+3. Краткий вывод: держать / наблюдать / есть риски
+
+Важно: будь честным. Не выдумывай конкретные цены или события — говори об общих тенденциях и факторах. Если чего-то не знаешь точно — скажи об этом.
+
+Отвечай только на русском языке. Максимум 400 слов.`;
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      const data = await res.json();
+      const text = data.content.map(b => b.text || '').join('');
+      box.className = 'ai-box';
+      box.innerHTML = `<div class="lesson-num">СВОДКА · ${today.toUpperCase()}</div>` + renderMarkdown(text);
+    } catch (e) {
+      box.className = 'ai-box';
+      box.innerHTML = '<p style="color:var(--red)">Ошибка загрузки. Попробуй ещё раз.</p>';
+    }
+    btn.disabled = false;
+  }
+</script>
+
 </body>
 </html>
