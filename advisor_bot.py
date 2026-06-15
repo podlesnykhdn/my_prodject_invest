@@ -326,7 +326,12 @@ def build_morning_report(data):
                 f"{fmt_price(s['price'])}  "
                 f"+{s['pct']:.1f}%  score:{s['score']}"
             )
-        lines.append("  <i>💰 = есть история дивидендов 2+ лет</i>")
+            div_next = s.get("dividend_next")
+            if div_next:
+                amt = div_next.get("amount_per_share")
+                rd  = div_next.get("record_date")
+                dtr = div_next.get("days_to_record")
+                lines.append(f"     💰 Дивиденд {amt} ₽/акц., отсечка через {dtr} дн. ({rd})")
 
     # 6. АКТИВЫ
     assets = data.get("assets", [])
