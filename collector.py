@@ -621,63 +621,112 @@ def _merge_signals(signals, impact):
         signals[ticker].append(data)
 
 
-# ─── ДИВИДЕНДНЫЙ КАЛЕНДАРЬ ────────────────────────────────────────────────────
+# ─── ДИВИДЕНДНЫЙ КАЛЕНДАРЬ (ДИНАМИЧЕСКИЙ, MOEX ISS) ──────────────────────────
 
-def build_dividend_calendar(rules):
-    print("[7/7] Дивидендный календарь...")
-    calendar = rules.get("dividend_calendar", {})
+def fetch_dividends_moex(ticker):
+    """Получаем историю дивидендов по тикеру с MOEX ISS — работает для ЛЮБОЙ акции."""
+    url = f"https://iss.moex.com/iss/securities/{ticker}/dividends.json?iss.meta=off"
+    data = safe_fetch(url, timeout=8)
+    if not data:
+        return []
+    try:
+        d = json.loads(data)
+        cols = d["dividends"]["columns"]
+        rows = d["dividends"]["data"]
+        result = []
+        for row in rows:
+            r = dict(zip(cols, row))
+            result.append({
+                "registry_close_date": r.get("registryclosedate"),
+                "value":   r.get("value"),
+                "currency": r.get("currencyid", "RUB"),
+            })
+        # Сортируем по дате закрытия реестра, новые сверху
+        result.sort(key=lambda x: x["registry_close_date"] or "", reverse=True)
+        return result
+    except Exception as e:
+        print(f"    [WARN] dividends parse {ticker}: {e}")
+        return []
+
+def build_dividend_calendar(rules, screener_tickers=None):
+    """
+    Строит дивидендный календарь динамически через MOEX ISS:
+    - для всех 5 акций портфеля
+    - для всех тикеров из скринера (cheap_growth), включая новые/неизвестные
+    """
+    print("[7/7] Дивидендный календарь (MOEX ISS)...")
     today = date.today()
     result = {}
 
-    META_KEYS = {"description", "updated", "source"}
-    for ticker, info in calendar.items():
-        if ticker in META_KEYS or not isinstance(info, dict):
+    portfolio_tickers = [p["ticker"] for p in rules["portfolio"]["positions"] if p["board"] == "TQBR"]
+    shares_map = {p["ticker"]: p["qty"] for p in rules["portfolio"]["positions"]}
+
+    tickers_to_check = list(portfolio_tickers)
+    if screener_tickers:
+        for t in screener_tickers:
+            if t not in tickers_to_check:
+                tickers_to_check.append(t)
+
+    for ticker in tickers_to_check:
+        history_raw = fetch_dividends_moex(ticker)
+        if not history_raw:
+            result[ticker] = {
+                "history": [],
+                "next_payment": None,
+                "pays_dividends": False,
+            }
+            print(f"    {ticker}: нет данных по дивидендам")
             continue
-        next_pay = info.get("next_payment", {})
-        entry = {
-            "name":    info.get("name", ticker),
-            "history": info.get("history", []),
-            "status":  next_pay.get("status", ""),
+
+        # Ищем будущие выплаты (registry_close_date >= сегодня)
+        future = []
+        past = []
+        for h in history_raw:
+            rcd = h.get("registry_close_date")
+            if not rcd:
+                continue
+            try:
+                d = datetime.strptime(rcd, "%Y-%m-%d").date()
+            except ValueError:
+                continue
+            if d >= today:
+                future.append((d, h))
+            else:
+                past.append((d, h))
+
+        future.sort(key=lambda x: x[0])
+        past.sort(key=lambda x: x[0], reverse=True)
+
+        shares = shares_map.get(ticker, 0)
+        next_payment = None
+        if future:
+            record_date, h = future[0]
+            amount = h.get("value", 0)
+            days_to_record = (record_date - today).days
+            gross = round(amount * shares, 2)
+            net   = round(gross * 0.87, 2)
+            next_payment = {
+                "amount_per_share": amount,
+                "record_date":      record_date.isoformat(),
+                "days_to_record":   days_to_record,
+                "your_shares":      shares,
+                "your_total_gross": gross,
+                "your_total_net":   net,
+            }
+            print(f"    {ticker}: следующая отсечка {record_date} — {amount} руб./акц.")
+
+        history_out = []
+        for d, h in past[:4]:
+            history_out.append({
+                "registry_close_date": d.isoformat(),
+                "amount_per_share":    h.get("value"),
+            })
+
+        result[ticker] = {
+            "history":        history_out,
+            "next_payment":   next_payment,
+            "pays_dividends": len(history_raw) > 0,
         }
-
-        # Считаем дни до даты отсечки/выплаты если есть
-        record_date  = next_pay.get("record_date")
-        payment_date = next_pay.get("payment_date")
-
-        days_to_record  = None
-        days_to_payment = None
-        if record_date:
-            try:
-                rd = datetime.strptime(record_date, "%Y-%m-%d").date()
-                days_to_record = (rd - today).days
-            except ValueError:
-                pass
-        if payment_date:
-            try:
-                pd_ = datetime.strptime(payment_date, "%Y-%m-%d").date()
-                days_to_payment = (pd_ - today).days
-            except ValueError:
-                pass
-
-        entry["record_date"]     = record_date
-        entry["payment_date"]    = payment_date
-        entry["days_to_record"]  = days_to_record
-        entry["days_to_payment"] = days_to_payment
-
-        # Сумма дивиденда и доход
-        if "amount_per_share" in next_pay:
-            entry["amount_per_share"] = next_pay["amount_per_share"]
-            entry["your_total_gross"] = next_pay.get("your_total_gross")
-            entry["your_total_net"]   = next_pay.get("your_total_net")
-        elif "amount_per_share_min" in next_pay:
-            entry["amount_per_share_min"] = next_pay["amount_per_share_min"]
-            entry["amount_per_share_max"] = next_pay["amount_per_share_max"]
-            entry["your_total_net_min"]   = next_pay.get("your_total_net_min")
-            entry["your_total_net_max"]   = next_pay.get("your_total_net_max")
-
-        entry["your_shares"] = next_pay.get("your_shares", 0)
-
-        result[ticker] = entry
 
     return result
 
