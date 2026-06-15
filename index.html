@@ -204,36 +204,49 @@ async function moexGet(url){
 }
 
 async function fetchQuotes(){
-  // Fetch shares (TQBR) and ETFs (TQTF) separately
+  // Fetch shares (TQBR) and ETFs (TQTF) independently — один борд не должен ронять другой
   const sharesTickers = PORTFOLIO.filter(p=>p.board==='TQBR').map(p=>p.ticker).join(',');
   const etfTickers    = PORTFOLIO.filter(p=>p.board==='TQTF').map(p=>p.ticker).join(',');
 
   const quotes = {};
 
-  // Parse helper
+  // Parse helper — используем CHANGE/LASTTOPREVPRICE напрямую из MOEX
   function parseMarketdata(data){
+    if(!data || !data.marketdata) return;
     const cols = data.marketdata.columns;
     for(const row of data.marketdata.data){
       const d = Object.fromEntries(cols.map((c,i)=>[c,row[i]]));
-      const price = d.LAST || d.PREVPRICE || 0;
-      const prev  = d.PREVPRICE || price;
+      const price  = d.LAST || d.PREVPRICE || 0;
+      const prev   = d.PREVPRICE || price;
+      const change = d.CHANGE || 0;
+      let pct;
+      if (d.LASTTOPREVPRICE !== null && d.LASTTOPREVPRICE !== undefined) {
+        pct = d.LASTTOPREVPRICE; // MOEX уже отдаёт в процентах
+      } else if (prev) {
+        pct = (change/prev)*100;
+      } else {
+        pct = 0;
+      }
       if(price>0){
-        quotes[d.SECID]={
-          price, change:price-prev,
-          pct: prev?(price-prev)/prev*100:0,
-          vol: d.VALTODAY||0
-        };
+        quotes[d.SECID]={ price, change, pct, vol: d.VALTODAY||0 };
       }
     }
   }
 
-  const [sharesData, etfData] = await Promise.all([
+  // Каждый борд запрашивается отдельно — ошибка в одном не убирает другой
+  const results = await Promise.allSettled([
     moexGet(`https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?securities=${sharesTickers}&iss.meta=off&iss.only=marketdata`),
     moexGet(`https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQTF/securities.json?securities=${etfTickers}&iss.meta=off&iss.only=marketdata`),
   ]);
 
-  parseMarketdata(sharesData);
-  parseMarketdata(etfData);
+  results.forEach((res, i) => {
+    if (res.status === 'fulfilled') {
+      parseMarketdata(res.value);
+    } else {
+      console.log(`Борд ${i===0?'TQBR':'TQTF'} недоступен:`, res.reason);
+    }
+  });
+
   return quotes;
 }
 
