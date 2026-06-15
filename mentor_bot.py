@@ -220,23 +220,36 @@ def run_morning():
 
 def run_command():
     """Обработка входящих команд."""
-    url = f"https://api.telegram.org/bot{TOKEN}/getUpdates?timeout=5"
+    url = f"https://api.telegram.org/bot{TOKEN}/getUpdates?timeout=5&limit=100"
     req = urllib.request.Request(url)
-    with urllib.request.urlopen(req, timeout=15) as r:
-        result = json.loads(r.read())
-        updates = result.get("result", [])
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            result = json.loads(r.read())
+    except Exception as e:
+        print(f"[ERROR] getUpdates failed: {e}")
+        return
 
+    if not result.get("ok"):
+        print(f"[ERROR] Telegram returned: {result}")
+        return
+
+    updates = result.get("result", [])
     print(f"Получено обновлений: {len(updates)}")
+
+    last_update_id = None
     for u in updates:
-        m = u.get("message", {})
-        print(f"  update_id={u.get('update_id')} text={m.get('text','')!r} chat_id={m.get('chat',{}).get('id')}")
+        last_update_id = u.get("update_id")
+        m = u.get("message") or {}
+        text = m.get("text", "")
+        cid  = (m.get("chat") or {}).get("id")
+        print(f"  update_id={u.get('update_id')} text={text!r} chat_id={cid}")
 
-    for update in updates[-10:]:  # последние 10 сообщений
-        msg  = update.get("message", {})
+    for update in updates:
+        msg  = update.get("message") or {}
         text = msg.get("text", "")
-        cid  = str(msg.get("chat", {}).get("id", ""))
+        cid  = str((msg.get("chat") or {}).get("id", ""))
 
-        if cid != str(CHAT_ID):
+        if not text or cid != str(CHAT_ID):
             continue
 
         print(f"Обрабатываю команду: {text!r}")
@@ -321,6 +334,15 @@ def run_command():
                 icon = "✅" if i in confirmed else "⬜"
                 lines.append(f"{icon} {term['emoji']} {term['term']}")
             send("\n".join(lines))
+
+    # Подтверждаем обработку всех updates, чтобы они не приходили повторно
+    if last_update_id is not None:
+        try:
+            confirm_url = f"https://api.telegram.org/bot{TOKEN}/getUpdates?offset={last_update_id+1}"
+            urllib.request.urlopen(urllib.request.Request(confirm_url), timeout=10)
+        except Exception as e:
+            print(f"[WARN] offset confirm failed: {e}")
+
 
 if __name__ == "__main__":
     print(f"Ментор-бот запущен, режим: {MODE}")
