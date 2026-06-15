@@ -356,14 +356,25 @@ async function loadScreener(){
     document.getElementById('growth-list').innerHTML=byGrowth.map(d=>{
       const pct=d.PREVPRICE?(d.LAST-d.PREVPRICE)/d.PREVPRICE*100:0;
       const volTrend = getVolTrend(d.SECID, trimmed, weekKey);
-      const divPayers = ['SBER','SBERP','LKOH','GAZP','ROSN','TATN','TATNP','NVTK','SNGS','SNGSP','MTSS','MGNT','X5','BELU','PHOR','TRNFP','CHMF','NLMK','MAGN','ALRS','IRAO','FEES','HYDR','RTKM','RTKMP','MOEX','AFKS','VTBR','SIBN','PLZL','POLY','RUAL','FLOT','UPRO','OGKB','LSNG','LSNGP','KMAZ','KZOS','NKHP'];
-      const divMark = divPayers.includes(d.SECID) ? ' 💰' : '';
-      return `<div class="sc-item">
-        <div>
-          <div class="si-name">${d.NAME}${divMark}</div>
-          <div class="si-ticker">${d.SECID} · ${fmtVol(d.VALTODAY)} ₽ ${volTrend}</div>
+      const divInfo = (window._screenerDividends || {})[d.SECID];
+      let divMark = '';
+      let divLine = '';
+      if(divInfo && divInfo.next_payment){
+        const np = divInfo.next_payment;
+        divMark = ' 💰';
+        divLine = `<div class="si-ticker" style="color:var(--green);">${np.amount_per_share} ₽/акц. · отсечка ${np.days_to_record} дн. (${np.record_date})</div>`;
+      } else if(divInfo && divInfo.pays_dividends){
+        divMark = ' 💰';
+      }
+      return `<div class="sc-item" style="flex-direction:column;align-items:flex-start;gap:4px;">
+        <div style="display:flex;justify-content:space-between;width:100%;">
+          <div>
+            <div class="si-name">${d.NAME}${divMark}</div>
+            <div class="si-ticker">${d.SECID} · ${fmtVol(d.VALTODAY)} ₽ ${volTrend}</div>
+          </div>
+          <div><div class="si-price">${fmt(d.LAST)} ₽</div><div class="si-ch up">+${pct.toFixed(1)}%</div></div>
         </div>
-        <div><div class="si-price">${fmt(d.LAST)} ₽</div><div class="si-ch up">+${pct.toFixed(1)}%</div></div>
+        ${divLine}
       </div>`;
     }).join('')||'<div style="padding:16px;color:var(--muted);font-size:0.8rem;text-align:center;">Нет данных</div>';
 
@@ -526,71 +537,68 @@ function getVolTrend(ticker, history, currentWeek){
   return '<span style="color:var(--muted);font-size:0.68rem;">→</span>';
 }
 
+const PORTFOLIO_NAMES = {X5:"Корп. центр X5", LENT:"Лента", SBER:"Сбербанк", BELU:"Novabev Group", TGLD:"Фонд Золото"};
+
 async function loadDividends(){
   const box = document.getElementById('dividend-calendar');
   try{
-    const res = await fetch('https://raw.githubusercontent.com/podlesnykhdn/my_prodject_invest/main/rules.json');
-    const rules = await res.json();
-    const calendar = rules.dividend_calendar || {};
-    const today = new Date();
-    today.setHours(0,0,0,0);
+    // Берём последний лог сборщика — там динамические данные с MOEX ISS
+    const today = new Date().toISOString().slice(0,10);
+    let logData = null;
+    for(let i=0;i<5;i++){
+      const d = new Date(Date.now() - i*86400000).toISOString().slice(0,10);
+      try{
+        const res = await fetch(`https://raw.githubusercontent.com/podlesnykhdn/my_prodject_invest/main/logs/collector/${d}.json`);
+        if(res.ok){ logData = await res.json(); break; }
+      }catch(e){}
+    }
+    if(!logData || !logData.dividends){
+      box.innerHTML = '<div class="notice">Данные по дивидендам пока не собраны. Запусти сборщик через Actions.</div>';
+      return;
+    }
 
+    const dividends = logData.dividends;
+    const now = new Date(); now.setHours(0,0,0,0);
     const order = ['X5','SBER','BELU','LENT','TGLD'];
+
     const cards = order.map(ticker => {
-      const info = calendar[ticker];
+      const info = dividends[ticker];
       if(!info) return '';
-      const next = info.next_payment || {};
-      const isPaying = 'amount_per_share' in next || 'amount_per_share_min' in next;
+      const next = info.next_payment;
+      const name = PORTFOLIO_NAMES[ticker] || ticker;
 
       let amountHtml, totalHtml = '', countdownHtml = '';
+      let isNext = false;
 
-      if('amount_per_share' in next){
+      if(next){
         amountHtml = `<div class="div-amount">${next.amount_per_share} ₽/акц.</div>`;
         if(next.your_total_net){
-          totalHtml = `<div class="div-total">Твой доход: <b>${fmt(next.your_total_net)} ₽</b> (после налога)</div>`;
+          totalHtml = `<div class="div-total">Твой доход: <b>${fmt(next.your_total_net)} ₽</b> (после налога 13%)</div>`;
         }
-      } else if('amount_per_share_min' in next){
-        amountHtml = `<div class="div-amount">${next.amount_per_share_min}–${next.amount_per_share_max} ₽/акц.</div>`;
-        if(next.your_total_net_min){
-          totalHtml = `<div class="div-total">Твой доход: <b>${fmt(next.your_total_net_min)}–${fmt(next.your_total_net_max)} ₽</b> (прогноз)</div>`;
-        }
-      } else {
-        amountHtml = `<div class="div-amount none">Не платит дивиденды</div>`;
-      }
-
-      // Countdown
-      let isNext = false;
-      if(next.payment_date){
-        const pd = new Date(next.payment_date);
-        const days = Math.ceil((pd - today) / 86400000);
-        if(days >= 0){
-          isNext = days <= 30;
-          const cls = days <= 14 ? 'soon' : '';
-          countdownHtml = `<div class="div-countdown ${cls}">Выплата через ${days} дн. (${next.payment_date})</div>`;
-        }
-      } else if(next.record_date){
-        const rd = new Date(next.record_date);
-        const days = Math.ceil((rd - today) / 86400000);
-        if(days >= 0){
+        const days = next.days_to_record;
+        if(days != null && days >= 0){
           isNext = days <= 30;
           const cls = days <= 7 ? 'soon' : '';
           countdownHtml = `<div class="div-countdown ${cls}">Отсечка через ${days} дн. (${next.record_date})</div>`;
         }
+      } else if(info.pays_dividends){
+        amountHtml = `<div class="div-amount none">Следующая выплата не объявлена</div>`;
+      } else {
+        amountHtml = `<div class="div-amount none">Не платит дивиденды</div>`;
       }
 
-      // History (last 3)
       let historyHtml = '';
       if(info.history && info.history.length){
         const items = info.history.slice(0,3).map(h => {
           const amt = h.amount_per_share ? h.amount_per_share + ' ₽' : '—';
-          return `<div>${h.period}: ${amt}${h.payment_date ? ' · ' + h.payment_date : ''}</div>`;
+          return `<div>${h.registry_close_date}: ${amt}/акц.</div>`;
         }).join('');
         historyHtml = `<div class="div-history">${items}</div>`;
       }
 
       return `<div class="div-card ${isNext?'next':''}">
-        <div class="div-ticker">${ticker} · ${next.your_shares || 0} шт.</div>
-        <div class="div-name">${info.name}</div>
+        <div class="div-ticker">${ticker}</div>
+        <div class="div-name">${name}</div>
         ${amountHtml}
         ${countdownHtml}
         ${totalHtml}
