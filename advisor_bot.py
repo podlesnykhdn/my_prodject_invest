@@ -282,37 +282,38 @@ def build_morning_report(data):
     dividends = data.get("dividends", {})
     upcoming = []
     for ticker, info in dividends.items():
-        dtp = info.get("days_to_payment")
-        dtr = info.get("days_to_record")
-        d = dtp if dtp is not None else dtr
+        src = info.get("next_payment") or info.get("announced")
+        if not src:
+            continue
+        d = src.get("days_to_record")
         if d is not None and 0 <= d <= 45:
-            upcoming.append((d, ticker, info))
+            upcoming.append((d, ticker, src, info.get("next_payment") is not None))
     upcoming.sort(key=lambda x: x[0])
 
     if upcoming:
         lines.append(f"\n─ ─ ─\n📅 <b>Дивидендный календарь</b>")
-        for days, ticker, info in upcoming[:3]:
+        for days, ticker, info, is_confirmed in upcoming[:3]:
             amt = info.get("amount_per_share")
             shares = info.get("your_shares", 0)
-
-            # Показываем отсечку и выплату раздельно, если обе известны
             rec_date = info.get("record_date")
             pay_date = info.get("payment_date")
-            dtr = info.get("days_to_record")
-            dtp = info.get("days_to_payment")
+            label = "" if is_confirmed else " (анонс)"
 
-            lines.append(f"  💰 <b>{ticker}</b>")
-            if rec_date and dtr is not None and dtr >= 0:
-                lines.append(f"     📌 Отсечка: через {dtr} дн. ({rec_date})")
-            if pay_date and dtp is not None and dtp >= 0:
-                lines.append(f"     💵 Выплата: через {dtp} дн. ({pay_date})")
-            elif not pay_date and rec_date:
+            lines.append(f"  💰 <b>{ticker}</b>{label}")
+            if rec_date and days is not None and days >= 0:
+                lines.append(f"     📌 Отсечка: через {days} дн. ({rec_date})")
+            if pay_date:
+                lines.append(f"     💵 Выплата: ориентировочно {pay_date}")
+            elif rec_date:
                 lines.append(f"     💵 Выплата: ~10 раб. дней после отсечки")
 
             if amt:
-                lines.append(f"     Сумма: {amt} ₽/акц. × {shares} = <b>{fmt(info.get('your_total_net',0))} ₽</b> (после налога 13%)")
+                net = info.get("your_total_net", 0)
+                lines.append(f"     Сумма: {amt} ₽/акц. × {shares} = <b>{fmt(net)} ₽</b> (после налога 13%)")
             elif "amount_per_share_min" in info:
                 lines.append(f"     Прогноз: {info['amount_per_share_min']}–{info['amount_per_share_max']} ₽/акц.")
+            if not is_confirmed and info.get("source"):
+                lines.append(f"     <i>Источник: {info['source']}</i>")
 
     # 5. СКРИНЕР — топ-3
     screener = data.get("screener", {})
