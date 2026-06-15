@@ -524,9 +524,88 @@ function getVolTrend(ticker, history, currentWeek){
   return '<span style="color:var(--muted);font-size:0.68rem;">→</span>';
 }
 
+async function loadDividends(){
+  const box = document.getElementById('dividend-calendar');
+  try{
+    const res = await fetch('https://raw.githubusercontent.com/podlesnykhdn/my_prodject_invest/main/rules.json');
+    const rules = await res.json();
+    const calendar = rules.dividend_calendar || {};
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const order = ['X5','SBER','BELU','LENT','TGLD'];
+    const cards = order.map(ticker => {
+      const info = calendar[ticker];
+      if(!info) return '';
+      const next = info.next_payment || {};
+      const isPaying = 'amount_per_share' in next || 'amount_per_share_min' in next;
+
+      let amountHtml, totalHtml = '', countdownHtml = '';
+
+      if('amount_per_share' in next){
+        amountHtml = `<div class="div-amount">${next.amount_per_share} ₽/акц.</div>`;
+        if(next.your_total_net){
+          totalHtml = `<div class="div-total">Твой доход: <b>${fmt(next.your_total_net)} ₽</b> (после налога)</div>`;
+        }
+      } else if('amount_per_share_min' in next){
+        amountHtml = `<div class="div-amount">${next.amount_per_share_min}–${next.amount_per_share_max} ₽/акц.</div>`;
+        if(next.your_total_net_min){
+          totalHtml = `<div class="div-total">Твой доход: <b>${fmt(next.your_total_net_min)}–${fmt(next.your_total_net_max)} ₽</b> (прогноз)</div>`;
+        }
+      } else {
+        amountHtml = `<div class="div-amount none">Не платит дивиденды</div>`;
+      }
+
+      // Countdown
+      let isNext = false;
+      if(next.payment_date){
+        const pd = new Date(next.payment_date);
+        const days = Math.ceil((pd - today) / 86400000);
+        if(days >= 0){
+          isNext = days <= 30;
+          const cls = days <= 14 ? 'soon' : '';
+          countdownHtml = `<div class="div-countdown ${cls}">Выплата через ${days} дн. (${next.payment_date})</div>`;
+        }
+      } else if(next.record_date){
+        const rd = new Date(next.record_date);
+        const days = Math.ceil((rd - today) / 86400000);
+        if(days >= 0){
+          isNext = days <= 30;
+          const cls = days <= 7 ? 'soon' : '';
+          countdownHtml = `<div class="div-countdown ${cls}">Отсечка через ${days} дн. (${next.record_date})</div>`;
+        }
+      }
+
+      // History (last 3)
+      let historyHtml = '';
+      if(info.history && info.history.length){
+        const items = info.history.slice(0,3).map(h => {
+          const amt = h.amount_per_share ? h.amount_per_share + ' ₽' : '—';
+          return `<div>${h.period}: ${amt}${h.payment_date ? ' · ' + h.payment_date : ''}</div>`;
+        }).join('');
+        historyHtml = `<div class="div-history">${items}</div>`;
+      }
+
+      return `<div class="div-card ${isNext?'next':''}">
+        <div class="div-ticker">${ticker} · ${next.your_shares || 0} шт.</div>
+        <div class="div-name">${info.name}</div>
+        ${amountHtml}
+        ${countdownHtml}
+        ${totalHtml}
+        ${historyHtml}
+      </div>`;
+    }).join('');
+
+    box.innerHTML = cards || '<div style="padding:16px;color:var(--muted);font-size:0.82rem;">Нет данных по дивидендам</div>';
+  } catch(e){
+    console.log('Dividends error:', e.message);
+    box.innerHTML = '<div class="notice">Календарь дивидендов недоступен. Открывай без VPN.</div>';
+  }
+}
+
 async function loadAll(){
   document.getElementById('last-update').textContent='Обновлено в '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
-  await Promise.all([loadPortfolio(),loadScreener(),loadIPO()]);
+  await Promise.all([loadPortfolio(),loadScreener(),loadIPO(),loadDividends()]);
   loadIPO();
 }
 
