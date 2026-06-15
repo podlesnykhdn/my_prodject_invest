@@ -319,6 +319,13 @@ def _score_stock(stock, rules):
     # Цена < 200 руб. → +10 (доступность)
     if stock["price"] < 200:
         score += 10
+    # Дивидендная история 2+ лет → +10
+    div_payers = rules.get("dividend_payers_directory", {}).get("tickers", [])
+    if stock["ticker"] in div_payers:
+        score += 10
+        stock["pays_dividends"] = True
+    else:
+        stock["pays_dividends"] = False
     # Рост > 10% → штраф -15 (возможная манипуляция)
     if stock["pct"] > 10.0:
         score -= 15
