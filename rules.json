@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "2.4",
+    "version": "2.4.1",
     "updated": "2026-06-15",
     "description": "Движок правил для анализа портфеля. Используется сборщиком, письмами и Telegram ботами.",
     "thresholds": {
@@ -1528,41 +1528,42 @@
     }
   },
   "dividend_calendar": {
-    "description": "Календарь дивидендов портфеля. Источники: bcs.ru, investmint.ru, interfax.ru. Обновлено 15.06.2026.",
+    "description": "Календарь дивидендов портфеля. Источники: dohod.ru, bcs.ru, investmint.ru, interfax.ru. X5 исправлено 15.06.2026: 245 руб. (не 648 — это был спецдивиденд за 2024, уже выплачен).",
     "updated": "2026-06-15",
     "X5": {
       "name": "Корпоративный центр X5",
+      "source": "dohod.ru, investmint.ru — проверено 15.06.2026",
       "history": [
         {
-          "period": "2024 год",
-          "amount_per_share": 648,
+          "period": "2025 год",
+          "amount_per_share": 245,
           "record_date": "2026-07-07",
-          "payment_date": "2026-07-21",
-          "status": "approved"
+          "payment_date": null,
+          "status": "recommended"
         },
         {
           "period": "9М 2025",
           "amount_per_share": 368,
-          "record_date": null,
+          "record_date": "2026-01-06",
           "payment_date": null,
-          "status": "approved_no_date"
+          "status": "paid"
         },
         {
-          "period": "2023 год",
-          "amount_per_share": null,
+          "period": "2024 год (спец.)",
+          "amount_per_share": 648,
           "record_date": null,
           "payment_date": null,
-          "status": "historical"
+          "status": "paid_2025"
         }
       ],
       "next_payment": {
-        "amount_per_share": 648,
+        "amount_per_share": 245,
         "record_date": "2026-07-07",
-        "payment_date": "2026-07-21",
-        "status": "подтверждено советом директоров",
+        "payment_date": null,
+        "status": "рекомендовано советом директоров за 2025 год, доходность ~9.9%",
         "your_shares": 42,
-        "your_total_gross": 27216,
-        "your_total_net": 23678
+        "your_total_gross": 10290,
+        "your_total_net": 8952.3
       }
     },
     "SBER": {
