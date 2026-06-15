@@ -145,14 +145,12 @@ html_body = (
     '<div style="margin-top:16px;padding:12px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0;">'
     '<p style="margin:0;font-size:12px;color:#166534;"><strong>Портфель:</strong> X5 (42) · Лента (53) · Сбербанк (74) · Novabev (12) · TGLD (4618) · ~280 000 руб.</p>'
     '</div></div></div>'
+    '<div style="background:#1e3a5f;padding:14px 24px;border-radius:8px;margin-top:16px;text-align:center;">'
+    '<a href="https://podlesnykhdn.github.io/my_prodject_invest/" style="color:#93c5fd;font-size:13px;text-decoration:none;">Открыть дашборд портфеля</a>'
+    '</div>'
     '<div style="background:#f3f4f6;padding:14px 24px;border-radius:0 0 10px 10px;border:1px solid #e5e7eb;border-top:none;">'
     '<p style="color:#9ca3af;font-size:11px;margin:0;text-align:center;">my_prodject_invest · github.com/podlesnykhdn/my_prodject_invest</p>'
-    '</div>  <div style="background:#1e3a5f;padding:14px 24px;border-radius:8px;margin-top:16px;text-align:center;">
-    <a href="https://podlesnykhdn.github.io/my_prodject_invest/" style="color:#93c5fd;font-size:13px;text-decoration:none;">
-      Открыть дашборд портфеля
-    </a>
-  </div>
-</body></html>'
+    '</div></body></html>'
 )
 
 print("Отправляю письмо...")
