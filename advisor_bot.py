@@ -528,3 +528,9 @@ if __name__ == "__main__":
         run_alerts_only()
     elif MODE == "command":
         run_command()
+    elif MODE == "auto":
+        log = load_log()
+        if not log.get("morning_sent"):
+            run_morning()
+        else:
+            run_alerts_only()
