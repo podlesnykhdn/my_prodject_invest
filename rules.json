@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "version": "2.6",
+    "version": "2.7",
     "updated": "2026-06-15",
     "description": "Движок правил для анализа портфеля. Используется сборщиком, письмами и Telegram ботами.",
     "thresholds": {
@@ -1654,6 +1654,30 @@
       "next_payment": {
         "status": "ETF не платит дивиденды — доход формируется только за счёт роста цены золота",
         "your_shares": 4618
+      }
+    }
+  },
+  "announced_dividends": {
+    "description": "Анонсированные, но ещё не отражённые в MOEX ISS dividends.json выплаты. Источники проверены 15.06.2026.",
+    "data": {
+      "X5": {
+        "amount_per_share": 245,
+        "record_date": "2026-07-07",
+        "status": "рекомендовано советом директоров за 2025 год, доходность ~9.9%",
+        "source": "dohod.ru, investmint.ru (15.06.2026)"
+      },
+      "SBER": {
+        "amount_per_share": 37.64,
+        "record_date": null,
+        "payment_date": "2026-08-03",
+        "status": "рекомендовано советом директоров за 2025 год, дата отсечки уточняется",
+        "source": "investmint.ru (15.06.2026)"
+      },
+      "BELU": {
+        "amount_per_share_min": 27,
+        "amount_per_share_max": 42,
+        "status": "прогноз аналитиков на 2026 год, доходность 7.4-11.5%",
+        "source": "t-bank пульс (30.03.2026)"
       }
     }
   }
