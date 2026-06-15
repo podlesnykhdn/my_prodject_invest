@@ -319,13 +319,6 @@ def _score_stock(stock, rules):
     # Цена < 200 руб. → +10 (доступность)
     if stock["price"] < 200:
         score += 10
-    # Дивидендная история 2+ лет → +10
-    div_payers = rules.get("dividend_payers_directory", {}).get("tickers", [])
-    if stock["ticker"] in div_payers:
-        score += 10
-        stock["pays_dividends"] = True
-    else:
-        stock["pays_dividends"] = False
     # Рост > 10% → штраф -15 (возможная манипуляция)
     if stock["pct"] > 10.0:
         score -= 15
@@ -802,7 +795,19 @@ def collect():
 
     fired_rules, portfolio_signals = run_rules(rules, currency, oil, quotes, news)
     portfolio = calc_portfolio(rules, quotes)
-    dividends = build_dividend_calendar(rules)
+
+    # Собираем тикеры из скринера для проверки их дивидендов
+    screener_tickers = [s["ticker"] for s in screener.get("cheap_growth", [])]
+    dividends = build_dividend_calendar(rules, screener_tickers)
+
+    # Применяем дивидендные данные к карточкам скринера
+    for stock in screener.get("cheap_growth", []):
+        div_info = dividends.get(stock["ticker"], {})
+        stock["pays_dividends"] = div_info.get("pays_dividends", False)
+        stock["dividend_next"]  = div_info.get("next_payment")
+        if stock["pays_dividends"]:
+            stock["score"] = min(stock["score"] + 10, 100)
+            stock["grade"] = _grade(stock["score"])
 
     usd_change = 0.0
     if currency.get("usd") and currency.get("usd_prev"):
