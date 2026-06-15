@@ -84,6 +84,20 @@ tr:hover td{background:var(--surface2);}
 .placeholder{color:var(--muted);text-align:center;padding:36px 0;}
 .placeholder .icon{font-size:1.8rem;margin-bottom:8px;}
 .placeholder p{font-size:0.85rem;}
+
+/* DIVIDENDS */
+.div-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+.div-card.next{border-color:var(--accent);}
+.div-card .div-ticker{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--muted);margin-bottom:2px;}
+.div-card .div-name{font-size:0.92rem;font-weight:600;margin-bottom:10px;}
+.div-card .div-amount{font-size:1.3rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--green);}
+.div-card .div-amount.none{color:var(--muted);font-size:0.85rem;font-weight:400;}
+.div-card .div-dates{font-size:0.78rem;color:var(--muted);margin-top:8px;line-height:1.6;}
+.div-card .div-countdown{display:inline-block;background:#0c1a3a;color:#60a5fa;border:1px solid #1d4ed8;border-radius:6px;padding:3px 10px;font-size:0.75rem;font-weight:600;margin-top:8px;}
+.div-card .div-countdown.soon{background:#052e16;color:#4ade80;border-color:#166534;}
+.div-card .div-total{font-size:0.85rem;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);color:var(--text);}
+.div-history{margin-top:10px;font-size:0.72rem;color:var(--muted);}
+.div-history div{padding:2px 0;}
 </style>
 </head>
 <body>
@@ -123,6 +137,9 @@ tr:hover td{background:var(--surface2);}
       <tbody id="ptbody"><tr><td colspan="8" style="text-align:center;padding:20px;color:var(--muted);font-size:0.8rem;">Загрузка...</td></tr></tbody>
     </table>
   </div>
+
+  <div class="section-title">Дивидендный календарь</div>
+  <div id="dividend-calendar" class="screener-grid"></div>
 </div>
 
 <div class="panel" id="tab-screener">
