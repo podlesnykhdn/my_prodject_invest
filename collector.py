@@ -490,26 +490,34 @@ def run_rules(rules, currency, oil, quotes, news):
         usd_change = round((currency["usd"] - currency["usd_prev"]) /
                            currency["usd_prev"] * 100, 2)
 
-    # Правила по валюте
-    for rule in rules["rules"]["currency"]:
-        hit = False
-        if "usd_change >= 2.0" in rule["condition"] and usd_change >= 2.0:
-            hit = True
-        elif "usd_change <= -2.0" in rule["condition"] and usd_change <= -2.0:
-            hit = True
-        elif "abs(usd_change) < 2.0" in rule["condition"] and abs(usd_change) < 2.0:
-            hit = True
-        if hit:
-            fired.append({
-                "rule_id": rule["id"],
-                "signal":  rule["signal"],
-                "message": rule["message"].format(
-                    usd_change=usd_change,
-                    usd_rate=currency.get("usd", 0)
-                ),
-                "portfolio_impact": rule.get("portfolio_impact", {})
-            })
-            _merge_signals(portfolio_signals, rule.get("portfolio_impact", {}))
+    # Правила по валюте — только если есть данные о курсе
+    if currency.get("usd") is not None:
+        for rule in rules["rules"]["currency"]:
+            hit = False
+            if "usd_change >= 2.0" in rule["condition"] and usd_change >= 2.0:
+                hit = True
+            elif "usd_change <= -2.0" in rule["condition"] and usd_change <= -2.0:
+                hit = True
+            elif "abs(usd_change) < 2.0" in rule["condition"] and abs(usd_change) < 2.0:
+                hit = True
+            if hit:
+                fired.append({
+                    "rule_id": rule["id"],
+                    "signal":  rule["signal"],
+                    "message": rule["message"].format(
+                        usd_change=usd_change,
+                        usd_rate=currency.get("usd") or 0
+                    ),
+                    "portfolio_impact": rule.get("portfolio_impact", {})
+                })
+                _merge_signals(portfolio_signals, rule.get("portfolio_impact", {}))
+    else:
+        fired.append({
+            "rule_id": "CURRENCY_UNAVAILABLE",
+            "signal":  "warning",
+            "message": "⚠️ Курсы валют недоступны (ЦБ РФ не отвечает) — данные могут быть устаревшими",
+            "portfolio_impact": {}
+        })
 
     # Правила по нефти
     if oil.get("change_pct"):
