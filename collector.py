@@ -946,6 +946,123 @@ def _load_last_log(role):
     with open(files[-1], encoding="utf-8") as f:
         return json.load(f)
 
+
+# ─── ДВУХНЕДЕЛЬНЫЙ СНИМОК ПОРТФЕЛЯ ───────────────────────────────────────────
+
+def save_biweekly_snapshot(portfolio):
+    """
+    Сохраняет снимок портфеля раз в две недели.
+    Снимок создаётся в первый рабочий день каждых двух недель.
+    """
+    today = date.today()
+    # Номер двухнедельного периода: 1..26 (52 недели / 2)
+    week_num = today.isocalendar()[1]
+    period = (week_num - 1) // 2 + 1
+    period_key = f"{today.year}-P{period:02d}"
+
+    snap_dir = LOGS_DIR / "snapshots"
+    snap_dir.mkdir(parents=True, exist_ok=True)
+    snap_file = snap_dir / f"{period_key}.json"
+
+    # Не перезаписываем если снимок уже есть за этот период
+    if snap_file.exists():
+        return period_key
+
+    snap = {
+        "period":    period_key,
+        "date":      today.isoformat(),
+        "total_value":  portfolio["total_value"],
+        "total_change": portfolio["total_change"],
+        "positions": {
+            p["ticker"]: {
+                "price": p["price"],
+                "value": p["value"],
+                "qty":   p["qty"],
+            }
+            for p in portfolio["positions"]
+        }
+    }
+    with open(snap_file, "w", encoding="utf-8") as f:
+        json.dump(snap, f, ensure_ascii=False, indent=2)
+    print(f"  Снимок портфеля сохранён: {period_key} ({today})")
+    return period_key
+
+def load_prev_snapshot():
+    """Загружает снимок предыдущего двухнедельного периода."""
+    today = date.today()
+    week_num = today.isocalendar()[1]
+    period = (week_num - 1) // 2 + 1
+    prev_period = period - 1
+    if prev_period < 1:
+        prev_period = 26
+        year = today.year - 1
+    else:
+        year = today.year
+    period_key = f"{year}-P{prev_period:02d}"
+
+    snap_file = LOGS_DIR / "snapshots" / f"{period_key}.json"
+    if snap_file.exists():
+        with open(snap_file, encoding="utf-8") as f:
+            return json.load(f)
+    return None
+
+def build_biweekly_report(portfolio):
+    """
+    Строит двухнедельный отчёт сравнивая текущий снимок с предыдущим.
+    Возвращает None если предыдущего снимка нет.
+    """
+    today = date.today()
+    week_num = today.isocalendar()[1]
+    period = (week_num - 1) // 2 + 1
+
+    # Отчёт только в начале нового периода (первые 2 дня периода)
+    period_start_week = (period - 1) * 2 + 1
+    if week_num not in [period_start_week, period_start_week + 1]:
+        return None
+
+    prev = load_prev_snapshot()
+    if not prev:
+        return None
+
+    curr_value = portfolio["total_value"]
+    prev_value = prev["total_value"]
+    diff_rub   = round(curr_value - prev_value, 0)
+    diff_pct   = round((curr_value - prev_value) / prev_value * 100, 2) if prev_value else 0
+
+    positions_diff = []
+    for pos in portfolio["positions"]:
+        t = pos["ticker"]
+        prev_pos = prev["positions"].get(t, {})
+        prev_price = prev_pos.get("price", 0)
+        curr_price = pos["price"]
+        if prev_price and curr_price:
+            p_diff = round(curr_price - prev_price, 2)
+            p_pct  = round((curr_price - prev_price) / prev_price * 100, 2)
+            positions_diff.append({
+                "ticker":     t,
+                "prev_price": prev_price,
+                "curr_price": curr_price,
+                "diff":       p_diff,
+                "pct":        p_pct,
+            })
+
+    best  = max(positions_diff, key=lambda x: x["pct"]) if positions_diff else None
+    worst = min(positions_diff, key=lambda x: x["pct"]) if positions_diff else None
+
+    return {
+        "period":        f"{prev['period']} → текущий",
+        "prev_date":     prev["date"],
+        "curr_date":     today.isoformat(),
+        "prev_value":    prev_value,
+        "curr_value":    curr_value,
+        "diff_rub":      diff_rub,
+        "diff_pct":      diff_pct,
+        "positions":     positions_diff,
+        "best":          best,
+        "worst":         worst,
+    }
+
+
 # ─── ГЛАВНАЯ ФУНКЦИЯ ──────────────────────────────────────────────────────────
 
 def collect():
@@ -964,6 +1081,8 @@ def collect():
 
     fired_rules, portfolio_signals = run_rules(rules, currency, oil, quotes, news)
     portfolio = calc_portfolio(rules, quotes)
+    save_biweekly_snapshot(portfolio)
+    biweekly_report = build_biweekly_report(portfolio)
 
     # Собираем тикеры из скринера для проверки их дивидендов
     screener_tickers = [s["ticker"] for s in screener.get("cheap_growth", [])]
@@ -1002,6 +1121,7 @@ def collect():
         "screener":  screener,
         "assets":    assets,
         "dividends": dividends,
+        "biweekly_report": biweekly_report,
         "news":      news,
         "rules_fired":        fired_rules,
         "portfolio_signals":  portfolio_signals,
