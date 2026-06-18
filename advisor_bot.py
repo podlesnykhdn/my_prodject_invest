@@ -222,9 +222,26 @@ def build_morning_report(data):
         lines.append("")
         for pos in portfolio.get("positions", []):
             sig = "📈" if pos["change"] >= 0 else "📉"
+            price_str = fmt_price(pos["price"])
+
+            # Предыдущая цена в скобках если изменилась
+            prev = pos.get("prev_price")
+            if prev and prev != pos["price"]:
+                price_str += f" (ранее: {fmt_price(prev)})"
+
+            # Исторический максимум
+            ath = pos.get("ath")
+            ath_str = ""
+            if ath:
+                pct_ath = pos.get("pct_from_ath", 0) or 0
+                if pos.get("near_ath"):
+                    ath_str = f" 🔥 ATH: {fmt_price(ath)} (близко!)"
+                else:
+                    ath_str = f" | ATH: {fmt_price(ath)} ({pct_ath:.1f}%)"
+
             lines.append(
-                f"  {sig} <b>{pos['ticker']}</b>: {fmt_price(pos['price'])}  "
-                f"({fmt_rub(pos['day_rub'])} / {pos['pct']:+.1f}%)"
+                f"  {sig} <b>{pos['ticker']}</b>: {price_str}  "
+                f"({fmt_rub(pos['day_rub'])} / {pos['pct']:+.1f}%){ath_str}"
             )
 
     # 2. МАКРО
