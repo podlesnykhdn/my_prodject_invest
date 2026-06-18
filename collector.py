@@ -1063,6 +1063,90 @@ def build_biweekly_report(portfolio):
     }
 
 
+
+# ─── ИСТОРИЧЕСКИЕ МАКСИМУМЫ ───────────────────────────────────────────────────
+
+def fetch_all_time_high(ticker, board="TQBR"):
+    """
+    Получает исторический максимум цены акции через MOEX ISS.
+    Запрашивает месячные свечи за всё время и берёт максимум HIGH.
+    """
+    # MOEX ISS: свечи по инструменту, interval=31 (месячные), till=сегодня
+    url = (f"https://iss.moex.com/iss/engines/stock/markets/shares/"
+           f"boards/{board}/securities/{ticker}/candles.json"
+           f"?interval=31&iss.meta=off&iss.only=candles&start=0")
+    data = safe_fetch(url, timeout=10)
+    if not data:
+        return None
+    try:
+        d = json.loads(data)
+        cols = d["candles"]["columns"]
+        rows = d["candles"]["data"]
+        if not rows:
+            return None
+        hi_idx = cols.index("high") if "high" in cols else None
+        if hi_idx is None:
+            return None
+        max_price = max(row[hi_idx] for row in rows if row[hi_idx])
+        return round(max_price, 2)
+    except Exception as e:
+        print(f"    [WARN] ATH {ticker}: {e}")
+        return None
+
+def load_ath_cache():
+    """Кэш исторических максимумов — обновляем раз в неделю."""
+    cache_file = LOGS_DIR / "ath_cache.json"
+    if cache_file.exists():
+        try:
+            with open(cache_file, encoding="utf-8") as f:
+                cache = json.load(f)
+            # Проверяем возраст кэша — обновляем раз в неделю
+            cache_date = cache.get("_updated", "")
+            today = date.today().isoformat()
+            if cache_date >= str(date.today() - __import__("datetime").timedelta(days=7)):
+                return cache
+        except Exception:
+            pass
+    return {"_updated": ""}
+
+def save_ath_cache(cache):
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+    cache["_updated"] = date.today().isoformat()
+    with open(LOGS_DIR / "ath_cache.json", "w", encoding="utf-8") as f:
+        json.dump(cache, f, ensure_ascii=False, indent=2)
+
+def collect_all_time_highs(rules):
+    """Собирает исторические максимумы для всех акций портфеля."""
+    print("[ATH] Исторические максимумы...")
+    cache = load_ath_cache()
+    result = {}
+
+    for pos in rules["portfolio"]["positions"]:
+        ticker = pos["ticker"]
+        board  = pos.get("board", "TQBR")
+        if board == "TQTF":
+            # Для ETF ATH менее значим — пропускаем
+            result[ticker] = None
+            continue
+
+        # Используем кэш если есть
+        if ticker in cache and cache[ticker]:
+            result[ticker] = cache[ticker]
+            print(f"  {ticker}: ATH={cache[ticker]} (кэш)")
+            continue
+
+        ath = fetch_all_time_high(ticker, board)
+        result[ticker] = ath
+        if ath:
+            cache[ticker] = ath
+            print(f"  {ticker}: ATH={ath}")
+        else:
+            print(f"  {ticker}: ATH не получен")
+
+    save_ath_cache(cache)
+    return result
+
+
 # ─── ГЛАВНАЯ ФУНКЦИЯ ──────────────────────────────────────────────────────────
 
 def collect():
@@ -1081,6 +1165,21 @@ def collect():
 
     fired_rules, portfolio_signals = run_rules(rules, currency, oil, quotes, news)
     portfolio = calc_portfolio(rules, quotes)
+    all_time_highs = collect_all_time_highs(rules)
+    # Добавляем ATH и предыдущую цену в каждую позицию
+    last_log = _load_last_log("collector")
+    prev_quotes = last_log.get("quotes", {}) if last_log else {}
+    for pos in portfolio["positions"]:
+        t = pos["ticker"]
+        pos["ath"] = all_time_highs.get(t)
+        pos["prev_price"] = prev_quotes.get(t, {}).get("price")
+        if pos["ath"] and pos["price"]:
+            pct_from_ath = round((pos["price"] - pos["ath"]) / pos["ath"] * 100, 1)
+            pos["pct_from_ath"] = pct_from_ath
+            pos["near_ath"] = pct_from_ath >= -5  # в пределах 5% от максимума
+        else:
+            pos["pct_from_ath"] = None
+            pos["near_ath"] = False
     save_biweekly_snapshot(portfolio)
     biweekly_report = build_biweekly_report(portfolio)
 
