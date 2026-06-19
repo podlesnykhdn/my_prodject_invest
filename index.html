@@ -354,6 +354,38 @@ async function fetchQuotes(){
   return quotes;
 }
 
+// Единая загрузка лога — кэшируется, чтобы не превышать GitHub API rate limit
+let _cachedLog = null;
+let _cachedLogDate = null;
+
+async function getCollectorLog(){
+  const today = new Date().toISOString().slice(0,10);
+  if(_cachedLog && _cachedLogDate === today) return _cachedLog;
+  try{
+    // Прямой URL последнего лога (не требует GitHub API)
+    const url = 'https://raw.githubusercontent.com/podlesnykhdn/my_prodject_invest/main/logs/collector/' + today + '.json';
+    const res = await fetch(url + '?t=' + Date.now());
+    if(res.ok){
+      _cachedLog = await res.json();
+      _cachedLogDate = today;
+      return _cachedLog;
+    }
+    // Если лога за сегодня нет — ищем последний через API
+    const listRes = await fetch(
+      'https://api.github.com/repos/podlesnykhdn/my_prodject_invest/contents/logs/collector',
+      {headers:{'Accept':'application/vnd.github.v3+json'}});
+    if(!listRes.ok) return null;
+    const files = await listRes.json();
+    const sorted = files.filter(f=>f.name.endsWith('.json')).sort((a,b)=>b.name.localeCompare(a.name));
+    if(!sorted.length) return null;
+    const fileRes = await fetch(sorted[0].download_url + '?t=' + Date.now());
+    if(!fileRes.ok) return null;
+    _cachedLog = await fileRes.json();
+    _cachedLogDate = today;
+    return _cachedLog;
+  } catch(e){ console.log('Log load error:', e); return null; }
+}
+
 async function loadPortfolio(){
   try{
     const quotes = await fetchQuotes();
@@ -432,14 +464,8 @@ async function loadScreener(){
   document.getElementById('vol-list').innerHTML = '<div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка...</div>';
   document.getElementById('growth-list').innerHTML = '<div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка...</div>';
   try{
-    const listRes = await fetch('https://api.github.com/repos/podlesnykhdn/my_prodject_invest/contents/logs/collector',{headers:{'Accept':'application/vnd.github.v3+json'}});
-    if(!listRes.ok) throw new Error('list failed');
-    const files = await listRes.json();
-    const sorted = files.filter(f=>f.name.endsWith('.json')).sort((a,b)=>b.name.localeCompare(a.name));
-    if(!sorted.length) throw new Error('no logs');
-    const fileRes = await fetch(sorted[0].download_url);
-    if(!fileRes.ok) throw new Error('file failed');
-    const logData = await fileRes.json();
+    const logData = await getCollectorLog();
+    if(!logData) throw new Error('no log');
     window._screenerDividends = logData.dividends || {};
     const screener = logData.screener || {};
     const topVol = screener.top_volume || [];
