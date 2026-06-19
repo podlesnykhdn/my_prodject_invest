@@ -9,34 +9,24 @@
 :root{--bg:#0b0e1a;--surface:#111827;--surface2:#1a2235;--border:#1f2d45;--accent:#3b82f6;--green:#10b981;--red:#ef4444;--warn:#f59e0b;--text:#e2e8f0;--muted:#64748b;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-
-/* HEADER */
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;}
 .logo{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--accent);}
 .logo span{color:var(--muted);}
-.refresh-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;font-size:0.72rem;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;}
+.refresh-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;font-size:0.72rem;cursor:pointer;font-family:'Inter',sans-serif;}
 .refresh-btn:hover{border-color:var(--accent);color:var(--accent);}
-
-/* NAV */
-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;gap:0;overflow-x:auto;}
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;overflow-x:auto;}
 nav::-webkit-scrollbar{display:none;}
 .tab{padding:10px 14px;font-size:0.82rem;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;user-select:none;white-space:nowrap;}
 .tab:hover{color:var(--text);}.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
-
-/* LAYOUT */
 main{max-width:980px;margin:0 auto;padding:20px 12px;}
 .panel{display:none;}.panel.active{display:block;}
-
-/* CARDS */
 .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:20px;}
 @media(min-width:480px){.cards{grid-template-columns:repeat(4,1fr);}}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
 .card .lbl{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:4px;}
 .card .val{font-size:1.15rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
 .up{color:var(--green);}.dn{color:var(--red);}.neu{color:var(--muted);}
-
-/* TABLE — scrollable on mobile */
-.section-title{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;margin-top:20px;}
+.st{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;margin-top:20px;}
 .tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px;overflow-x:auto;}
 table{width:100%;border-collapse:collapse;min-width:560px;}
 th{background:#0d1525;padding:9px 12px;text-align:left;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:600;white-space:nowrap;}
@@ -47,14 +37,10 @@ tr:hover td{background:var(--surface2);}
 .badge.yes{background:#052e16;color:#4ade80;border:1px solid #166534;}
 .badge.no{background:#1c1004;color:#fbbf24;border:1px solid #92400e;}
 .badge.etf{background:#0c1a3a;color:#60a5fa;border:1px solid #1d4ed8;}
-
-/* NOTICE */
 .notice{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;color:var(--muted);font-size:0.8rem;margin-bottom:16px;line-height:1.6;}
 .notice strong{color:var(--warn);}
-
-/* SCREENER */
-.screener-grid{display:grid;grid-template-columns:1fr;gap:14px;}
-@media(min-width:640px){.screener-grid{grid-template-columns:1fr 1fr;}}
+.sg{display:grid;grid-template-columns:1fr;gap:14px;}
+@media(min-width:640px){.sg{grid-template-columns:1fr 1fr;}}
 .sc{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
 .sc-head{padding:12px 14px;border-bottom:1px solid var(--border);}
 .sc-head h3{font-size:0.8rem;font-weight:600;}
@@ -65,12 +51,10 @@ tr:hover td{background:var(--surface2);}
 .si-ticker{font-size:0.68rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
 .si-price{font-size:0.82rem;font-weight:600;font-family:'JetBrains Mono',monospace;text-align:right;}
 .si-ch{font-size:0.7rem;text-align:right;}
-
-/* AI */
 .ai-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px;}
 .ai-header h2{font-size:0.92rem;font-weight:600;}
 .ai-header p{font-size:0.75rem;color:var(--muted);margin-top:2px;}
-.btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:0.8rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:0.8rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
 .btn:hover{opacity:0.85;}.btn:disabled{opacity:0.4;cursor:not-allowed;}
 .btn.green{background:var(--green);}
 .ai-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 22px;min-height:140px;line-height:1.75;font-size:0.88rem;}
@@ -84,24 +68,20 @@ tr:hover td{background:var(--surface2);}
 .placeholder{color:var(--muted);text-align:center;padding:36px 0;}
 .placeholder .icon{font-size:1.8rem;margin-bottom:8px;}
 .placeholder p{font-size:0.85rem;}
-
-/* DIVIDENDS */
 .div-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
 .div-card.next{border-color:var(--accent);}
 .div-card .div-ticker{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--muted);margin-bottom:2px;}
 .div-card .div-name{font-size:0.92rem;font-weight:600;margin-bottom:10px;}
 .div-card .div-amount{font-size:1.3rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--green);}
 .div-card .div-amount.none{color:var(--muted);font-size:0.85rem;font-weight:400;}
-.div-card .div-dates{font-size:0.78rem;color:var(--muted);margin-top:8px;line-height:1.6;}
 .div-card .div-countdown{display:inline-block;background:#0c1a3a;color:#60a5fa;border:1px solid #1d4ed8;border-radius:6px;padding:3px 10px;font-size:0.75rem;font-weight:600;margin-top:8px;}
 .div-card .div-countdown.soon{background:#052e16;color:#4ade80;border-color:#166534;}
-.div-card .div-total{font-size:0.85rem;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);color:var(--text);}
+.div-card .div-total{font-size:0.85rem;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
 .div-history{margin-top:10px;font-size:0.72rem;color:var(--muted);}
 .div-history div{padding:2px 0;}
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">my_prodject_invest <span>/ MOEX</span></div>
   <div style="display:flex;align-items:center;gap:10px;">
@@ -109,7 +89,6 @@ tr:hover td{background:var(--surface2);}
     <button class="refresh-btn" onclick="loadAll()">Обновить</button>
   </div>
 </header>
-
 <nav>
   <div class="tab active" onclick="switchTab('portfolio')">Портфель</div>
   <div class="tab" onclick="switchTab('screener')">Скринер</div>
@@ -118,7 +97,6 @@ tr:hover td{background:var(--surface2);}
   <div class="tab" onclick="switchTab('market')">Рынок</div>
   <div class="tab" onclick="switchTab('ofz')">ОФЗ</div>
 </nav>
-
 <main>
 
 <div class="panel active" id="tab-portfolio">
@@ -129,25 +107,21 @@ tr:hover td{background:var(--surface2);}
     <div class="card"><div class="lbl">Статус</div><div class="val" id="c-status" style="font-size:0.75rem;padding-top:4px">—</div></div>
   </div>
   <div id="portfolio-notice"></div>
-  <div class="section-title">Мой портфель</div>
+  <div class="st">Мой портфель</div>
   <div class="tbl-wrap">
     <table>
-      <thead><tr>
-        <th>Компания</th><th>Тикер</th><th>Кол-во</th>
-        <th>Цена</th><th>Пред. цена</th><th>Изм. за день</th><th>Объём</th><th>Стоимость</th><th>ATH</th><th>Дивид.</th>
-      </tr></thead>
-      <tbody id="ptbody"><tr><td colspan="8" style="text-align:center;padding:20px;color:var(--muted);font-size:0.8rem;">Загрузка...</td></tr></tbody>
+      <thead><tr><th>Компания</th><th>Тикер</th><th>Кол-во</th><th>Цена</th><th>Пред.</th><th>Изм. за день</th><th>Объём</th><th>Стоимость</th><th>ATH</th><th>Дивид.</th></tr></thead>
+      <tbody id="ptbody"><tr><td colspan="10" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody>
     </table>
   </div>
-
-  <div class="section-title">Дивидендный календарь</div>
-  <div id="dividend-calendar" class="screener-grid"></div>
+  <div class="st">Дивидендный календарь</div>
+  <div id="dividend-calendar" class="sg"></div>
 </div>
 
 <div class="panel" id="tab-screener">
-  <div class="section-title" style="margin-top:0">Скринер рынка MOEX</div>
+  <div class="st" style="margin-top:0">Скринер рынка MOEX</div>
   <div id="screener-notice"></div>
-  <div class="screener-grid">
+  <div class="sg">
     <div class="sc">
       <div class="sc-head"><h3>Топ по объёму торгов</h3><p>Самые активные бумаги сегодня</p></div>
       <div id="vol-list"><div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка...</div></div>
@@ -157,20 +131,15 @@ tr:hover td{background:var(--surface2);}
       <div id="growth-list"><div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка...</div></div>
     </div>
   </div>
-  <div class="section-title" style="margin-top:20px">Растущий интерес — малоизвестные акции</div>
+  <div class="st" style="margin-top:20px">Растущий интерес — малоизвестные акции</div>
   <div class="sc" style="margin-bottom:16px;">
-    <div class="sc-head">
-      <h3>Объём растёт неделя к неделе</h3>
-      <p>Малоизвестные акции (до 1000 руб.) где кто-то системно набирает позицию</p>
-    </div>
-    <div id="rising-list"><div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка из лога...</div></div>
+    <div class="sc-head"><h3>Объём растёт неделя к неделе</h3><p>Малоизвестные акции (до 1000 руб.) где кто-то системно набирает позицию</p></div>
+    <div id="rising-list"><div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка...</div></div>
   </div>
-
-  <div class="section-title" style="margin-top:24px">Новые размещения на MOEX (IPO / SPO)</div>
-  <div id="ipo-notice"></div>
+  <div class="st" style="margin-top:20px">Новые размещения на MOEX (IPO / SPO)</div>
   <div class="sc" style="margin-bottom:8px;">
     <div class="sc-head" style="display:flex;align-items:center;justify-content:space-between;">
-      <div><h3>Новые компании на бирже</h3><p>Размещения за последнюю неделю + экспертная оценка</p></div>
+      <div><h3>Новые компании на бирже</h3><p>Размещения за последнюю неделю</p></div>
       <span id="ipo-last-update" style="font-size:0.7rem;color:var(--muted);"></span>
     </div>
     <div id="ipo-list"><div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка...</div></div>
@@ -197,101 +166,58 @@ tr:hover td{background:var(--surface2);}
   </div>
 </div>
 
+<div class="panel" id="tab-market">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+    <div class="st" style="margin:0;">Аналитик — рыночные неэффективности</div>
+    <div id="market-ts" style="font-size:0.72rem;color:var(--muted);"></div>
+  </div>
+  <div style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;">Роль ищет аномалии: панику, объёмные всплески, отрыв от рынка. Сигнал — не рекомендация, а повод изучить подробнее.</div>
+  <div class="st">По твоему портфелю</div>
+  <div id="market-portfolio"><div class="notice">Загрузка...</div></div>
+  <div class="st" style="margin-top:20px;">По рынку в целом</div>
+  <div id="market-signals"><div class="notice">Загрузка...</div></div>
+</div>
+
 <div class="panel" id="tab-ofz">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
     <div>
-      <div class="section-title" style="margin:0;">Облигации федерального займа (ОФЗ)</div>
-      <div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">Данные MOEX ISS в реальном времени · обновляется вместе со страницей</div>
+      <div class="st" style="margin:0;">Облигации федерального займа (ОФЗ)</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">Данные MOEX ISS в реальном времени</div>
     </div>
     <div id="ofz-cbr" style="font-size:0.8rem;color:var(--muted);text-align:right;"></div>
   </div>
-
-  <!-- КОРОТКИЕ -->
-  <div class="section-title">Короткие — до 3 лет (сохранение, минимальный риск)</div>
-  <div class="tbl-wrap" style="margin-bottom:20px;">
-    <table>
-      <thead><tr>
-        <th>Выпуск</th><th>Погашение</th><th>Лет до пог.</th>
-        <th>Цена</th><th>Купон</th><th>Доходность</th><th>Купон/год</th>
-      </tr></thead>
-      <tbody id="ofz-short"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody>
-    </table>
-  </div>
-
-  <!-- СРЕДНИЕ -->
-  <div class="section-title">Средние — 3–10 лет (оптимальный баланс доходности и риска)</div>
-  <div class="tbl-wrap" style="margin-bottom:20px;">
-    <table>
-      <thead><tr>
-        <th>Выпуск</th><th>Погашение</th><th>Лет до пог.</th>
-        <th>Цена</th><th>Купон</th><th>Доходность</th><th>Купон/год</th>
-      </tr></thead>
-      <tbody id="ofz-mid"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody>
-    </table>
-  </div>
-
-  <!-- ДЛИННЫЕ -->
-  <div class="section-title">Длинные — от 10 лет (максимальная доходность при снижении ставки)</div>
-  <div class="tbl-wrap" style="margin-bottom:20px;">
-    <table>
-      <thead><tr>
-        <th>Выпуск</th><th>Погашение</th><th>Лет до пог.</th>
-        <th>Цена</th><th>Купон</th><th>Доходность</th><th>Купон/год</th>
-      </tr></thead>
-      <tbody id="ofz-long"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody>
-    </table>
-  </div>
-
+  <div class="st">Короткие — до 3 лет</div>
+  <div class="tbl-wrap" style="margin-bottom:20px;"><table><thead><tr><th>Выпуск</th><th>Погашение</th><th>Лет</th><th>Цена</th><th>Купон</th><th>Доходность</th></tr></thead><tbody id="ofz-short"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody></table></div>
+  <div class="st">Средние — 3–10 лет</div>
+  <div class="tbl-wrap" style="margin-bottom:20px;"><table><thead><tr><th>Выпуск</th><th>Погашение</th><th>Лет</th><th>Цена</th><th>Купон</th><th>Доходность</th></tr></thead><tbody id="ofz-mid"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody></table></div>
+  <div class="st">Длинные — от 10 лет</div>
+  <div class="tbl-wrap" style="margin-bottom:20px;"><table><thead><tr><th>Выпуск</th><th>Погашение</th><th>Лет</th><th>Цена</th><th>Купон</th><th>Доходность</th></tr></thead><tbody id="ofz-long"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody></table></div>
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;font-size:0.78rem;color:var(--muted);line-height:1.7;">
-    <b style="color:var(--text);">Как читать таблицу:</b><br>
-    <b>Цена</b> — сколько стоит сейчас на бирже (% от номинала 1000 ₽). Цена 75% = платишь 750 ₽, получишь 1000 ₽ при погашении.<br>
-    <b>Купон</b> — выплата каждые 6 месяцев в рублях на одну облигацию.<br>
-    <b>Доходность</b> — эффективная доходность к погашению (учитывает и купоны и разницу цены покупки с номиналом).<br>
-    <b>Купон/год</b> — годовой купонный доход в % к текущей цене покупки.<br>
-    ⚠️ Купонный доход ОФЗ не облагается НДФЛ. Налог 13% платится только с разницы цен при продаже до погашения.
+    <b style="color:var(--text);">Цена</b> — % от номинала 1000 руб. Цена 75% = платишь 750 руб., получишь 1000 руб. при погашении.<br>
+    <b style="color:var(--text);">Купон</b> — выплата каждые 6 месяцев. <b style="color:var(--text);">Доходность</b> — эффективная к погашению.<br>
+    Купонный доход ОФЗ не облагается НДФЛ.
   </div>
 </div>
-<div class="panel" id="tab-market">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-    <div class="section-title" style="margin:0;">Аналитик — рыночные неэффективности</div>
-    <div id="market-ts" style="font-size:0.72rem;color:var(--muted);"></div>
-  </div>
-  <div style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;">
-    Роль ищет аномалии: панику, объёмные всплески, отрыв от рынка, дивидендные гэпы и акции у минимумов. Сигнал — не рекомендация, а повод изучить подробнее.
-  </div>
 
-  <div class="section-title">По твоему портфелю</div>
-  <div id="market-portfolio"><div class="notice">Загрузка...</div></div>
-
-  <div class="section-title" style="margin-top:20px;">По рынку в целом</div>
-  <div id="market-signals"><div class="notice">Загрузка...</div></div>
-</div>
 </main>
-
 <script>
-const PORTFOLIO = [
-  {name:"ПАО «Корпоративный центр ИКС 5»", short:"ИКС 5",        ticker:"X5",   board:"TQBR", qty:42,   div:true},
-  {name:"МКПАО «Лента»",                    short:"Лента",         ticker:"LENT",  board:"TQBR", qty:53,   div:false},
-  {name:"ПАО Сбербанк",                     short:"Сбербанк",      ticker:"SBER",  board:"TQBR", qty:74,   div:true},
-  {name:"ПАО «НоваБев Групп»",              short:"НоваБев Групп", ticker:"BELU",  board:"TQBR", qty:12,   div:true},
-  {name:"БПИФ «Тинькофф Золото»",           short:"ТБанк Золото",  ticker:"TGLD",  board:"TQTF", qty:4618, div:false, etf:true},
+const PORTFOLIO=[
+  {name:"ПАО «Корпоративный центр ИКС 5»",short:"ИКС 5",ticker:"X5",board:"TQBR",qty:42,div:true},
+  {name:"МКПАО «Лента»",short:"Лента",ticker:"LENT",board:"TQBR",qty:53,div:false},
+  {name:"ПАО Сбербанк",short:"Сбербанк",ticker:"SBER",board:"TQBR",qty:74,div:true},
+  {name:"ПАО «НоваБев Групп»",short:"НоваБев Групп",ticker:"BELU",board:"TQBR",qty:12,div:true},
+  {name:"БПИФ «Тинькофф Золото»",short:"ТБанк Золото",ticker:"TGLD",board:"TQTF",qty:4618,div:false,etf:true},
 ];
+const PNAMES={X5:"ПАО «Корпоративный центр ИКС 5»",LENT:"МКПАО «Лента»",SBER:"ПАО Сбербанк",BELU:"ПАО «НоваБев Групп»",TGLD:"БПИФ «Тинькофф Золото»"};
 
-function switchTab(name) {
+function switchTab(name){
   ['portfolio','screener','mentor','analyst','market','ofz'].forEach((n,i)=>{
     document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
     document.getElementById('tab-'+n).classList.toggle('active',n===name);
   });
-  if(name==='ofz' && !window._ofzLoaded){
-    window._ofzLoaded = true;
-    loadOFZ();
-  }
-  if(name==='market' && !window._marketLoaded){
-    window._marketLoaded = true;
-    loadMarket();
-  }
+  if(name==='ofz'&&!window._ofzL){window._ofzL=true;loadOFZ();}
+  if(name==='market'&&!window._mktL){window._mktL=true;loadMarket();}
 }
-
 function fmt(n){return new Intl.NumberFormat('ru-RU').format(Math.round(n));}
 function fmtVol(v){
   if(!v||v===0)return '—';
@@ -300,296 +226,212 @@ function fmtVol(v){
   if(v>=1e3)return (v/1e3).toFixed(0)+' K';
   return v;
 }
-
+function getWeekKey(){
+  const d=new Date(),y=d.getFullYear();
+  const s=new Date(y,0,1);
+  const w=Math.ceil(((d-s)/86400000+s.getDay()+1)/7);
+  return y+'-W'+String(w).padStart(2,'0');
+}
+function getVolTrend(ticker,history,cw){
+  const weeks=Object.keys(history).sort();
+  if(weeks.length<2)return '';
+  const pw=weeks[weeks.length-2];
+  if(pw===cw||!history[pw])return '';
+  const pv=history[pw][ticker]||0;
+  const cv=(history[cw]||{})[ticker]||0;
+  if(!pv||!cv)return '';
+  const diff=(cv-pv)/pv*100;
+  if(diff>10)return '<span style="color:var(--green);font-size:0.68rem;">▲'+diff.toFixed(0)+'%</span>';
+  if(diff<-10)return '<span style="color:var(--red);font-size:0.68rem;">▼'+Math.abs(diff).toFixed(0)+'%</span>';
+  return '<span style="color:var(--muted);font-size:0.68rem;">→</span>';
+}
 async function moexGet(url){
-  const r = await fetch(url,{headers:{'Accept':'application/json'}});
-  if(!r.ok) throw new Error('HTTP '+r.status);
+  const r=await fetch(url,{headers:{'Accept':'application/json'}});
+  if(!r.ok)throw new Error('HTTP '+r.status);
   return r.json();
 }
 
-async function fetchQuotes(){
-  // Fetch shares (TQBR) and ETFs (TQTF) independently — один борд не должен ронять другой
-  const sharesTickers = PORTFOLIO.filter(p=>p.board==='TQBR').map(p=>p.ticker).join(',');
-  const etfTickers    = PORTFOLIO.filter(p=>p.board==='TQTF').map(p=>p.ticker).join(',');
-
-  const quotes = {};
-
-  // Parse helper — используем CHANGE/LASTTOPREVPRICE напрямую из MOEX
-  function parseMarketdata(data){
-    if(!data || !data.marketdata) return;
-    const cols = data.marketdata.columns;
-    for(const row of data.marketdata.data){
-      const d = Object.fromEntries(cols.map((c,i)=>[c,row[i]]));
-      const price  = d.LAST || d.PREVPRICE || 0;
-      const prev   = d.PREVPRICE || price;
-      const change = d.CHANGE || 0;
-      let pct;
-      if (d.LASTTOPREVPRICE !== null && d.LASTTOPREVPRICE !== undefined) {
-        pct = d.LASTTOPREVPRICE; // MOEX уже отдаёт в процентах
-      } else if (prev) {
-        pct = (change/prev)*100;
-      } else {
-        pct = 0;
-      }
-      if(price>0){
-        quotes[d.SECID]={ price, change, pct, vol: d.VALTODAY||0 };
-      }
-    }
-  }
-
-  // Каждый борд запрашивается отдельно — ошибка в одном не убирает другой
-  const results = await Promise.allSettled([
-    moexGet(`https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?securities=${sharesTickers}&iss.meta=off&iss.only=marketdata`),
-    moexGet(`https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQTF/securities.json?securities=${etfTickers}&iss.meta=off&iss.only=marketdata`),
-  ]);
-
-  results.forEach((res, i) => {
-    if (res.status === 'fulfilled') {
-      parseMarketdata(res.value);
-    } else {
-      console.log(`Борд ${i===0?'TQBR':'TQTF'} недоступен:`, res.reason);
-    }
-  });
-
-  return quotes;
-}
-
-
-function getWeekKey(){
-  const d = new Date();
-  const y = d.getFullYear();
-  const start = new Date(y,0,1);
-  const week = Math.ceil(((d-start)/86400000+start.getDay()+1)/7);
-  return y+'-W'+String(week).padStart(2,'0');
-}
-
-function getVolTrend(ticker, history, currentWeek){
-  const weeks = Object.keys(history).sort();
-  if(weeks.length < 2) return '';
-  const prevWeek = weeks[weeks.length-2];
-  if(prevWeek === currentWeek || !history[prevWeek]) return '';
-  const prev = history[prevWeek][ticker] || 0;
-  const curr = (history[currentWeek] || {})[ticker] || 0;
-  if(!prev || !curr) return '';
-  const diff = (curr-prev)/prev*100;
-  if(diff > 10) return '<span style="color:var(--green);font-size:0.68rem;">▲'+diff.toFixed(0)+'%</span>';
-  if(diff < -10) return '<span style="color:var(--red);font-size:0.68rem;">▼'+Math.abs(diff).toFixed(0)+'%</span>';
-  return '<span style="color:var(--muted);font-size:0.68rem;">→</span>';
-}
-
-async function loadIPO(){
-  const box = document.getElementById('ipo-list');
-  const upd = document.getElementById('ipo-last-update');
-  if(!box) return;
+// Встроенные данные из последнего запуска сборщика
+const _E={"screener": {"top_volume": [{"ticker": "T", "name": "Т-Техно ао", "price": 290.7, "prev": 290.7, "change": 0.0, "pct": 0.0, "volume": 1006363113}, {"ticker": "ROSN", "name": "Роснефть", "price": 328, "prev": 328, "change": 0, "pct": 0.0, "volume": 930239960}, {"ticker": "SBER", "name": "Сбербанк", "price": 316.29, "prev": 316.29, "change": 0.0, "pct": 0.0, "volume": 794658209}, {"ticker": "GAZP", "name": "ГАЗПРОМ ао", "price": 107.29, "prev": 107.29, "change": 0.0, "pct": 0.0, "volume": 660710291}, {"ticker": "UGLD", "name": "ЮГК", "price": 0.63, "prev": 0.63, "change": 0.0, "pct": 0.0, "volume": 604745937}, {"ticker": "LKOH", "name": "ЛУКОЙЛ", "price": 4432.5, "prev": 4432.5, "change": 0.0, "pct": 0.0, "volume": 444972865}, {"ticker": "VTBR", "name": "ВТБ ао", "price": 76.8, "prev": 76.8, "change": 0.0, "pct": 0.0, "volume": 386948120}, {"ticker": "AFKS", "name": "Система ао", "price": 13.16, "prev": 13.16, "change": 0.0, "pct": 0.0, "volume": 316614348}, {"ticker": "NVTK", "name": "Новатэк ао", "price": 1007.2, "prev": 1007.2, "change": 0.0, "pct": 0.0, "volume": 303087869}, {"ticker": "SMLT", "name": "Самолет ао", "price": 403.8, "prev": 403.8, "change": 0.0, "pct": 0.0, "volume": 281374937}], "cheap_growth": [], "rising_interest": [{"ticker": "AFKS", "name": "Система ао", "price": 13.16, "pct": 0.0, "volume": 316614348, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "AFLT", "name": "Аэрофлот", "price": 42.75, "pct": 0.0, "volume": 114156196, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "ASTR", "name": "iАстра ао", "price": 188.45, "pct": 0.0, "volume": 63234653, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "CBOM", "name": "МКБ ао", "price": 8.89, "pct": 0.0, "volume": 76897696, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "ENPG", "name": "ЭН+ГРУП ао", "price": 390.4, "pct": 0.0, "volume": 67470432, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "IRAO", "name": "ИнтерРАОао", "price": 2.7, "pct": 0.0, "volume": 96102286, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "MTLR", "name": "Мечел ао", "price": 46, "pct": 0.0, "volume": 68681037, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "PIKK", "name": "ПИК ао", "price": 554.6, "pct": 0.0, "volume": 173883305, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}], "_all_items": [{"ticker": "ABIO", "name": "iАРТГЕН ао", "price": 46.6, "prev": 46.6, "change": 0.0, "pct": 0.0, "volume": 7758391}, {"ticker": "ABRD", "name": "АбрауДюрсо", "price": 133.8, "prev": 133.8, "change": 0.0, "pct": 0.0, "volume": 50812}, {"ticker": "AFKS", "name": "Система ао", "price": 13.16, "prev": 13.16, "change": 0.0, "pct": 0.0, "volume": 316614348}, {"ticker": "AFLT", "name": "Аэрофлот", "price": 42.75, "prev": 42.75, "change": 0.0, "pct": 0.0, "volume": 114156196}, {"ticker": "AKRN", "name": "Акрон", "price": 17736, "prev": 17736, "change": 0, "pct": 0.0, "volume": 212796}, {"ticker": "ALRS", "name": "АЛРОСА ао", "price": 25.23, "prev": 25.23, "change": 0.0, "pct": 0.0, "volume": 161199053}, {"ticker": "APRI", "name": "АПРИ", "price": 17.9, "prev": 17.9, "change": 0.0, "pct": 0.0, "volume": 838971}, {"ticker": "APTK", "name": "Аптеки36и6", "price": 5.71, "prev": 5.71, "change": 0.0, "pct": 0.0, "volume": 372034}, {"ticker": "AQUA", "name": "ИНАРКТИКА", "price": 363, "prev": 363, "change": 0, "pct": 0.0, "volume": 2863792}, {"ticker": "ARSA", "name": "Арсагера", "price": 7.16, "prev": 7.16, "change": 0.0, "pct": 0.0, "volume": 13639}, {"ticker": "ASSB", "name": "АстрЭнСб", "price": 2.71, "prev": 2.71, "change": 0.0, "pct": 0.0, "volume": 162485}, {"ticker": "ASTR", "name": "iАстра ао", "price": 188.45, "prev": 188.45, "change": 0.0, "pct": 0.0, "volume": 63234653}, {"ticker": "AVAN", "name": "Авангрд-ао", "price": 616, "prev": 616, "change": 0, "pct": 0.0, "volume": 626329}, {"ticker": "BANE", "name": "Башнефт ао", "price": 1203, "prev": 1203, "change": 0, "pct": 0.0, "volume": 2644310}, {"ticker": "BANEP", "name": "Башнефт ап", "price": 927.5, "prev": 927.5, "change": 0.0, "pct": 0.0, "volume": 5277237}, {"ticker": "BAZA", "name": "iБАЗИС", "price": 114.52, "prev": 114.52, "change": 0.0, "pct": 0.0, "volume": 1191597}, {"ticker": "BELU", "name": "НоваБев ао", "price": 296.2, "prev": 296.2, "change": 0.0, "pct": 0.0, "volume": 10335189}, {"ticker": "BISVP", "name": "БашИнСв ап", "price": 10.36, "prev": 10.36, "change": 0.0, "pct": 0.0, "volume": 5172}, {"ticker": "BLNG", "name": "Белон ао", "price": 9.21, "prev": 9.21, "change": 0.0, "pct": 0.0, "volume": 192352}, {"ticker": "BRZL", "name": "БурЗолото", "price": 1316, "prev": 1316, "change": 0, "pct": 0.0, "volume": 47472}, {"ticker": "BSPB", "name": "БСП ао", "price": 285.84, "prev": 285.84, "change": 0.0, "pct": 0.0, "volume": 14629805}, {"ticker": "BSPBP", "name": "БСП ап", "price": 39.9, "prev": 39.9, "change": 0.0, "pct": 0.0, "volume": 822830}, {"ticker": "BTBR", "name": "В2В-РТС", "price": 132.6, "prev": 132.6, "change": 0.0, "pct": 0.0, "volume": 1176538}, {"ticker": "CARM", "name": "СТГ", "price": 1.01, "prev": 1.01, "change": 0.0, "pct": 0.0, "volume": 18803}, {"ticker": "CBOM", "name": "МКБ ао", "price": 8.89, "prev": 8.89, "change": 0.0, "pct": 0.0, "volume": 76897696}, {"ticker": "CHGZ", "name": "РН-ЗапСиб", "price": 87.4, "prev": 87.4, "change": 0.0, "pct": 0.0, "volume": 896108}, {"ticker": "CHKZ", "name": "ЧКПЗ ао", "price": 16350, "prev": 16350, "change": 0, "pct": 0.0, "volume": 32700}, {"ticker": "CHMF", "name": "СевСт-ао", "price": 647, "prev": 647, "change": 0, "pct": 0.0, "volume": 59633476}, {"ticker": "CHMK", "name": "ЧМК ао", "price": 3450, "prev": 3450, "change": 0, "pct": 0.0, "volume": 6860}, {"ticker": "CNRU", "name": "iЦиан", "price": 639.6, "prev": 639.6, "change": 0.0, "pct": 0.0, "volume": 33419506}, {"ticker": "CNTL", "name": "Телеграф", "price": 8.4, "prev": 8.4, "change": 0.0, "pct": 0.0, "volume": 40148}, {"ticker": "CNTLP", "name": "Телеграф-п", "price": 4.82, "prev": 4.82, "change": 0.0, "pct": 0.0, "volume": 24708}, {"ticker": "DATA", "name": "iАренадата", "price": 83.62, "prev": 83.62, "change": 0.0, "pct": 0.0, "volume": 1770441}, {"ticker": "DELI", "name": "iКаршеринг", "price": 60.7, "prev": 60.7, "change": 0.0, "pct": 0.0, "volume": 541666}, {"ticker": "DIAS", "name": "iДиасофт", "price": 1126, "prev": 1126, "change": 0, "pct": 0.0, "volume": 513719}, {"ticker": "DIOD", "name": "ЗаводДИОД", "price": 8.04, "prev": 8.04, "change": 0.0, "pct": 0.0, "volume": 26515}, {"ticker": "DOMRF", "name": "ДОМ.РФ", "price": 2359, "prev": 2359, "change": 0, "pct": 0.0, "volume": 60472257}, {"ticker": "DVEC", "name": "ДЭК ао", "price": 1.65, "prev": 1.65, "change": 0.0, "pct": 0.0, "volume": 80564}, {"ticker": "DZRD", "name": "ДонскЗР", "price": 1925, "prev": 1925, "change": 0, "pct": 0.0, "volume": 88985}, {"ticker": "DZRDP", "name": "ДонскЗР п", "price": 1740, "prev": 1740, "change": 0, "pct": 0.0, "volume": 71320}, {"ticker": "EELT", "name": "ЕвроЭлтех", "price": 8.04, "prev": 8.04, "change": 0.0, "pct": 0.0, "volume": 24547}, {"ticker": "ELFV", "name": "ЭЛ5Энер ао", "price": 0.42, "prev": 0.42, "change": 0.0, "pct": 0.0, "volume": 296033}, {"ticker": "ELMT", "name": "iЭлемент", "price": 0.1, "prev": 0.1, "change": 0.0, "pct": 0.0, "volume": 102799}, {"ticker": "ENPG", "name": "ЭН+ГРУП ао", "price": 390.4, "prev": 390.4, "change": 0.0, "pct": 0.0, "volume": 67470432}, {"ticker": "ETLN", "name": "ЭталонГруп", "price": 26.54, "prev": 26.54, "change": 0.0, "pct": 0.0, "volume": 1629241}, {"ticker": "EUTR", "name": "ЕвроТранс", "price": 62.55, "prev": 62.55, "change": 0.0, "pct": 0.0, "volume": 35567173}, {"ticker": "EVRZ", "name": "ЕВРАЗ", "price": 53.7, "prev": 53.7, "change": 0.0, "pct": 0.0, "volume": 6811}, {"ticker": "FEES", "name": "Россети", "price": 0.05, "prev": 0.05, "change": 0.0, "pct": 0.0, "volume": 17093477}, {"ticker": "FESH", "name": "ДВМП ао", "price": 60.2, "prev": 60.2, "change": 0.0, "pct": 0.0, "volume": 13936166}, {"ticker": "FIXR", "name": "Фикс Прайс", "price": 0.45, "prev": 0.45, "change": 0.0, "pct": 0.0, "volume": 4938399}, {"ticker": "FLOT", "name": "Совкомфлот", "price": 75.07, "prev": 75.07, "change": 0.0, "pct": 0.0, "volume": 7664109}, {"ticker": "GAZA", "name": "ГАЗ ао", "price": 421, "prev": 421, "change": 0, "pct": 0.0, "volume": 2126180}, {"ticker": "GAZAP", "name": "ГАЗ ап", "price": 363.5, "prev": 363.5, "change": 0.0, "pct": 0.0, "volume": 1503640}, {"ticker": "GAZP", "name": "ГАЗПРОМ ао", "price": 107.29, "prev": 107.29, "change": 0.0, "pct": 0.0, "volume": 660710291}, {"ticker": "GCHE", "name": "ЧеркизГ-ао", "price": 3146, "prev": 3146, "change": 0, "pct": 0.0, "volume": 516990}, {"ticker": "GECO", "name": "iГЕНЕТИКО", "price": 16.26, "prev": 16.26, "change": 0.0, "pct": 0.0, "volume": 170777}, {"ticker": "GEMA", "name": "iММЦБ ао", "price": 115, "prev": 115, "change": 0, "pct": 0.0, "volume": 19595}, {"ticker": "GEMC", "name": "МКПАО ЮМГ", "price": 740.7, "prev": 740.7, "change": 0.0, "pct": 0.0, "volume": 973072}, {"ticker": "GLRX", "name": "ГЛОРАКС", "price": 45.83, "prev": 45.83, "change": 0.0, "pct": 0.0, "volume": 4561708}, {"ticker": "GMKN", "name": "ГМКНорНик", "price": 137.4, "prev": 137.4, "change": 0.0, "pct": 0.0, "volume": 216509320}, {"ticker": "GTRK", "name": "ГТМ ао", "price": 53.2, "prev": 53.2, "change": 0.0, "pct": 0.0, "volume": 12226897}, {"ticker": "HEAD", "name": "Хэдхантер", "price": 2785, "prev": 2785, "change": 0, "pct": 0.0, "volume": 19053896}, {"ticker": "HIMCP", "name": "Химпром ап", "price": 15.06, "prev": 15.06, "change": 0.0, "pct": 0.0, "volume": 45312}, {"ticker": "HNFG", "name": "ХЭНДЕРСОН", "price": 338, "prev": 338, "change": 0, "pct": 0.0, "volume": 739846}, {"ticker": "HYDR", "name": "РусГидро", "price": 0.34, "prev": 0.34, "change": 0.0, "pct": 0.0, "volume": 8245237}, {"ticker": "IGST", "name": "Ижсталь2ао", "price": 4280, "prev": 4280, "change": 0, "pct": 0.0, "volume": 21340}, {"ticker": "IGSTP", "name": "Ижсталь ап", "price": 3050, "prev": 3050, "change": 0, "pct": 0.0, "volume": 278230}, {"ticker": "IRAO", "name": "ИнтерРАОао", "price": 2.7, "prev": 2.7, "change": 0.0, "pct": 0.0, "volume": 96102286}, {"ticker": "IRKT", "name": "Яковлев-3", "price": 18.8, "prev": 18.8, "change": 0.0, "pct": 0.0, "volume": 383072}, {"ticker": "IVAT", "name": "iИВА", "price": 73.75, "prev": 73.75, "change": 0.0, "pct": 0.0, "volume": 22241610}, {"ticker": "JNOS", "name": "Славн-ЯНОС", "price": 25.6, "prev": 25.6, "change": 0.0, "pct": 0.0, "volume": 232276}, {"ticker": "JNOSP", "name": "Слав-ЯНОСп", "price": 11.02, "prev": 11.02, "change": 0.0, "pct": 0.0, "volume": 33170}, {"ticker": "KAZT", "name": "Куйбазот", "price": 353, "prev": 353, "change": 0, "pct": 0.0, "volume": 49508}, {"ticker": "KAZTP", "name": "Куйбазот-п", "price": 353.5, "prev": 353.5, "change": 0.0, "pct": 0.0, "volume": 31740}, {"ticker": "KBSB", "name": "ТНСэКубань", "price": 831, "prev": 831, "change": 0, "pct": 0.0, "volume": 41550}, {"ticker": "KCHE", "name": "КамчатЭ ао", "price": 0.32, "prev": 0.32, "change": 0.0, "pct": 0.0, "volume": 6430}, {"ticker": "KLSB", "name": "КалужскСК", "price": 18.09, "prev": 18.09, "change": 0.0, "pct": 0.0, "volume": 25282}, {"ticker": "KLVZ", "name": "Кристалл", "price": 2.18, "prev": 2.18, "change": 0.0, "pct": 0.0, "volume": 27668}, {"ticker": "KMAZ", "name": "КАМАЗ", "price": 55.9, "prev": 55.9, "change": 0.0, "pct": 0.0, "volume": 2844483}, {"ticker": "KMEZ", "name": "КМЗ", "price": 862, "prev": 862, "change": 0, "pct": 0.0, "volume": 14624}, {"ticker": "KOGK", "name": "КоршГОК ао", "price": 255.8, "prev": 255.8, "change": 0.0, "pct": 0.0, "volume": 1199641}, {"ticker": "KRKN", "name": "СаратНПЗ", "price": 11850, "prev": 11850, "change": 0, "pct": 0.0, "volume": 2282800}, {"ticker": "KRKNP", "name": "СаратНПЗ-п", "price": 6300, "prev": 6300, "change": 0, "pct": 0.0, "volume": 1756480}, {"ticker": "KRKOP", "name": "ТКЗКК ап", "price": 13.32, "prev": 13.32, "change": 0.0, "pct": 0.0, "volume": 47886}, {"ticker": "KROT", "name": "КрасОкт-ао", "price": 1025, "prev": 1025, "change": 0, "pct": 0.0, "volume": 10250}, {"ticker": "KROTP", "name": "КрасОкт-1п", "price": 423, "prev": 423, "change": 0, "pct": 0.0, "volume": 16920}, {"ticker": "KRSB", "name": "Красэсб ао", "price": 22.32, "prev": 22.32, "change": 0.0, "pct": 0.0, "volume": 393204}, {"ticker": "KRSBP", "name": "Красэсб ап", "price": 22.64, "prev": 22.64, "change": 0.0, "pct": 0.0, "volume": 74548}, {"ticker": "KUZB", "name": "КузнецкийБ", "price": 0.03, "prev": 0.03, "change": 0.0, "pct": 0.0, "volume": 12777}, {"ticker": "KZOS", "name": "ОргСинт ао", "price": 56.6, "prev": 56.6, "change": 0.0, "pct": 0.0, "volume": 106639}, {"ticker": "KZOSP", "name": "ОргСинт ап", "price": 11.6, "prev": 11.6, "change": 0.0, "pct": 0.0, "volume": 813406}, {"ticker": "LEAS", "name": "Европлан", "price": 661.3, "prev": 661.3, "change": 0.0, "pct": 0.0, "volume": 6565496}, {"ticker": "LENT", "name": "Лента ао", "price": 1839, "prev": 1839, "change": 0, "pct": 0.0, "volume": 5358304}, {"ticker": "LIFE", "name": "Фармсинтез", "price": 2.26, "prev": 2.26, "change": 0.0, "pct": 0.0, "volume": 2220422}, {"ticker": "LKOH", "name": "ЛУКОЙЛ", "price": 4432.5, "prev": 4432.5, "change": 0.0, "pct": 0.0, "volume": 444972865}, {"ticker": "LMBZ", "name": "Ламбумиз", "price": 475, "prev": 475, "change": 0, "pct": 0.0, "volume": 51765}, {"ticker": "LPSB", "name": "ЛЭСК ао", "price": 52.1, "prev": 52.1, "change": 0.0, "pct": 0.0, "volume": 15540}, {"ticker": "LSNG", "name": "РСетиЛЭ", "price": 14.1, "prev": 14.1, "change": 0.0, "pct": 0.0, "volume": 130588}, {"ticker": "LSNGP", "name": "РСетиЛЭ-п", "price": 355, "prev": 355, "change": 0, "pct": 0.0, "volume": 47481879}, {"ticker": "LSRG", "name": "ЛСР ао", "price": 644.6, "prev": 644.6, "change": 0.0, "pct": 0.0, "volume": 8198161}, {"ticker": "LVHK", "name": "Левенгук", "price": 21.65, "prev": 21.65, "change": 0.0, "pct": 0.0, "volume": 45170}, {"ticker": "MAGE", "name": "МагадЭн ао", "price": 2.26, "prev": 2.26, "change": 0.0, "pct": 0.0, "volume": 2714}, {"ticker": "MAGEP", "name": "МагадЭн ап", "price": 2, "prev": 2, "change": 0, "pct": 0.0, "volume": 2000}, {"ticker": "MAGN", "name": "ММК", "price": 20.68, "prev": 20.68, "change": 0.0, "pct": 0.0, "volume": 69091265}, {"ticker": "MBNK", "name": "МТС Банк", "price": 1172.5, "prev": 1172.5, "change": 0.0, "pct": 0.0, "volume": 1847310}, {"ticker": "MDMG", "name": "MDMG-ао", "price": 1283.2, "prev": 1283.2, "change": 0.0, "pct": 0.0, "volume": 16830964}, {"ticker": "MFGS", "name": "Мегион-ао", "price": 317, "prev": 317, "change": 0, "pct": 0.0, "volume": 94890}, {"ticker": "MFGSP", "name": "Мегион-ап", "price": 208, "prev": 208, "change": 0, "pct": 0.0, "volume": 125110}, {"ticker": "MGKL", "name": "МГКЛ", "price": 2.46, "prev": 2.46, "change": 0.0, "pct": 0.0, "volume": 153399}, {"ticker": "MGNT", "name": "Магнит ао", "price": 2147, "prev": 2147, "change": 0, "pct": 0.0, "volume": 87234165}, {"ticker": "MGTS", "name": "МГТС-5ао", "price": 1214, "prev": 1214, "change": 0, "pct": 0.0, "volume": 2428}, {"ticker": "MGTSP", "name": "МГТС-4ап", "price": 1298, "prev": 1298, "change": 0, "pct": 0.0, "volume": 64998}, {"ticker": "MISB", "name": "ТНСэнМарЭл", "price": 45, "prev": 45, "change": 0, "pct": 0.0, "volume": 174880}, {"ticker": "MISBP", "name": "ТНСэМаЭл-п", "price": 52.6, "prev": 52.6, "change": 0.0, "pct": 0.0, "volume": 745890}, {"ticker": "MOEX", "name": "МосБиржа", "price": 171.47, "prev": 171.47, "change": 0.0, "pct": 0.0, "volume": 47436795}, {"ticker": "MRKC", "name": "РоссЦентр", "price": 0.64, "prev": 0.64, "change": 0.0, "pct": 0.0, "volume": 8736566}, {"ticker": "MRKK", "name": "Россети СК", "price": 18.48, "prev": 18.48, "change": 0.0, "pct": 0.0, "volume": 190698}, {"ticker": "MRKP", "name": "РСетиЦП ао", "price": 0.6, "prev": 0.6, "change": 0.0, "pct": 0.0, "volume": 3117362}, {"ticker": "MRKS", "name": "РсетСиб ао", "price": 0.48, "prev": 0.48, "change": 0.0, "pct": 0.0, "volume": 308400}, {"ticker": "MRKU", "name": "Россети Ур", "price": 0.61, "prev": 0.61, "change": 0.0, "pct": 0.0, "volume": 886368}, {"ticker": "MRKV", "name": "РсетВол ао", "price": 0.22, "prev": 0.22, "change": 0.0, "pct": 0.0, "volume": 6598561}, {"ticker": "MRKY", "name": "РоссЮг ао", "price": 0.08, "prev": 0.08, "change": 0.0, "pct": 0.0, "volume": 2501393}, {"ticker": "MRKZ", "name": "РСетиСЗ ао", "price": 0.14, "prev": 0.14, "change": 0.0, "pct": 0.0, "volume": 3374296}, {"ticker": "MRSB", "name": "МордЭнСб", "price": 0.91, "prev": 0.91, "change": 0.0, "pct": 0.0, "volume": 63900}, {"ticker": "MSNG", "name": "+МосЭнерго", "price": 1.85, "prev": 1.85, "change": 0.0, "pct": 0.0, "volume": 18298803}, {"ticker": "MSRS", "name": "РСетиМР ао", "price": 1.75, "prev": 1.75, "change": 0.0, "pct": 0.0, "volume": 8281404}, {"ticker": "MSTT", "name": "Мостотрест", "price": 83.8, "prev": 83.8, "change": 0.0, "pct": 0.0, "volume": 397563}, {"ticker": "MTLR", "name": "Мечел ао", "price": 46, "prev": 46, "change": 0, "pct": 0.0, "volume": 68681037}, {"ticker": "MTLRP", "name": "Мечел ап", "price": 42.55, "prev": 42.55, "change": 0.0, "pct": 0.0, "volume": 4312436}, {"ticker": "MTSS", "name": "МТС-ао", "price": 225.5, "prev": 225.5, "change": 0.0, "pct": 0.0, "volume": 54377991}, {"ticker": "MVID", "name": "М.видео", "price": 62.05, "prev": 62.05, "change": 0.0, "pct": 0.0, "volume": 20384935}, {"ticker": "NFAZ", "name": "НЕФАЗ", "price": 196, "prev": 196, "change": 0, "pct": 0.0, "volume": 19615}, {"ticker": "NKHP", "name": "НКХП ао", "price": 450.5, "prev": 450.5, "change": 0.0, "pct": 0.0, "volume": 1645945}, {"ticker": "NKNC", "name": "НКНХ ао", "price": 57.1, "prev": 57.1, "change": 0.0, "pct": 0.0, "volume": 246606}, {"ticker": "NKNCP", "name": "НКНХ ап", "price": 43.26, "prev": 43.26, "change": 0.0, "pct": 0.0, "volume": 72170}, {"ticker": "NKSH", "name": "Нижкамшина", "price": 30.5, "prev": 30.5, "change": 0.0, "pct": 0.0, "volume": 430905}, {"ticker": "NLMK", "name": "НЛМК ао", "price": 70.74, "prev": 70.74, "change": 0.0, "pct": 0.0, "volume": 43978275}, {"ticker": "NMTP", "name": "НМТП ао", "price": 8.66, "prev": 8.66, "change": 0.0, "pct": 0.0, "volume": 5343198}, {"ticker": "NNSB", "name": "ТНСэнНН ао", "price": 3620, "prev": 3620, "change": 0, "pct": 0.0, "volume": 7200}, {"ticker": "NNSBP", "name": "ТНСэнНН ап", "price": 1308, "prev": 1308, "change": 0, "pct": 0.0, "volume": 9194}, {"ticker": "NSVZ", "name": "iНаукаСвяз", "price": 194, "prev": 194, "change": 0, "pct": 0.0, "volume": 36875}, {"ticker": "NVTK", "name": "Новатэк ао", "price": 1007.2, "prev": 1007.2, "change": 0.0, "pct": 0.0, "volume": 303087869}, {"ticker": "OGKB", "name": "ОГК-2 ао", "price": 0.24, "prev": 0.24, "change": 0.0, "pct": 0.0, "volume": 1398845}, {"ticker": "OKEY", "name": "OKEY-гдр", "price": 45.51, "prev": 45.51, "change": 0.0, "pct": 0.0, "volume": 123575}, {"ticker": "OMZZP", "name": "ОМЗ-ап", "price": 10060, "prev": 10060, "change": 0, "pct": 0.0, "volume": 291800}, {"ticker": "OZON", "name": "Озон", "price": 3749, "prev": 3749, "change": 0, "pct": 0.0, "volume": 139633424}, {"ticker": "OZPH", "name": "iОзонФарм", "price": 45.83, "prev": 45.83, "change": 0.0, "pct": 0.0, "volume": 2938154}, {"ticker": "PAZA", "name": "ПавлАвт ао", "price": 8800, "prev": 8800, "change": 0, "pct": 0.0, "volume": 1779680}, {"ticker": "PHOR", "name": "ФосАгро ао", "price": 5849, "prev": 5849, "change": 0, "pct": 0.0, "volume": 40469552}, {"ticker": "PIKK", "name": "ПИК ао", "price": 554.6, "prev": 554.6, "change": 0.0, "pct": 0.0, "volume": 173883305}, {"ticker": "PLZL", "name": "Полюс", "price": 2021.4, "prev": 2021.4, "change": 0.0, "pct": 0.0, "volume": 216951460}, {"ticker": "PMSB", "name": "ПермьЭнСб", "price": 434.4, "prev": 434.4, "change": 0.0, "pct": 0.0, "volume": 263874}, {"ticker": "PMSBP", "name": "ПермьЭнС-п", "price": 453.6, "prev": 453.6, "change": 0.0, "pct": 0.0, "volume": 415952}, {"ticker": "POSI", "name": "iПозитив", "price": 825.8, "prev": 825.8, "change": 0.0, "pct": 0.0, "volume": 63735991}, {"ticker": "PRFN", "name": "ТЕПЛАНТ ао", "price": 3.03, "prev": 3.03, "change": 0.0, "pct": 0.0, "volume": 295842}, {"ticker": "PRMB", "name": "Приморье", "price": 20200, "prev": 20200, "change": 0, "pct": 0.0, "volume": 1306800}, {"ticker": "PRMD", "name": "iПРОМОМЕД", "price": 379.3, "prev": 379.3, "change": 0.0, "pct": 0.0, "volume": 17961884}, {"ticker": "RAGR", "name": "Русагро", "price": 99.36, "prev": 99.36, "change": 0.0, "pct": 0.0, "volume": 89706465}, {"ticker": "RASP", "name": "Распадская", "price": 111.25, "prev": 111.25, "change": 0.0, "pct": 0.0, "volume": 8738925}, {"ticker": "RBCM", "name": "ГК РБК ао", "price": 8.13, "prev": 8.13, "change": 0.0, "pct": 0.0, "volume": 107230}, {"ticker": "RDRB", "name": "РДБанк ао", "price": 104.2, "prev": 104.2, "change": 0.0, "pct": 0.0, "volume": 13542}, {"ticker": "RENI", "name": "Ренессанс", "price": 83.84, "prev": 83.84, "change": 0.0, "pct": 0.0, "volume": 12199126}, {"ticker": "RGSS", "name": "РГС СК ао", "price": 0.19, "prev": 0.19, "change": 0.0, "pct": 0.0, "volume": 20166}, {"ticker": "RKKE", "name": "ЭнергияРКК", "price": 12570, "prev": 12570, "change": 0, "pct": 0.0, "volume": 100390}, {"ticker": "RNFT", "name": "РуссНфт ао", "price": 84.45, "prev": 84.45, "change": 0.0, "pct": 0.0, "volume": 68058404}, {"ticker": "ROLO", "name": "Русолово", "price": 0.3, "prev": 0.3, "change": 0.0, "pct": 0.0, "volume": 1109827}, {"ticker": "ROSN", "name": "Роснефть", "price": 328, "prev": 328, "change": 0, "pct": 0.0, "volume": 930239960}, {"ticker": "ROST", "name": "РОСИНТЕРао", "price": 76.4, "prev": 76.4, "change": 0.0, "pct": 0.0, "volume": 131212}, {"ticker": "RTKM", "name": "Ростел -ао", "price": 49.24, "prev": 49.24, "change": 0.0, "pct": 0.0, "volume": 16306989}, {"ticker": "RTKMP", "name": "Ростел -ап", "price": 49.35, "prev": 49.35, "change": 0.0, "pct": 0.0, "volume": 1371152}, {"ticker": "RTSB", "name": "ТНСэнРст", "price": 2.85, "prev": 2.85, "change": 0.0, "pct": 0.0, "volume": 2855}, {"ticker": "RTSBP", "name": "ТНСэнРст-п", "price": 1.23, "prev": 1.23, "change": 0.0, "pct": 0.0, "volume": 420498}, {"ticker": "RUAL", "name": "РУСАЛ ао", "price": 33.15, "prev": 33.15, "change": 0.0, "pct": 0.0, "volume": 157389125}, {"ticker": "RUSI", "name": "ИКРУСС-ИНВ", "price": 59.7, "prev": 59.7, "change": 0.0, "pct": 0.0, "volume": 90966}, {"ticker": "RZSB", "name": "РязЭнСб", "price": 38.98, "prev": 38.98, "change": 0.0, "pct": 0.0, "volume": 451128}, {"ticker": "SAGOP", "name": "СамарЭн-ап", "price": 2.23, "prev": 2.23, "change": 0.0, "pct": 0.0, "volume": 2225}, {"ticker": "SARE", "name": "СаратЭн-ао", "price": 0.74, "prev": 0.74, "change": 0.0, "pct": 0.0, "volume": 74380}, {"ticker": "SAREP", "name": "СаратЭн-ап", "price": 0.4, "prev": 0.4, "change": 0.0, "pct": 0.0, "volume": 1040900}, {"ticker": "SBER", "name": "Сбербанк", "price": 316.29, "prev": 316.29, "change": 0.0, "pct": 0.0, "volume": 794658209}, {"ticker": "SBERP", "name": "Сбербанк-п", "price": 316.76, "prev": 316.76, "change": 0.0, "pct": 0.0, "volume": 86748843}, {"ticker": "SELG", "name": "Селигдар", "price": 38.1, "prev": 38.1, "change": 0.0, "pct": 0.0, "volume": 20728646}, {"ticker": "SFIN", "name": "ЭсЭфАй ао", "price": 681.6, "prev": 681.6, "change": 0.0, "pct": 0.0, "volume": 4148135}, {"ticker": "SGZH", "name": "Сегежа", "price": 0.89, "prev": 0.89, "change": 0.0, "pct": 0.0, "volume": 24497540}, {"ticker": "SIBN", "name": "Газпрнефть", "price": 468.35, "prev": 468.35, "change": 0.0, "pct": 0.0, "volume": 82233974}, {"ticker": "SLEN", "name": "Сахэнер ао", "price": 3.17, "prev": 3.17, "change": 0.0, "pct": 0.0, "volume": 3169}, {"ticker": "SMLT", "name": "Самолет ао", "price": 403.8, "prev": 403.8, "change": 0.0, "pct": 0.0, "volume": 281374937}, {"ticker": "SNGS", "name": "Сургнфгз", "price": 17.61, "prev": 17.61, "change": 0.0, "pct": 0.0, "volume": 68846308}, {"ticker": "SNGSP", "name": "Сургнфгз-п", "price": 40.39, "prev": 40.39, "change": 0.0, "pct": 0.0, "volume": 90104099}, {"ticker": "SOFL", "name": "iСофтлайн", "price": 52.86, "prev": 52.86, "change": 0.0, "pct": 0.0, "volume": 2823372}, {"ticker": "SPBE", "name": "СПБ Биржа", "price": 186.2, "prev": 186.2, "change": 0.0, "pct": 0.0, "volume": 33988069}, {"ticker": "STSB", "name": "СтаврЭнСб", "price": 5.07, "prev": 5.07, "change": 0.0, "pct": 0.0, "volume": 105740}, {"ticker": "STSBP", "name": "СтаврЭнСбп", "price": 5.17, "prev": 5.17, "change": 0.0, "pct": 0.0, "volume": 148680}, {"ticker": "SVAV", "name": "СОЛЛЕРС", "price": 396.5, "prev": 396.5, "change": 0.0, "pct": 0.0, "volume": 958004}, {"ticker": "SVCB", "name": "Совкомбанк", "price": 10.92, "prev": 10.92, "change": 0.0, "pct": 0.0, "volume": 114740071}, {"ticker": "SVET", "name": "Светофор", "price": 11.58, "prev": 11.58, "change": 0.0, "pct": 0.0, "volume": 10594}, {"ticker": "SVETP", "name": "Светофор п", "price": 18.95, "prev": 18.95, "change": 0.0, "pct": 0.0, "volume": 10981}, {"ticker": "T", "name": "Т-Техно ао", "price": 290.7, "prev": 290.7, "change": 0.0, "pct": 0.0, "volume": 1006363113}, {"ticker": "TASB", "name": "ТамбЭнСб", "price": 1.47, "prev": 1.47, "change": 0.0, "pct": 0.0, "volume": 25070}, {"ticker": "TASBP", "name": "ТамбЭнСб-п", "price": 0.96, "prev": 0.96, "change": 0.0, "pct": 0.0, "volume": 19300}, {"ticker": "TATN", "name": "Татнфт 3ао", "price": 531.2, "prev": 531.2, "change": 0.0, "pct": 0.0, "volume": 219355108}, {"ticker": "TATNP", "name": "Татнфт 3ап", "price": 500.2, "prev": 500.2, "change": 0.0, "pct": 0.0, "volume": 34480389}, {"ticker": "TGKA", "name": "ТГК-1", "price": 0.01, "prev": 0.01, "change": 0.0, "pct": 0.0, "volume": 1227737}, {"ticker": "TGKB", "name": "ТГК-2", "price": 0.01, "prev": 0.01, "change": 0.0, "pct": 0.0, "volume": 2607340}, {"ticker": "TGKBP", "name": "ТГК-2 ап", "price": 0.01, "prev": 0.01, "change": 0.0, "pct": 0.0, "volume": 352481}, {"ticker": "TGKN", "name": "ТГК-14", "price": 0.0, "prev": 0.0, "change": 0.0, "pct": 0.0, "volume": 1205268}, {"ticker": "TNSE", "name": "ТНСэнрг ао", "price": 3260, "prev": 3260, "change": 0, "pct": 0.0, "volume": 16135}, {"ticker": "TORS", "name": "РСТомск ао", "price": 0.75, "prev": 0.75, "change": 0.0, "pct": 0.0, "volume": 91100}, {"ticker": "TORSP", "name": "РСТомск ап", "price": 0.61, "prev": 0.61, "change": 0.0, "pct": 0.0, "volume": 556490}, {"ticker": "TRMK", "name": "ТМК ао", "price": 69.12, "prev": 69.12, "change": 0.0, "pct": 0.0, "volume": 12937020}, {"ticker": "TRNFP", "name": "Транснф ап", "price": 1361.4, "prev": 1361.4, "change": 0.0, "pct": 0.0, "volume": 40944476}, {"ticker": "TTLK", "name": "Таттел. ао", "price": 0.58, "prev": 0.58, "change": 0.0, "pct": 0.0, "volume": 45862}, {"ticker": "TUZA", "name": "ТЗА ао", "price": 100, "prev": 100, "change": 0, "pct": 0.0, "volume": 88958}, {"ticker": "UGLD", "name": "ЮГК", "price": 0.63, "prev": 0.63, "change": 0.0, "pct": 0.0, "volume": 604745937}, {"ticker": "UKUZ", "name": "ЮжКузб. ао", "price": 700, "prev": 700, "change": 0, "pct": 0.0, "volume": 5600}, {"ticker": "UNAC", "name": "iАвиастКао", "price": 0.33, "prev": 0.33, "change": 0.0, "pct": 0.0, "volume": 2390465}, {"ticker": "UNKL", "name": "ЮУНК ао", "price": 3650, "prev": 3650, "change": 0, "pct": 0.0, "volume": 36240}, {"ticker": "UPRO", "name": "Юнипро ао", "price": 1.17, "prev": 1.17, "change": 0.0, "pct": 0.0, "volume": 6078571}, {"ticker": "URKZ", "name": "УрКузница", "price": 243.4, "prev": 243.4, "change": 0.0, "pct": 0.0, "volume": 31193}, {"ticker": "USBN", "name": "УралСиб ао", "price": 0.15, "prev": 0.15, "change": 0.0, "pct": 0.0, "volume": 551068}, {"ticker": "UTAR", "name": "ЮТэйр ао", "price": 9.68, "prev": 9.68, "change": 0.0, "pct": 0.0, "volume": 26121}, {"ticker": "UWGN", "name": "ОВК ао", "price": 20.58, "prev": 20.58, "change": 0.0, "pct": 0.0, "volume": 3791776}, {"ticker": "VEON-RX", "name": "VEON", "price": 56.5, "prev": 56.5, "change": 0.0, "pct": 0.0, "volume": 11539}, {"ticker": "VGSB", "name": "ВолгЭнСб", "price": 13.9, "prev": 13.9, "change": 0.0, "pct": 0.0, "volume": 13900}, {"ticker": "VGSBP", "name": "ВолгЭнСб-п", "price": 11.35, "prev": 11.35, "change": 0.0, "pct": 0.0, "volume": 249700}, {"ticker": "VJGZ", "name": "Варьеган", "price": 2855, "prev": 2855, "change": 0, "pct": 0.0, "volume": 91520}, {"ticker": "VJGZP", "name": "Варьеган-п", "price": 1102, "prev": 1102, "change": 0, "pct": 0.0, "volume": 160130}, {"ticker": "VKCO", "name": "МКПАО \"ВК\"", "price": 233.8, "prev": 233.8, "change": 0.0, "pct": 0.0, "volume": 69372344}, {"ticker": "VLHZ", "name": "ВХЗ-ао", "price": 137.6, "prev": 137.6, "change": 0.0, "pct": 0.0, "volume": 300620}, {"ticker": "VRSB", "name": "ТНСэнВорон", "price": 322.5, "prev": 322.5, "change": 0.0, "pct": 0.0, "volume": 6430}, {"ticker": "VRSBP", "name": "ТНСэнВор-п", "price": 145.4, "prev": 145.4, "change": 0.0, "pct": 0.0, "volume": 430914}, {"ticker": "VSEH", "name": "ВИ.ру", "price": 70.53, "prev": 70.53, "change": 0.0, "pct": 0.0, "volume": 4344788}, {"ticker": "VSMO", "name": "ВСМПО-АВСМ", "price": 22880, "prev": 22880, "change": 0, "pct": 0.0, "volume": 3614000}, {"ticker": "VSYD", "name": "ВыбСудЗ ао", "price": 7900, "prev": 7900, "change": 0, "pct": 0.0, "volume": 15700}, {"ticker": "VSYDP", "name": "ВыбСудЗ ап", "price": 6850, "prev": 6850, "change": 0, "pct": 0.0, "volume": 6850}, {"ticker": "VTBR", "name": "ВТБ ао", "price": 76.8, "prev": 76.8, "change": 0.0, "pct": 0.0, "volume": 386948120}, {"ticker": "WTCM", "name": "ЦМТ ао", "price": 12.62, "prev": 12.62, "change": 0.0, "pct": 0.0, "volume": 72308}, {"ticker": "WTCMP", "name": "ЦМТ ап", "price": 12.04, "prev": 12.04, "change": 0.0, "pct": 0.0, "volume": 33684}, {"ticker": "WUSH", "name": "iВУШХолднг", "price": 66.15, "prev": 66.15, "change": 0.0, "pct": 0.0, "volume": 103612531}, {"ticker": "X5", "name": "КЦ ИКС 5", "price": 2369.5, "prev": 2369.5, "change": 0.0, "pct": 0.0, "volume": 81525390}, {"ticker": "YAKG", "name": "ЯТЭК ао", "price": 37.85, "prev": 37.85, "change": 0.0, "pct": 0.0, "volume": 1069984}, {"ticker": "YDEX", "name": "ЯНДЕКС", "price": 3971, "prev": 3971, "change": 0, "pct": 0.0, "volume": 150356114}, {"ticker": "YKEN", "name": "Якутскэнрг", "price": 0.35, "prev": 0.35, "change": 0.0, "pct": 0.0, "volume": 20930}, {"ticker": "YKENP", "name": "Якутскэн-п", "price": 0.26, "prev": 0.26, "change": 0.0, "pct": 0.0, "volume": 62490}, {"ticker": "YRSBP", "name": "ТНСэнЯр-п", "price": 197, "prev": 197, "change": 0, "pct": 0.0, "volume": 15840}, {"ticker": "ZAYM", "name": "Займер ао", "price": 145.15, "prev": 145.15, "change": 0.0, "pct": 0.0, "volume": 1482805}, {"ticker": "ZILL", "name": "ЗИЛ ао", "price": 4475, "prev": 4475, "change": 0, "pct": 0.0, "volume": 198830}, {"ticker": "ZVEZ", "name": "ЗВЕЗДА ао", "price": 5.12, "prev": 5.12, "change": 0.0, "pct": 0.0, "volume": 102130}]}, "dividends": {"X5": {"history": [{"registry_close_date": "2025-07-09", "amount_per_share": 648}], "next_payment": null, "announced": {"amount_per_share": 245, "record_date": "2026-07-07", "status": "рекомендовано советом директоров за 2025 год, доходность ~9.9%", "source": "dohod.ru, investmint.ru (15.06.2026)", "days_to_record": 18, "your_total_gross": 10290, "your_total_net": 8952.3, "your_shares": 42}, "pays_dividends": true}, "LENT": {"history": [], "next_payment": null, "pays_dividends": false}, "SBER": {"history": [{"registry_close_date": "2025-07-18", "amount_per_share": 34.84}, {"registry_close_date": "2024-07-11", "amount_per_share": 33.3}, {"registry_close_date": "2023-05-11", "amount_per_share": 25}, {"registry_close_date": "2021-05-12", "amount_per_share": 18.7}], "next_payment": null, "announced": {"amount_per_share": 37.64, "record_date": null, "payment_date": "2026-08-03", "status": "рекомендовано советом директоров за 2025 год, дата отсечки уточняется", "source": "investmint.ru (15.06.2026)", "days_to_record": null, "your_total_gross": 2785.36, "your_total_net": 2423.26, "your_shares": 74}, "pays_dividends": true}, "BELU": {"history": [{"registry_close_date": "2025-06-09", "amount_per_share": 25}, {"registry_close_date": "2024-10-11", "amount_per_share": 12.5}, {"registry_close_date": "2024-05-13", "amount_per_share": 225}, {"registry_close_date": "2023-12-27", "amount_per_share": 135}], "next_payment": null, "announced": {"amount_per_share_min": 27, "amount_per_share_max": 42, "status": "прогноз аналитиков на 2026 год, доходность 7.4-11.5%", "source": "t-bank пульс (30.03.2026)", "days_to_record": null, "your_shares": 12, "your_total_net_min": 281.88, "your_total_net_max": 438.48}, "pays_dividends": true}}, "meta": {"date": "2026-06-19", "time": "07:26", "month": 6, "weekday": 4, "is_friday": true}, "portfolio": {"total_value": 278992.0, "total_change": -572.0, "total_pct": -0.2, "positions": [{"ticker": "X5", "name": "ПАО «Корпоративный центр ИКС 5»", "qty": 42, "price": 2369.5, "change": -0.5, "pct": -0.02, "value": 99519.0, "day_rub": -21.0, "ath": 3764, "prev_price": 2368.5, "pct_from_ath": -37.0, "near_ath": false}, {"ticker": "LENT", "name": "МКПАО «Лента»", "qty": 53, "price": 1839, "change": 3, "pct": 0.16, "value": 97467, "day_rub": 159, "ath": 2300, "prev_price": 1840, "pct_from_ath": -20.0, "near_ath": false}, {"ticker": "SBER", "name": "ПАО Сбербанк", "qty": 74, "price": 316.29, "change": 0.89, "pct": 0.28, "value": 23405.0, "day_rub": 66.0, "ath": 388.11, "prev_price": 316.32, "pct_from_ath": -18.5, "near_ath": false}, {"ticker": "BELU", "name": "ПАО «НоваБев Групп»", "qty": 12, "price": 296.2, "change": 0.8, "pct": 0.27, "value": 3554.0, "day_rub": 10.0, "ath": 6822, "prev_price": 297, "pct_from_ath": -95.7, "near_ath": false}, {"ticker": "TGLD", "name": "БПИФ «Тинькофф Золото»", "qty": 4618, "price": 11.92, "change": -0.17, "pct": -1.41, "value": 55047.0, "day_rub": -785.0, "ath": null, "prev_price": null, "pct_from_ath": null, "near_ath": false}]}, "currency": {"usd": 73.36, "eur": 85.03, "cny": 10.8284, "usd_prev": 73.36, "usd_change": 0.0}, "oil": {"price": null, "change": null, "change_pct": null, "source": "недоступен ❌", "is_cached": false}, "rules_fired": [{"rule_id": "USD_STABLE", "signal": "ok", "message": "Курс доллара стабилен (73.4 руб.)", "portfolio_impact": {}}, {"rule_id": "DIV_SEASON_ACTIVE", "signal": "info", "message": "Дивидендный сезон — следи за датами отсечек по X5, Сберу и Novabev", "portfolio_impact": {}}, {"rule_id": "PEACE_TALKS", "signal": "positive", "message": "Сигналы деэскалации — позитив для российского рынка (РБК): США и Иран отменили мирные переговоры в Швейцарии", "portfolio_impact": {"SBER": {"signal": "positive", "reason": "Снятие санкционного давления — рост банковского сектора"}, "X5": {"signal": "positive", "reason": "Рост потребительского доверия"}, "LENT": {"signal": "positive", "reason": "Аналогично X5"}, "BELU": {"signal": "positive", "reason": "Рост потребительских расходов"}, "TGLD": {"signal": "negative", "reason": "Золото теряет как защитный актив при снижении рисков"}}}, {"rule_id": "GEOPOLITICAL_ESCALATION", "signal": "danger", "message": "Геополитическая эскалация — защитная позиция по портфелю (Ведомости): Лавров заявил, что война России и НАТО приведет к ядерным ударам", "portfolio_impact": {"TGLD": {"signal": "positive", "reason": "Золото растёт в условиях неопределённости"}, "SBER": {"signal": "high_risk", "reason": "Банковский сектор под давлением"}, "X5": {"signal": "neutral", "reason": "Ритейл — защитный сектор"}, "LENT": {"signal": "neutral", "reason": "Аналогично X5"}, "BELU": {"signal": "neutral", "reason": "Защитный потребительский сектор"}}}], "portfolio_signals": {"SBER": [{"signal": "positive", "reason": "Снятие санкционного давления — рост банковского сектора"}, {"signal": "high_risk", "reason": "Банковский сектор под давлением"}], "X5": [{"signal": "positive", "reason": "Рост потребительского доверия"}, {"signal": "neutral", "reason": "Ритейл — защитный сектор"}], "LENT": [{"signal": "positive", "reason": "Аналогично X5"}, {"signal": "neutral", "reason": "Аналогично X5"}], "BELU": [{"signal": "positive", "reason": "Рост потребительских расходов"}, {"signal": "neutral", "reason": "Защитный потребительский сектор"}], "TGLD": [{"signal": "negative", "reason": "Золото теряет как защитный актив при снижении рисков"}, {"signal": "positive", "reason": "Золото растёт в условиях неопределённости"}]}, "assets": [{"name": "Золото", "ticker": "TGLD", "in_portfolio": true, "why_watch": "Защитный актив. Растёт при ослаблении рубля, геополитике, инфляции и снижении ставки ФРС.", "price": 11.92, "change": -0.17, "pct": -1.41, "volume": 196683, "score": 0, "grade": "🔴 D", "reasons": [], "signals": {"buy_zone": "Рубль ослабляется (USD > +2%) + мировое золото растёт", "risk_zone": "Рубль укрепляется + ставка ФРС растёт", "neutral": "Стабильный курс рубля и нейтральная ФРС"}, "note": ""}, {"name": "Нефть (рублёвая)", "ticker": "BR-", "in_portfolio": false, "why_watch": "Влияет на курс рубля и весь российский рынок. Рост нефти → укрепление рубля → позитив для акций.", "price": 0, "change": 0, "pct": 0, "volume": 0, "score": 0, "grade": "🔴 D", "reasons": [], "signals": {"buy_zone": "Нефть Brent растёт + рубль стабилен", "risk_zone": "Нефть падает > 3% + ОПЕК+ снимает ограничения", "neutral": "Нефть в диапазоне $70-85"}, "note": ""}, {"name": "Серебро", "ticker": "SILV", "in_portfolio": false, "why_watch": "Более волатильный аналог золота. Реагирует на промышленный спрос (электроника, солнечные панели) + защитный актив.", "price": 0, "change": 0, "pct": 0, "volume": 0, "score": 0, "grade": "🔴 D", "reasons": [], "signals": {"buy_zone": "Золото растёт + промышленный спрос растёт + рубль слабеет", "risk_zone": "Промышленный спрос падает (рецессия) + рубль укрепляется", "neutral": "Золото стабильно, промышленность без изменений"}, "note": "Серебро исторически растёт быстрее золота в бычьем цикле и падает быстрее в медвежьем"}], "inefficiencies": {"portfolio": [], "market": [], "total": 0, "timestamp": "2026-06-19"}, "biweekly_report": null};
+let _log=_E,_logD='2026-06-19';
+async function getLog(){
+  const today=new Date().toISOString().slice(0,10);
+  if(_logD===today&&_log!==_E)return _log;
   try{
-    const today = new Date();
-    const from = new Date(today - 7*24*60*60*1000).toISOString().slice(0,10);
-    const url = 'https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.meta=off&iss.only=securities,marketdata';
-    const data = await moexGet(url);
-    const sc = data.securities.columns;
-    const mc = data.marketdata.columns;
-    const mktMap = {};
-    for(const r of data.marketdata.data){
-      const d = Object.fromEntries(mc.map((c,i)=>[c,r[i]]));
-      mktMap[d.SECID] = d;
-    }
-    const newStocks = data.securities.data
-      .map(r=>Object.fromEntries(sc.map((c,i)=>[c,r[i]])))
-      .filter(d=>{ if(!d.LISTDATE) return false; return new Date(d.LISTDATE) >= new Date(from); })
-      .slice(0,10);
-    if(upd) upd.textContent = new Date().toLocaleDateString('ru-RU');
-    if(!newStocks.length){
-      box.innerHTML='<div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Новых размещений за последнюю неделю нет</div>';
-      return;
-    }
-    box.innerHTML = newStocks.map(d=>{
-      const mkt = mktMap[d.SECID]||{};
-      const price = mkt.LAST||mkt.PREVPRICE||0;
-      const pct = mkt.LASTTOPREVPRICE||0;
-      const cls = pct>=0?'up':'dn';
-      return '<div class="sc-item"><div><div class="si-name">'+(d.SHORTNAME||d.SECID)+'</div>'
-        +'<div class="si-ticker">'+d.SECID+' · '+d.LISTDATE+'</div></div>'
-        +'<div><div class="si-price">'+(price?fmt(price)+' ₽':'—')+'</div>'
-        +'<div class="si-ch '+cls+'">'+(pct?(pct>=0?'+':'')+pct.toFixed(1)+'%':'—')+'</div></div></div>';
-    }).join('');
-  }catch(e){
-    if(box) box.innerHTML='<div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Открывай без VPN</div>';
-    console.log('IPO error:', e);
-  }
+    const r=await fetch('https://raw.githubusercontent.com/podlesnykhdn/my_prodject_invest/main/logs/collector/'+today+'.json',{signal:AbortSignal.timeout(5000)});
+    if(r.ok){_log=await r.json();_logD=today;}
+  }catch(e){}
+  return _log;
 }
 
-
-// Единая загрузка лога — кэшируется, чтобы не превышать GitHub API rate limit
-// Данные встроены при последнем запуске сборщика (2026-06-19 07:26)
-const _EMBEDDED_LOG = {"screener": {"top_volume": [{"ticker": "T", "name": "Т-Техно ао", "price": 290.7, "prev": 290.7, "change": 0.0, "pct": 0.0, "volume": 1006363113}, {"ticker": "ROSN", "name": "Роснефть", "price": 328, "prev": 328, "change": 0, "pct": 0.0, "volume": 930239960}, {"ticker": "SBER", "name": "Сбербанк", "price": 316.29, "prev": 316.29, "change": 0.0, "pct": 0.0, "volume": 794658209}, {"ticker": "GAZP", "name": "ГАЗПРОМ ао", "price": 107.29, "prev": 107.29, "change": 0.0, "pct": 0.0, "volume": 660710291}, {"ticker": "UGLD", "name": "ЮГК", "price": 0.63, "prev": 0.63, "change": 0.0, "pct": 0.0, "volume": 604745937}, {"ticker": "LKOH", "name": "ЛУКОЙЛ", "price": 4432.5, "prev": 4432.5, "change": 0.0, "pct": 0.0, "volume": 444972865}, {"ticker": "VTBR", "name": "ВТБ ао", "price": 76.8, "prev": 76.8, "change": 0.0, "pct": 0.0, "volume": 386948120}, {"ticker": "AFKS", "name": "Система ао", "price": 13.16, "prev": 13.16, "change": 0.0, "pct": 0.0, "volume": 316614348}, {"ticker": "NVTK", "name": "Новатэк ао", "price": 1007.2, "prev": 1007.2, "change": 0.0, "pct": 0.0, "volume": 303087869}, {"ticker": "SMLT", "name": "Самолет ао", "price": 403.8, "prev": 403.8, "change": 0.0, "pct": 0.0, "volume": 281374937}], "cheap_growth": [], "rising_interest": [{"ticker": "AFKS", "name": "Система ао", "price": 13.16, "pct": 0.0, "volume": 316614348, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "AFLT", "name": "Аэрофлот", "price": 42.75, "pct": 0.0, "volume": 114156196, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "ASTR", "name": "iАстра ао", "price": 188.45, "pct": 0.0, "volume": 63234653, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "CBOM", "name": "МКБ ао", "price": 8.89, "pct": 0.0, "volume": 76897696, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "ENPG", "name": "ЭН+ГРУП ао", "price": 390.4, "pct": 0.0, "volume": 67470432, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "IRAO", "name": "ИнтерРАОао", "price": 2.7, "pct": 0.0, "volume": 96102286, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "MTLR", "name": "Мечел ао", "price": 46, "pct": 0.0, "volume": 68681037, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}, {"ticker": "PIKK", "name": "ПИК ао", "price": 554.6, "pct": 0.0, "volume": 173883305, "prev_volume": 0, "vol_growth": 100, "signals": ["📈 объём x2"], "score": 50}]}, "dividends": {"X5": {"history": [{"registry_close_date": "2025-07-09", "amount_per_share": 648}], "next_payment": null, "announced": {"amount_per_share": 245, "record_date": "2026-07-07", "status": "рекомендовано советом директоров за 2025 год, доходность ~9.9%", "source": "dohod.ru, investmint.ru (15.06.2026)", "days_to_record": 18, "your_total_gross": 10290, "your_total_net": 8952.3, "your_shares": 42}, "pays_dividends": true}, "LENT": {"history": [], "next_payment": null, "pays_dividends": false}, "SBER": {"history": [{"registry_close_date": "2025-07-18", "amount_per_share": 34.84}, {"registry_close_date": "2024-07-11", "amount_per_share": 33.3}, {"registry_close_date": "2023-05-11", "amount_per_share": 25}, {"registry_close_date": "2021-05-12", "amount_per_share": 18.7}], "next_payment": null, "announced": {"amount_per_share": 37.64, "record_date": null, "payment_date": "2026-08-03", "status": "рекомендовано советом директоров за 2025 год, дата отсечки уточняется", "source": "investmint.ru (15.06.2026)", "days_to_record": null, "your_total_gross": 2785.36, "your_total_net": 2423.26, "your_shares": 74}, "pays_dividends": true}, "BELU": {"history": [{"registry_close_date": "2025-06-09", "amount_per_share": 25}, {"registry_close_date": "2024-10-11", "amount_per_share": 12.5}, {"registry_close_date": "2024-05-13", "amount_per_share": 225}, {"registry_close_date": "2023-12-27", "amount_per_share": 135}], "next_payment": null, "announced": {"amount_per_share_min": 27, "amount_per_share_max": 42, "status": "прогноз аналитиков на 2026 год, доходность 7.4-11.5%", "source": "t-bank пульс (30.03.2026)", "days_to_record": null, "your_shares": 12, "your_total_net_min": 281.88, "your_total_net_max": 438.48}, "pays_dividends": true}}, "meta": {"date": "2026-06-19", "time": "07:26", "month": 6, "weekday": 4, "is_friday": true}, "portfolio": {"total_value": 278992.0, "total_change": -572.0, "total_pct": -0.2, "positions": [{"ticker": "X5", "name": "ПАО «Корпоративный центр ИКС 5»", "qty": 42, "price": 2369.5, "change": -0.5, "pct": -0.02, "value": 99519.0, "day_rub": -21.0, "ath": 3764, "prev_price": 2368.5, "pct_from_ath": -37.0, "near_ath": false}, {"ticker": "LENT", "name": "МКПАО «Лента»", "qty": 53, "price": 1839, "change": 3, "pct": 0.16, "value": 97467, "day_rub": 159, "ath": 2300, "prev_price": 1840, "pct_from_ath": -20.0, "near_ath": false}, {"ticker": "SBER", "name": "ПАО Сбербанк", "qty": 74, "price": 316.29, "change": 0.89, "pct": 0.28, "value": 23405.0, "day_rub": 66.0, "ath": 388.11, "prev_price": 316.32, "pct_from_ath": -18.5, "near_ath": false}, {"ticker": "BELU", "name": "ПАО «НоваБев Групп»", "qty": 12, "price": 296.2, "change": 0.8, "pct": 0.27, "value": 3554.0, "day_rub": 10.0, "ath": 6822, "prev_price": 297, "pct_from_ath": -95.7, "near_ath": false}, {"ticker": "TGLD", "name": "БПИФ «Тинькофф Золото»", "qty": 4618, "price": 11.92, "change": -0.17, "pct": -1.41, "value": 55047.0, "day_rub": -785.0, "ath": null, "prev_price": null, "pct_from_ath": null, "near_ath": false}]}, "currency": {"usd": 73.36, "eur": 85.03, "cny": 10.8284, "usd_prev": 73.36, "usd_change": 0.0}, "oil": {"price": null, "change": null, "change_pct": null, "source": "недоступен ❌", "is_cached": false}, "rules_fired": [{"rule_id": "USD_STABLE", "signal": "ok", "message": "Курс доллара стабилен (73.4 руб.)", "portfolio_impact": {}}, {"rule_id": "DIV_SEASON_ACTIVE", "signal": "info", "message": "Дивидендный сезон — следи за датами отсечек по X5, Сберу и Novabev", "portfolio_impact": {}}, {"rule_id": "PEACE_TALKS", "signal": "positive", "message": "Сигналы деэскалации — позитив для российского рынка (РБК): США и Иран отменили мирные переговоры в Швейцарии", "portfolio_impact": {"SBER": {"signal": "positive", "reason": "Снятие санкционного давления — рост банковского сектора"}, "X5": {"signal": "positive", "reason": "Рост потребительского доверия"}, "LENT": {"signal": "positive", "reason": "Аналогично X5"}, "BELU": {"signal": "positive", "reason": "Рост потребительских расходов"}, "TGLD": {"signal": "negative", "reason": "Золото теряет как защитный актив при снижении рисков"}}}, {"rule_id": "GEOPOLITICAL_ESCALATION", "signal": "danger", "message": "Геополитическая эскалация — защитная позиция по портфелю (Ведомости): Лавров заявил, что война России и НАТО приведет к ядерным ударам", "portfolio_impact": {"TGLD": {"signal": "positive", "reason": "Золото растёт в условиях неопределённости"}, "SBER": {"signal": "high_risk", "reason": "Банковский сектор под давлением"}, "X5": {"signal": "neutral", "reason": "Ритейл — защитный сектор"}, "LENT": {"signal": "neutral", "reason": "Аналогично X5"}, "BELU": {"signal": "neutral", "reason": "Защитный потребительский сектор"}}}], "portfolio_signals": {"SBER": [{"signal": "positive", "reason": "Снятие санкционного давления — рост банковского сектора"}, {"signal": "high_risk", "reason": "Банковский сектор под давлением"}], "X5": [{"signal": "positive", "reason": "Рост потребительского доверия"}, {"signal": "neutral", "reason": "Ритейл — защитный сектор"}], "LENT": [{"signal": "positive", "reason": "Аналогично X5"}, {"signal": "neutral", "reason": "Аналогично X5"}], "BELU": [{"signal": "positive", "reason": "Рост потребительских расходов"}, {"signal": "neutral", "reason": "Защитный потребительский сектор"}], "TGLD": [{"signal": "negative", "reason": "Золото теряет как защитный актив при снижении рисков"}, {"signal": "positive", "reason": "Золото растёт в условиях неопределённости"}]}, "assets": [{"name": "Золото", "ticker": "TGLD", "in_portfolio": true, "why_watch": "Защитный актив. Растёт при ослаблении рубля, геополитике, инфляции и снижении ставки ФРС.", "price": 11.92, "change": -0.17, "pct": -1.41, "volume": 196683, "score": 0, "grade": "🔴 D", "reasons": [], "signals": {"buy_zone": "Рубль ослабляется (USD > +2%) + мировое золото растёт", "risk_zone": "Рубль укрепляется + ставка ФРС растёт", "neutral": "Стабильный курс рубля и нейтральная ФРС"}, "note": ""}, {"name": "Нефть (рублёвая)", "ticker": "BR-", "in_portfolio": false, "why_watch": "Влияет на курс рубля и весь российский рынок. Рост нефти → укрепление рубля → позитив для акций.", "price": 0, "change": 0, "pct": 0, "volume": 0, "score": 0, "grade": "🔴 D", "reasons": [], "signals": {"buy_zone": "Нефть Brent растёт + рубль стабилен", "risk_zone": "Нефть падает > 3% + ОПЕК+ снимает ограничения", "neutral": "Нефть в диапазоне $70-85"}, "note": ""}, {"name": "Серебро", "ticker": "SILV", "in_portfolio": false, "why_watch": "Более волатильный аналог золота. Реагирует на промышленный спрос (электроника, солнечные панели) + защитный актив.", "price": 0, "change": 0, "pct": 0, "volume": 0, "score": 0, "grade": "🔴 D", "reasons": [], "signals": {"buy_zone": "Золото растёт + промышленный спрос растёт + рубль слабеет", "risk_zone": "Промышленный спрос падает (рецессия) + рубль укрепляется", "neutral": "Золото стабильно, промышленность без изменений"}, "note": "Серебро исторически растёт быстрее золота в бычьем цикле и падает быстрее в медвежьем"}], "inefficiencies": {"portfolio": [], "market": [], "total": 0, "timestamp": "2026-06-19"}, "biweekly_report": null};
-let _cachedLog = _EMBEDDED_LOG;
-let _cachedLogDate = '2026-06-19';
-
-async function getCollectorLog(){
-  // Сначала пробуем загрузить свежие данные
-  const today = new Date().toISOString().slice(0,10);
-  if(_cachedLog && _cachedLogDate === today && _cachedLog !== _EMBEDDED_LOG) return _cachedLog;
-  try{
-    const url = 'https://raw.githubusercontent.com/podlesnykhdn/my_prodject_invest/main/logs/collector/' + today + '.json';
-    const res = await fetch(url, {signal: AbortSignal.timeout(5000)});
-    if(res.ok){
-      _cachedLog = await res.json();
-      _cachedLogDate = today;
-      return _cachedLog;
-    }
-  } catch(e){ console.log('Fresh log unavailable, using embedded:', e.message); }
-  // Fallback: встроенные данные
-  return _EMBEDDED_LOG;
-}
 async function loadPortfolio(){
   try{
-    const quotes = await fetchQuotes();
-    let totalVal=0, totalCh=0, hasData=false;
-    const rows = PORTFOLIO.map(pos=>{
-      const q=quotes[pos.ticker]||{};
-      const price=q.price||0, ch=q.change||0, pct=q.pct||0, vol=q.vol||0;
-      const posVal=price*pos.qty;
-      if(price>0) hasData=true;
-      totalVal+=posVal; totalCh+=ch*pos.qty;
-      const cls=ch>0?'up':ch<0?'dn':'neu', sign=ch>=0?'+':'';
+    const st=PORTFOLIO.filter(p=>p.board==='TQBR').map(p=>p.ticker).join(',');
+    const et=PORTFOLIO.filter(p=>p.board==='TQTF').map(p=>p.ticker).join(',');
+    const q={};
+    function parse(data){
+      if(!data||!data.marketdata)return;
+      const cols=data.marketdata.columns;
+      for(const row of data.marketdata.data){
+        const d=Object.fromEntries(cols.map((c,i)=>[c,row[i]]));
+        const price=d.LAST||d.PREVPRICE||0;
+        const change=d.CHANGE||0;
+        const ltp=d.LASTTOPREVPRICE;
+        const pct=ltp!=null?ltp:(price?change/price*100:0);
+        if(price>0)q[d.SECID]={price,change,pct,vol:d.VALTODAY||0};
+      }
+    }
+    const res=await Promise.allSettled([
+      moexGet('https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?securities='+st+'&iss.meta=off&iss.only=marketdata'),
+      moexGet('https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQTF/securities.json?securities='+et+'&iss.meta=off&iss.only=marketdata'),
+    ]);
+    res.forEach(r=>{if(r.status==='fulfilled')parse(r.value);});
+    const log=await getLog();
+    const lpos=((log.portfolio||{}).positions||[]);
+    const lmap={};lpos.forEach(p=>{lmap[p.ticker]=p;});
+    let tv=0,tc=0,hd=false;
+    const rows=PORTFOLIO.map(pos=>{
+      const qi=q[pos.ticker]||{};
+      const price=qi.price||0,ch=qi.change||0,pct=qi.pct||0,vol=qi.vol||0;
+      const pv=price*pos.qty;if(price>0)hd=true;tv+=pv;tc+=ch*pos.qty;
+      const cls=ch>0?'up':ch<0?'dn':'neu',sign=ch>=0?'+':'';
       const badge=pos.etf?'<span class="badge etf">ETF</span>':pos.div?'<span class="badge yes">Да</span>':'<span class="badge no">Нет</span>';
-        // Берём ATH и prev_price из встроенного лога
-        const embPositions = (_EMBEDDED_LOG.portfolio||{}).positions||[];
-        const embPos = embPositions.find(p=>p.ticker===pos.ticker)||{};
-        const posLog = embPos;
-        const prevPrice = posLog.prev_price;
-        const ath = posLog.ath;
-        const nearAth = posLog.near_ath;
-        const pctAth = posLog.pct_from_ath;
-        const prevCell = (prevPrice && prevPrice !== price)
-          ? '<span style="color:var(--muted);font-size:0.72rem;">'+fmt(prevPrice)+' ₽</span>'
-          : '—';
-        let athCell = '—';
-        if(ath){
-          const fire = nearAth ? ' 🔥' : '';
-          const athColor = nearAth ? 'color:var(--warn);font-weight:700;' : '';
-          const pctStr = (pctAth!=null) ? ((pctAth>=0?'+':'')+pctAth+'%') : '';
-          athCell = '<span class="mono" style="'+athColor+'">'+fmt(ath)+' ₽'+fire
-            +'<br><span style="font-size:0.7rem;color:var(--muted);">'+pctStr+'</span></span>';
-        }
-        return `<tr>
-          <td title="${pos.name}">${pos.short||pos.name}</td>
-          <td class="mono">${pos.ticker}</td>
-          <td class="mono">${fmt(pos.qty)}</td>
-          <td class="mono">${price?fmt(price)+' ₽':'—'}</td>
-          <td class="mono">${prevCell}</td>
-          <td class="mono ${cls}">${price?(sign+ch.toFixed(2)+' ('+sign+pct.toFixed(1)+'%)'):'&mdash;'}</td>
-          <td class="mono">${fmtVol(vol)}</td>
-          <td class="mono">${price?fmt(posVal)+' ₽':'—'}</td>
-          <td>${athCell}</td>
-          <td>${badge}</td>
-        </tr>`;;
+      const lp=lmap[pos.ticker]||{};
+      const prevC=(lp.prev_price&&lp.prev_price!==price)?'<span style="color:var(--muted);font-size:0.72rem;">'+fmt(lp.prev_price)+' ₽</span>':'—';
+      let athC='—';
+      if(lp.ath){const fire=lp.near_ath?' 🔥':'';const ac=lp.near_ath?'color:var(--warn);font-weight:700;':'';const ps=lp.pct_from_ath!=null?(lp.pct_from_ath>=0?'+':'')+lp.pct_from_ath+'%':'';athC='<span class="mono" style="'+ac+'">'+fmt(lp.ath)+' ₽'+fire+'<br><span style="font-size:0.7rem;color:var(--muted);">'+ps+'</span></span>';}
+      return '<tr><td title="'+pos.name+'">'+(pos.short||pos.name)+'</td><td class="mono">'+pos.ticker+'</td><td class="mono">'+fmt(pos.qty)+'</td><td class="mono">'+(price?fmt(price)+' ₽':'—')+'</td><td class="mono">'+prevC+'</td><td class="mono '+cls+'">'+(price?(sign+ch.toFixed(2)+' ('+sign+pct.toFixed(1)+'%)'):'—')+'</td><td class="mono">'+fmtVol(vol)+'</td><td class="mono">'+(price?fmt(pv)+' ₽':'—')+'</td><td>'+athC+'</td><td>'+badge+'</td></tr>';
     });
     document.getElementById('ptbody').innerHTML=rows.join('');
-    if(hasData){
-      const cls=totalCh>=0?'up':'dn', sign=totalCh>=0?'+':'';
-      document.getElementById('c-total').textContent=fmt(totalVal)+' ₽';
-      document.getElementById('c-change').className='val '+cls;
-      document.getElementById('c-change').textContent=sign+fmt(totalCh)+' ₽';
-      document.getElementById('c-status').textContent='MOEX Live';
-      document.getElementById('c-status').style.color='var(--green)';
-      document.getElementById('portfolio-notice').innerHTML='';
-    } else { showOffline(); }
-  } catch(e){
-    console.log('Portfolio error:',e.message);
-    showOffline();
-  }
-}
-
-function showOffline(){
-  document.getElementById('c-total').textContent='~280 000 ₽';
-  document.getElementById('c-change').className='val neu';
-  document.getElementById('c-change').textContent='—';
-  document.getElementById('c-status').textContent='Нет данных';
-  document.getElementById('c-status').style.color='var(--warn)';
-  document.getElementById('portfolio-notice').innerHTML=
-    '<div class="notice"><strong>Данные MOEX недоступны.</strong> Биржа работает пн–пт 10:00–18:40 МСК. Открывай дашборд без VPN.</div>';
-  document.getElementById('ptbody').innerHTML=
-    PORTFOLIO.map(pos=>{
-      const badge=pos.etf?'<span class="badge etf">ETF</span>':pos.div?'<span class="badge yes">Да</span>':'<span class="badge no">Нет</span>';
-      return `<tr><td>${pos.name}</td><td class="mono">${pos.ticker}</td><td class="mono">${fmt(pos.qty)}</td>
-        <td class="mono neu">—</td><td class="mono neu">—</td><td class="mono neu">—</td><td class="mono neu">—</td><td>${badge}</td></tr>`;
-    }).join('');
+    if(hd){const cls=tc>=0?'up':'dn',sign=tc>=0?'+':'';document.getElementById('c-total').textContent=fmt(tv)+' ₽';document.getElementById('c-change').className='val '+cls;document.getElementById('c-change').textContent=sign+fmt(tc)+' ₽';document.getElementById('c-status').textContent='MOEX Live';document.getElementById('c-status').style.color='var(--green)';document.getElementById('portfolio-notice').innerHTML='';}
+    else{document.getElementById('c-total').textContent='279 000 ₽';document.getElementById('c-change').className='val neu';document.getElementById('c-change').textContent='—';document.getElementById('c-status').textContent='Кэш';document.getElementById('c-status').style.color='var(--warn)';}
+  }catch(e){console.log('Portfolio:',e);}
 }
 
 async function loadScreener(){
-  window._screenerDividends = {};
-  document.getElementById('vol-list').innerHTML = '<div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка...</div>';
-  document.getElementById('growth-list').innerHTML = '<div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка...</div>';
   try{
-    const logData = await getCollectorLog();
-    if(!logData) throw new Error('no log');
-    window._screenerDividends = logData.dividends || {};
-    const screener = logData.screener || {};
-    const topVol = screener.top_volume || [];
-    const cheap  = screener.cheap_growth || [];
-    const weekKey = getWeekKey();
-    const volHistory = JSON.parse(localStorage.getItem('volHistory') || '{}');
-
-    if(topVol.length){
-      document.getElementById('vol-list').innerHTML = topVol.slice(0,8).map(function(s){
-        const cls = s.pct >= 0 ? 'up' : 'dn';
-        const sign = s.pct >= 0 ? '+' : '';
-        return '<div class="sc-item">'
-          + '<div><div class="si-name">' + s.name + '</div>'
-          + '<div class="si-ticker">' + s.ticker + ' · ' + fmtVol(s.volume) + ' ₽</div></div>'
-          + '<div><div class="si-price">' + fmt(s.price) + ' ₽</div>'
-          + '<div class="si-ch ' + cls + '">' + sign + s.pct.toFixed(1) + '%</div></div>'
-          + '</div>';
-      }).join('');
-    } else {
-      document.getElementById('vol-list').innerHTML = '<div style="padding:16px;color:var(--muted);font-size:0.8rem;text-align:center;">Биржа закрыта или нет данных</div>';
-    }
-
-    if(cheap.length){
-      document.getElementById('growth-list').innerHTML = cheap.slice(0,8).map(function(s){
-        const volTrend = getVolTrend(s.ticker, volHistory, weekKey);
-        const di = window._screenerDividends[s.ticker] || {};
-        let divLine = '';
-        if(di.next_payment){
-          const np = di.next_payment;
-          divLine = '<div style="font-size:0.7rem;color:var(--green);">💰 ' + np.amount_per_share + ' ₽/акц. ' + np.days_to_record + ' дн.</div>';
-        } else if(di.announced && di.announced.amount_per_share){
-          divLine = '<div style="font-size:0.7rem;color:var(--green);">💰 ' + di.announced.amount_per_share + ' ₽/акц. (анонс)</div>';
-        }
-        return '<div class="sc-item" style="flex-direction:column;align-items:flex-start;gap:3px;">'
-          + '<div style="display:flex;justify-content:space-between;width:100%;">'
-          + '<div><div class="si-name">' + s.name + '</div>'
-          + '<div class="si-ticker">' + s.ticker + ' · ' + fmtVol(s.volume) + ' ₽ ' + volTrend + '</div></div>'
-          + '<div><div class="si-price">' + fmt(s.price) + ' ₽</div>'
-          + '<div class="si-ch up">+' + s.pct.toFixed(1) + '% ' + (s.grade||'') + '</div></div>'
-          + '</div>' + divLine + '</div>';
-      }).join('');
-    } else {
-      document.getElementById('growth-list').innerHTML = '<div style="padding:16px;color:var(--muted);font-size:0.8rem;text-align:center;">Биржа закрыта или нет роста</div>';
-    }
-
-    if(!volHistory[weekKey]) volHistory[weekKey] = {};
-    topVol.concat(cheap).forEach(function(s){ if(s.volume>0) volHistory[weekKey][s.ticker]=(volHistory[weekKey][s.ticker]||0)+s.volume; });
-    const weeks = Object.keys(volHistory).sort().slice(-4);
-    const trimmed = {};
-    weeks.forEach(function(w){ trimmed[w]=volHistory[w]; });
-    localStorage.setItem('volHistory', JSON.stringify(trimmed));
-    document.getElementById('screener-notice').innerHTML = '';
-  } catch(e){
-    console.log('Screener error:', e);
-    document.getElementById('screener-notice').innerHTML = '<div class="notice"><strong>Ошибка.</strong> Проверь подключение.</div>';
-    document.getElementById('vol-list').innerHTML = '';
-    document.getElementById('growth-list').innerHTML = '';
-  }
+    const log=await getLog();
+    window._sd=log.dividends||{};
+    const sc=log.screener||{};
+    const tv=sc.top_volume||[];
+    const cg=sc.cheap_growth||[];
+    const wk=getWeekKey();
+    const vh=JSON.parse(localStorage.getItem('volHistory')||'{}');
+    document.getElementById('vol-list').innerHTML=tv.length?tv.slice(0,8).map(function(s){const cls=s.pct>=0?'up':'dn';return '<div class="sc-item"><div><div class="si-name">'+s.name+'</div><div class="si-ticker">'+s.ticker+' · '+fmtVol(s.volume)+' ₽</div></div><div><div class="si-price">'+fmt(s.price)+' ₽</div><div class="si-ch '+cls+'">'+(s.pct>=0?'+':'')+s.pct.toFixed(1)+'%</div></div></div>';}).join(''):'<div style="padding:16px;color:var(--muted);font-size:0.8rem;text-align:center;">Биржа закрыта или нет данных</div>';
+    document.getElementById('growth-list').innerHTML=cg.length?cg.slice(0,8).map(function(s){const vt=getVolTrend(s.ticker,vh,wk);const di=window._sd[s.ticker]||{};let dl='';if(di.next_payment)dl='<div style="font-size:0.7rem;color:var(--green);">💰 '+di.next_payment.amount_per_share+' ₽/акц.</div>';else if(di.announced&&di.announced.amount_per_share)dl='<div style="font-size:0.7rem;color:var(--green);">💰 '+di.announced.amount_per_share+' ₽/акц. (анонс)</div>';return '<div class="sc-item" style="flex-direction:column;align-items:flex-start;gap:3px;"><div style="display:flex;justify-content:space-between;width:100%;"><div><div class="si-name">'+s.name+'</div><div class="si-ticker">'+s.ticker+' · '+fmtVol(s.volume)+' ₽ '+vt+'</div></div><div><div class="si-price">'+fmt(s.price)+' ₽</div><div class="si-ch up">+'+s.pct.toFixed(1)+'% '+(s.grade||'')+'</div></div></div>'+dl+'</div>';}).join(''):'<div style="padding:16px;color:var(--muted);font-size:0.8rem;text-align:center;">Биржа закрыта или нет роста сегодня</div>';
+    if(!vh[wk])vh[wk]={};tv.concat(cg).forEach(function(s){if(s.volume>0)vh[wk][s.ticker]=(vh[wk][s.ticker]||0)+s.volume;});
+    const wks=Object.keys(vh).sort().slice(-4);const tr={};wks.forEach(w=>{tr[w]=vh[w];});localStorage.setItem('volHistory',JSON.stringify(tr));
+  }catch(e){console.log('Screener:',e);}
 }
 
+async function loadRisingInterest(){
+  const box=document.getElementById('rising-list');
+  try{
+    const log=await getLog();
+    const rising=(log.screener||{}).rising_interest||[];
+    if(!rising.length){box.innerHTML='<div style="padding:16px;color:var(--muted);font-size:0.8rem;text-align:center;">Данные накапливаются первую неделю</div>';return;}
+    box.innerHTML=rising.map(function(s){const cls=s.pct>=0?'up':'dn';const vg=(s.vol_growth>=0?'+':'')+s.vol_growth+'%';const sigs=(s.signals||[]).join(' · ');return '<div class="sc-item" style="flex-direction:column;align-items:flex-start;gap:3px;"><div style="display:flex;justify-content:space-between;width:100%;"><div><div class="si-name">'+s.name+'</div><div class="si-ticker">'+s.ticker+' · '+fmtVol(s.volume)+' · <span style="color:var(--green);">'+vg+' н/н</span></div></div><div><div class="si-price">'+fmt(s.price)+' ₽</div><div class="si-ch '+cls+'">'+(s.pct>=0?'+':'')+s.pct.toFixed(1)+'%</div></div></div><div style="font-size:0.7rem;color:var(--muted);">'+sigs+'</div></div>';}).join('');
+  }catch(e){box.innerHTML='<div style="padding:16px;color:var(--muted);font-size:0.8rem;text-align:center;">Ошибка</div>';}
+}
+
+async function loadIPO(){
+  const box=document.getElementById('ipo-list'),upd=document.getElementById('ipo-last-update');
+  try{
+    const from=new Date(Date.now()-7*24*60*60*1000).toISOString().slice(0,10);
+    const data=await moexGet('https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.meta=off&iss.only=securities,marketdata');
+    const sc=data.securities.columns,mc=data.marketdata.columns;
+    const mkt={};for(const r of data.marketdata.data){const d=Object.fromEntries(mc.map((c,i)=>[c,r[i]]));mkt[d.SECID]=d;}
+    const news=data.securities.data.map(r=>Object.fromEntries(sc.map((c,i)=>[c,r[i]]))).filter(d=>d.LISTDATE&&new Date(d.LISTDATE)>=new Date(from)).slice(0,10);
+    if(upd)upd.textContent=new Date().toLocaleDateString('ru-RU');
+    if(!news.length){box.innerHTML='<div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Новых размещений за неделю нет</div>';return;}
+    box.innerHTML=news.map(d=>{const m=mkt[d.SECID]||{};const p=m.LAST||m.PREVPRICE||0;const pct=m.LASTTOPREVPRICE||0;return '<div class="sc-item"><div><div class="si-name">'+(d.SHORTNAME||d.SECID)+'</div><div class="si-ticker">'+d.SECID+' · '+d.LISTDATE+'</div></div><div><div class="si-price">'+(p?fmt(p)+' ₽':'—')+'</div><div class="si-ch '+(pct>=0?'up':'dn')+'">'+(pct?(pct>=0?'+':'')+pct.toFixed(1)+'%':'—')+'</div></div></div>';}).join('');
+  }catch(e){box.innerHTML='<div style="padding:18px;text-align:center;color:var(--muted);font-size:0.8rem;">Открывай без VPN</div>';}
+}
+
+async function loadDividends(){
+  const box=document.getElementById('dividend-calendar');
+  try{
+    const log=await getLog();
+    const divs=log.dividends||{};
+    const now=new Date();now.setHours(0,0,0,0);
+    box.innerHTML=['X5','SBER','BELU','LENT','TGLD'].map(ticker=>{
+      const info=divs[ticker];if(!info)return '';
+      const next=info.next_payment,ann=info.announced;
+      const name=PNAMES[ticker]||ticker;
+      let amtH,totH='',cdH='',srcH='';let isN=false;
+      if(next){
+        amtH='<div class="div-amount">'+next.amount_per_share+' ₽/акц.</div>';
+        if(next.your_total_net)totH='<div class="div-total">Твой доход: <b>'+fmt(next.your_total_net)+' ₽</b></div>';
+        if(next.days_to_record!=null&&next.days_to_record>=0){isN=next.days_to_record<=30;const c=next.days_to_record<=7?'soon':'';cdH='<div class="div-countdown '+c+'">Отсечка через '+next.days_to_record+' дн. ('+next.record_date+')</div>';}
+      }else if(ann){
+        if(ann.amount_per_share)amtH='<div class="div-amount">'+ann.amount_per_share+' ₽/акц. <span style="font-size:0.7rem;color:var(--muted);">(анонс)</span></div>';
+        else if(ann.amount_per_share_min)amtH='<div class="div-amount">'+ann.amount_per_share_min+'–'+ann.amount_per_share_max+' ₽/акц. <span style="font-size:0.7rem;color:var(--muted);">(прогноз)</span></div>';
+        else amtH='<div class="div-amount none">Нет данных</div>';
+        if(ann.your_total_net)totH='<div class="div-total">Твой доход: <b>'+fmt(ann.your_total_net)+' ₽</b></div>';
+        if(ann.days_to_record!=null&&ann.days_to_record>=0){isN=ann.days_to_record<=30;const c=ann.days_to_record<=7?'soon':'';cdH='<div class="div-countdown '+c+'">Отсечка через '+ann.days_to_record+' дн. ('+ann.record_date+')</div>';}
+        else if(ann.payment_date)cdH='<div class="div-countdown">Выплата ~'+ann.payment_date+'</div>';
+        if(ann.source)srcH='<div style="font-size:0.7rem;color:var(--muted);margin-top:4px;">'+ann.status+'</div>';
+      }else{amtH='<div class="div-amount none">'+(info.pays_dividends?'Следующая выплата не объявлена':'Не платит дивиденды')+'</div>';}
+      const hist=(info.history||[]).slice(0,3).map(h=>'<div>'+h.registry_close_date+': '+(h.amount_per_share||'—')+' ₽</div>').join('');
+      return '<div class="div-card'+(isN?' next':'')+'"><div class="div-ticker">'+ticker+'</div><div class="div-name">'+name+'</div>'+amtH+cdH+totH+srcH+(hist?'<div class="div-history">'+hist+'</div>':'')+'</div>';
+    }).join('');
+  }catch(e){box.innerHTML='<div class="notice">Ошибка загрузки дивидендов</div>';}
+}
+
+function renderMd(t){return t.replace(/### (.+)/g,'<h3>$1</h3>').replace(/## (.+)/g,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').split(/\n\n+/).map(p=>p.startsWith('<')?p:'<p>'+p+'</p>').join('');}
+async function callClaude(prompt,mt){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:mt,messages:[{role:'user',content:prompt}]})});const d=await r.json();return d.content.map(b=>b.text||'').join('');}
+async function loadMentor(){const box=document.getElementById('mentor-box'),btn=document.getElementById('btn-mentor');btn.disabled=true;box.innerHTML='<p style="color:var(--muted)">Готовлю урок...</p>';const n=(parseInt(localStorage.getItem('ln')||'15')+1);localStorage.setItem('ln',n);try{const t=await callClaude('Ментор для новичка-инвестора. Урок №'+n+'. 1-5:основы акций/биржи. 6-10:котировки/дивиденды/P/E. 11+:стратегии/риски/ОФЗ. Урок №'+n+': до 200 слов, простой язык, пример, ключевая мысль. Русский.',600);box.innerHTML='<div class="lesson-num">УРОК '+n+'</div>'+renderMd(t);}catch(e){box.innerHTML='<p style="color:var(--red)">Ошибка.</p>';}btn.disabled=false;}
+async function loadAnalyst(){const box=document.getElementById('analyst-box'),btn=document.getElementById('btn-analyst');btn.disabled=true;box.innerHTML='<p style="color:var(--muted)">Анализирую рынок...</p>';const today=new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long'});try{const t=await callClaude('Инвестиционный аналитик. Портфель ('+today+'): X5 42акц.дивид., Лента LENT 53акц., Сбер SBER 74акц.дивид., Novabev BELU 12акц.дивид., TGLD золото 4618паёв. ~280тыс.руб. Долгосрочная дивидендная стратегия. По каждой позиции: ситуация+факторы+вывод. Честно. До 300 слов. Русский.',700);box.innerHTML='<div class="lesson-num">СВОДКА · '+today.toUpperCase()+'</div>'+renderMd(t);}catch(e){box.innerHTML='<p style="color:var(--red)">Ошибка.</p>';}btn.disabled=false;}
+
+async function loadMarket(){
+  const pfB=document.getElementById('market-portfolio'),mkB=document.getElementById('market-signals'),tsB=document.getElementById('market-ts');
+  try{
+    const log=await getLog();
+    const ineff=log.inefficiencies||{};
+    if(tsB)tsB.textContent='Данные от '+((log.meta&&log.meta.date)||'?');
+    function renderS(items,box){
+      if(!items||!items.length){box.innerHTML='<div class="notice">Сигналов не обнаружено</div>';return;}
+      box.innerHTML=items.map(function(item){
+        const sigs=(item.signals||[]).map(function(s){const bar=Math.round(s.strength/10);const bh='<span style="color:var(--accent);">'+'█'.repeat(bar)+'</span><span style="color:var(--border);">'+'█'.repeat(10-bar)+'</span>';return '<div style="margin:6px 0;padding:8px 12px;background:var(--surface2);border-radius:6px;"><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:0.82rem;font-weight:600;">'+s.emoji+' '+s.title+'</span><span style="font-family:monospace;font-size:0.72rem;">'+bh+' '+Math.round(s.strength)+'</span></div><div style="font-size:0.78rem;color:var(--muted);margin-top:3px;">'+s.detail+'</div><div style="font-size:0.78rem;color:var(--text);margin-top:4px;font-style:italic;">'+s.signal+'</div></div>';}).join('');
+        const cls=item.pct>=0?'up':'dn';const pf=item.in_portfolio?'<span style="background:var(--accent);color:#fff;font-size:0.65rem;padding:1px 6px;border-radius:4px;margin-left:6px;">портфель</span>':'';
+        return '<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:12px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><div><span style="font-weight:700;">'+item.ticker+'</span>'+pf+'</div><div><span class="mono">'+fmt(item.price)+' ₽</span> <span class="'+cls+'" style="font-size:0.78rem;">'+(item.pct>=0?'+':'')+item.pct.toFixed(1)+'%</span></div></div>'+sigs+'</div>';
+      }).join('');
+    }
+    renderS(ineff.portfolio||[],pfB);renderS(ineff.market||[],mkB);
+  }catch(e){pfB.innerHTML='<div class="notice">Открывай без VPN или запусти сборщик через Actions.</div>';mkB.innerHTML='';console.log('Market:',e);}
+}
+
+async function loadOFZ(){
+  try{
+    const today=new Date();
+    const data=await moexGet('https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQOB/securities.json?iss.meta=off&iss.only=securities,marketdata&limit=500');
+    const sc=data.securities.columns,mc=data.marketdata.columns;
+    const iS=sc.indexOf('SECID'),iM=sc.indexOf('MATDATE'),iC=sc.indexOf('COUPONVALUE'),iN=sc.indexOf('FACEVALUE');
+    const mS=mc.indexOf('SECID'),mP=mc.indexOf('LAST'),mPr=mc.indexOf('PREVPRICE'),mY=mc.indexOf('YIELDATPREVWAPRICE');
+    const mkt={};for(const r of data.marketdata.data){mkt[r[mS]]=r;}
+    const now=today.getTime();const bonds=[];
+    for(const row of data.securities.data){
+      const secid=row[iS],mat=row[iM],coupon=row[iC]||0,nom=row[iN]||1000;
+      if(!mat||!secid||!secid.startsWith('SU'))continue;
+      const matT=new Date(mat).getTime();if(matT<=now)continue;
+      const m=mkt[secid]||[];const price=m[mP]||m[mPr]||0;if(!price||price<10)continue;
+      const yld=m[mY]||0;const yr=(matT-now)/(365.25*24*3600*1000);
+      const cpct=price?(coupon*2/(price*nom/100)*100):0;
+      bonds.push({secid,mat,yr,price:Math.round(price*10)/10,coupon,yld:Math.round(yld*100)/100,cpct:Math.round(cpct*100)/100,nom});
+    }
+    const sh=bonds.filter(b=>b.yr<3).sort((a,b)=>b.yld-a.yld).slice(0,15);
+    const mi=bonds.filter(b=>b.yr>=3&&b.yr<10).sort((a,b)=>b.yld-a.yld).slice(0,15);
+    const lo=bonds.filter(b=>b.yr>=10).sort((a,b)=>b.yld-a.yld).slice(0,15);
+    function rOFZ(id,list){const tb=document.getElementById(id);if(!list.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--muted);">Нет данных</td></tr>';return;}tb.innerHTML=list.map(b=>{const yC=b.yld>=14?'style="color:var(--green);font-weight:700;"':b.yld>=12?'style="color:var(--warn);"':'';const pr=Math.round(b.price*b.nom/100);return '<tr><td class="mono" style="font-size:0.8rem;">'+b.secid+'</td><td class="mono">'+b.mat.slice(0,10)+'</td><td class="mono">'+b.yr.toFixed(1)+'</td><td class="mono">'+b.price+'% <span style="color:var(--muted);font-size:0.72rem;">('+pr+' ₽)</span></td><td class="mono">'+b.coupon+' ₽</td><td class="mono" '+yC+'>'+(b.yld?b.yld+'%':'—')+'</td></tr>';}).join('');}
+    rOFZ('ofz-short',sh);rOFZ('ofz-mid',mi);rOFZ('ofz-long',lo);
+    document.getElementById('ofz-cbr').textContent='Данные на '+today.toLocaleDateString('ru-RU');
+  }catch(e){['ofz-short','ofz-mid','ofz-long'].forEach(id=>{document.getElementById(id).innerHTML='<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--muted);">Открывай без VPN</td></tr>';});console.log('OFZ:',e);}
+}
 
 async function loadAll(){
   document.getElementById('last-update').textContent='Обновлено в '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
   await Promise.all([loadPortfolio(),loadScreener(),loadIPO(),loadDividends(),loadRisingInterest()]);
 }
-
 loadAll();
 </script>
 </body>
