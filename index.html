@@ -115,6 +115,7 @@ tr:hover td{background:var(--surface2);}
   <div class="tab" onclick="switchTab('screener')">Скринер</div>
   <div class="tab" onclick="switchTab('mentor')">Ментор</div>
   <div class="tab" onclick="switchTab('analyst')">Аналитик</div>
+  <div class="tab" onclick="switchTab('market')">Рынок</div>
   <div class="tab" onclick="switchTab('ofz')">ОФЗ</div>
 </nav>
 
@@ -250,6 +251,21 @@ tr:hover td{background:var(--surface2);}
     ⚠️ Купонный доход ОФЗ не облагается НДФЛ. Налог 13% платится только с разницы цен при продаже до погашения.
   </div>
 </div>
+<div class="panel" id="tab-market">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+    <div class="section-title" style="margin:0;">Аналитик — рыночные неэффективности</div>
+    <div id="market-ts" style="font-size:0.72rem;color:var(--muted);"></div>
+  </div>
+  <div style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;">
+    Роль ищет аномалии: панику, объёмные всплески, отрыв от рынка, дивидендные гэпы и акции у минимумов. Сигнал — не рекомендация, а повод изучить подробнее.
+  </div>
+
+  <div class="section-title">По твоему портфелю</div>
+  <div id="market-portfolio"><div class="notice">Загрузка...</div></div>
+
+  <div class="section-title" style="margin-top:20px;">По рынку в целом</div>
+  <div id="market-signals"><div class="notice">Загрузка...</div></div>
+</div>
 </main>
 
 <script>
@@ -262,13 +278,17 @@ const PORTFOLIO = [
 ];
 
 function switchTab(name) {
-  ['portfolio','screener','mentor','analyst','ofz'].forEach((n,i)=>{
+  ['portfolio','screener','mentor','analyst','ofz','market'].forEach((n,i)=>{
     document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
     document.getElementById('tab-'+n).classList.toggle('active',n===name);
   });
   if(name==='ofz' && !window._ofzLoaded){
     window._ofzLoaded = true;
     loadOFZ();
+  }
+  if(name==='market' && !window._marketLoaded){
+    window._marketLoaded = true;
+    loadMarket();
   }
 }
 
@@ -912,6 +932,69 @@ function renderOFZ(tbodyId, bonds){
       + '<td class="mono">' + (b.couponPct ? b.couponPct.toFixed(1) + '%' : '—') + '</td>'
       + '</tr>';
   }).join('');
+}
+
+
+
+async function loadMarket(){
+  const pfBox  = document.getElementById('market-portfolio');
+  const mkBox  = document.getElementById('market-signals');
+  const tsBox  = document.getElementById('market-ts');
+  try{
+    const listRes = await fetch(
+      'https://api.github.com/repos/podlesnykhdn/my_prodject_invest/contents/logs/collector',
+      {headers:{'Accept':'application/vnd.github.v3+json'}});
+    if(!listRes.ok) throw new Error('list failed');
+    const files = await listRes.json();
+    const sorted = files.filter(f=>f.name.endsWith('.json')).sort((a,b)=>b.name.localeCompare(a.name));
+    if(!sorted.length) throw new Error('no logs');
+    const fileRes = await fetch(sorted[0].download_url);
+    const log = await fileRes.json();
+    const ineff = log.inefficiencies || {};
+    tsBox.textContent = 'Данные от ' + (log.meta && log.meta.date || '?');
+
+    function renderSignals(items, box){
+      if(!items || !items.length){
+        box.innerHTML = '<div class="notice">Сигналов не обнаружено</div>';
+        return;
+      }
+      box.innerHTML = items.map(function(item){
+        const sigs = (item.signals||[]).map(function(s){
+          const bar = Math.round(s.strength / 10);
+          const barHtml = '<span style="color:var(--accent);">' + '█'.repeat(bar) + '</span>'
+            + '<span style="color:var(--border);">' + '█'.repeat(10-bar) + '</span>';
+          return '<div style="margin:6px 0;padding:8px 12px;background:var(--surface2);border-radius:6px;">'
+            + '<div style="display:flex;align-items:center;justify-content:space-between;">'
+            + '<span style="font-size:0.82rem;font-weight:600;">' + s.emoji + ' ' + s.title + '</span>'
+            + '<span style="font-family:monospace;font-size:0.72rem;">' + barHtml + ' ' + Math.round(s.strength) + '</span>'
+            + '</div>'
+            + '<div style="font-size:0.78rem;color:var(--muted);margin-top:3px;">' + s.detail + '</div>'
+            + '<div style="font-size:0.78rem;color:var(--text);margin-top:4px;font-style:italic;">' + s.signal + '</div>'
+            + '</div>';
+        }).join('');
+        const cls = item.pct >= 0 ? 'up' : 'dn';
+        const pf = item.in_portfolio ? ' <span style="background:var(--accent);color:#fff;font-size:0.65rem;padding:1px 6px;border-radius:4px;">портфель</span>' : '';
+        return '<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:12px;">'
+          + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
+          + '<div><span style="font-weight:700;">' + item.ticker + '</span>' + pf
+          + ' <span style="color:var(--muted);font-size:0.78rem;">' + (item.name||'').slice(0,25) + '</span></div>'
+          + '<div style="text-align:right;">'
+          + '<span style="font-family:monospace;">' + fmt(item.price) + ' ₽</span> '
+          + '<span class="' + cls + '" style="font-size:0.78rem;">' + (item.pct>=0?'+':'') + item.pct.toFixed(1) + '%</span>'
+          + '</div></div>'
+          + sigs
+          + '</div>';
+      }).join('');
+    }
+
+    renderSignals(ineff.portfolio || [], pfBox);
+    renderSignals(ineff.market    || [], mkBox);
+
+  } catch(e){
+    pfBox.innerHTML = '<div class="notice">Открывай без VPN или запусти сборщик через Actions.</div>';
+    mkBox.innerHTML = '';
+    console.log('Market error:', e);
+  }
 }
 
 
