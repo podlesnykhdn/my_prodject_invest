@@ -419,9 +419,10 @@ def collect_screener(rules):
         rising = collect_rising_interest(rules, items, vol_history)
 
         return {
-            "top_volume":    top_vol,
-            "cheap_growth":  cheap_sorted,
+            "top_volume":      top_vol,
+            "cheap_growth":    cheap_sorted,
             "rising_interest": rising,
+            "_all_items":      items,  # для аналитика неэффективностей
         }
 
     except Exception as e:
@@ -1147,6 +1148,187 @@ def collect_all_time_highs(rules):
     return result
 
 
+
+# ─── АНАЛИТИК НЕЭФФЕКТИВНОСТЕЙ ───────────────────────────────────────────────
+
+def analyze_inefficiencies(rules, quotes, screener, vol_history):
+    """
+    Ищет рыночные неэффективности 5 типов:
+    1. Паника/перепроданность — резкое падение без фундаментальных причин
+    2. Дивидендный гэп без восстановления
+    3. Объёмная аномалия — объём вырос в 5-10 раз
+    4. Отрыв от отраслевого тренда
+    5. Цена у многолетнего минимума + растущий объём
+    """
+    print("[Аналитик] Поиск неэффективностей...")
+    signals = []
+    portfolio_signals = []
+
+    portfolio_tickers = {p["ticker"] for p in rules["portfolio"]["positions"]}
+    all_items = screener.get("_all_items", [])
+
+    # Загружаем предыдущий лог для сравнения
+    prev_log = _load_last_log("collector")
+    prev_quotes = prev_log.get("quotes", {}) if prev_log else {}
+    prev_screener = prev_log.get("screener", {}) if prev_log else {}
+    prev_items_map = {i["ticker"]: i for i in prev_screener.get("_all_items", [])}
+    div_calendar = rules.get("dividend_calendar", {})
+
+    week_key      = _get_week_key()
+    prev_week_key = _get_prev_week_key()
+    curr_vols = vol_history.get(week_key, {})
+    prev_vols = vol_history.get(prev_week_key, {})
+
+    checked = set()
+
+    for item in all_items:
+        t     = item["ticker"]
+        price = item["price"]
+        pct   = item["pct"]
+        vol   = item["volume"]
+        if not price or t in checked:
+            continue
+        checked.add(t)
+
+        in_portfolio = t in portfolio_tickers
+        prev_item    = prev_items_map.get(t, {})
+        prev_price   = prev_item.get("price", 0)
+        prev_vol_w   = prev_vols.get(t, 0)
+        curr_vol_w   = curr_vols.get(t, 0)
+
+        found = []
+
+        # ── ТИП 1: Паника / перепроданность ──────────────────────────────────
+        # Падение > 8% за день при объёме выше среднего
+        if pct <= -8 and vol >= 10_000_000:
+            found.append({
+                "type":    "PANIC_OVERSOLD",
+                "emoji":   "😱",
+                "title":   "Паника / перепроданность",
+                "detail":  f"Падение {pct:.1f}% за день при высоком объёме {_fmt_vol(vol)}",
+                "signal":  "Рынок реагирует эмоционально. Возможная точка входа если фундаментал не изменился.",
+                "strength": min(abs(pct) * 5, 100),
+            })
+
+        # ── ТИП 2: Дивидендный гэп без восстановления ────────────────────────
+        if t in div_calendar:
+            div_info = div_calendar[t]
+            if isinstance(div_info, dict):
+                history = div_info.get("history", [])
+                if history:
+                    last_record = history[0].get("registry_close_date", "")
+                    last_amount = history[0].get("amount_per_share", 0)
+                    if last_record and last_amount:
+                        from datetime import date as d_
+                        try:
+                            rec_d = datetime.strptime(last_record, "%Y-%m-%d").date()
+                            days_since = (d_.today() - rec_d).days
+                            # Гэп был 10-45 дней назад и цена ниже чем была до гэпа
+                            if 10 <= days_since <= 45 and prev_price:
+                                expected_recovery = prev_price - last_amount
+                                if price < expected_recovery * 0.98:
+                                    found.append({
+                                        "type":    "DIV_GAP_NO_RECOVERY",
+                                        "emoji":   "📉",
+                                        "title":   "Дивидендный гэп без восстановления",
+                                        "detail":  f"Отсечка {last_record} ({days_since} дн. назад), гэп {last_amount}₽ не закрыт",
+                                        "signal":  "Акция не восстановилась после дивидендного гэпа. Исторически закрывается за 1-3 месяца.",
+                                        "strength": 65,
+                                    })
+                        except Exception:
+                            pass
+
+        # ── ТИП 3: Объёмная аномалия ─────────────────────────────────────────
+        if prev_vol_w > 0 and curr_vol_w > 0:
+            vol_ratio = curr_vol_w / prev_vol_w
+            if vol_ratio >= 4:
+                found.append({
+                    "type":    "VOLUME_ANOMALY",
+                    "emoji":   "🔊",
+                    "title":   "Объёмная аномалия",
+                    "detail":  f"Объём вырос в {vol_ratio:.1f}x к прошлой неделе ({_fmt_vol(curr_vol_w)} vs {_fmt_vol(prev_vol_w)})",
+                    "signal":  "Крупный игрок системно набирает или закрывает позицию. Следи за направлением цены.",
+                    "strength": min(int(vol_ratio * 15), 100),
+                })
+
+        # ── ТИП 4: Отрыв от отраслевого тренда ──────────────────────────────
+        # Считаем средний % изменения рынка (топ по объёму)
+        top_items = screener.get("top_volume", [])
+        if len(top_items) >= 5:
+            market_avg = sum(i["pct"] for i in top_items[:10]) / len(top_items[:10])
+            # Акция значимо отстаёт от рынка (рынок растёт, акция падает)
+            divergence = pct - market_avg
+            if market_avg > 1.0 and divergence < -5:
+                found.append({
+                    "type":    "SECTOR_DIVERGENCE",
+                    "emoji":   "↕️",
+                    "title":   "Отрыв от рынка (отстаёт)",
+                    "detail":  f"Рынок +{market_avg:.1f}%, акция {pct:.1f}% (отрыв {divergence:.1f}%)",
+                    "signal":  "Акция необъяснимо отстаёт от рынка. Возможна временная неэффективность или скрытый негатив — проверь новости.",
+                    "strength": min(abs(divergence) * 8, 90),
+                })
+            # Акция опережает рынок когда рынок падает
+            elif market_avg < -1.0 and divergence > 5:
+                found.append({
+                    "type":    "SECTOR_RESILIENCE",
+                    "emoji":   "💪",
+                    "title":   "Устойчивость на падающем рынке",
+                    "detail":  f"Рынок {market_avg:.1f}%, акция {pct:.1f}% (опережение +{divergence:.1f}%)",
+                    "signal":  "Акция держится когда рынок падает — признак силы или защитного спроса.",
+                    "strength": min(divergence * 8, 85),
+                })
+
+        # ── ТИП 5: Цена у минимума + растущий объём ──────────────────────────
+        ath = quotes.get(t, {}).get("ath") if t in portfolio_tickers else None
+        if ath and price:
+            pct_from_ath = (price - ath) / ath * 100
+            if pct_from_ath <= -40 and vol >= 5_000_000 and pct > 0:
+                found.append({
+                    "type":    "NEAR_LOW_VOLUME_GROWTH",
+                    "emoji":   "🔍",
+                    "title":   "У многолетнего минимума с растущим объёмом",
+                    "detail":  f"Цена {pct_from_ath:.0f}% от ATH ({ath}₽), сегодня +{pct:.1f}% с объёмом {_fmt_vol(vol)}",
+                    "signal":  "Классическая точка разворота по Силаеву: цена на дне, объём растёт — кто-то начинает покупать.",
+                    "strength": min(abs(pct_from_ath) + vol / 1_000_000, 95),
+                })
+
+        if found:
+            entry = {
+                "ticker":        t,
+                "name":          item.get("name", t),
+                "price":         price,
+                "pct":           pct,
+                "volume":        vol,
+                "in_portfolio":  in_portfolio,
+                "signals":       found,
+                "max_strength":  max(s["strength"] for s in found),
+            }
+            if in_portfolio:
+                portfolio_signals.append(entry)
+            else:
+                signals.append(entry)
+
+    # Сортируем по силе сигнала
+    signals.sort(key=lambda x: x["max_strength"], reverse=True)
+    portfolio_signals.sort(key=lambda x: x["max_strength"], reverse=True)
+
+    total = len(signals) + len(portfolio_signals)
+    print(f"  [Аналитик] Найдено сигналов: {total} (портфель: {len(portfolio_signals)}, рынок: {len(signals)})")
+
+    return {
+        "portfolio": portfolio_signals[:5],
+        "market":    signals[:10],
+        "total":     total,
+        "timestamp": TODAY,
+    }
+
+def _fmt_vol(v):
+    if not v: return "—"
+    if v >= 1e9: return f"{v/1e9:.1f}B₽"
+    if v >= 1e6: return f"{v/1e6:.0f}M₽"
+    return f"{v/1e3:.0f}K₽"
+
+
 # ─── ГЛАВНАЯ ФУНКЦИЯ ──────────────────────────────────────────────────────────
 
 def collect():
@@ -1186,6 +1368,8 @@ def collect():
     # Собираем тикеры из скринера для проверки их дивидендов
     screener_tickers = [s["ticker"] for s in screener.get("cheap_growth", [])]
     dividends = build_dividend_calendar(rules, screener_tickers)
+    vol_history_data = _load_vol_history()
+    inefficiencies = analyze_inefficiencies(rules, quotes, screener, vol_history_data)
 
     # Применяем дивидендные данные к карточкам скринера
     for stock in screener.get("cheap_growth", []):
@@ -1220,7 +1404,8 @@ def collect():
         "screener":  screener,
         "assets":    assets,
         "dividends": dividends,
-        "biweekly_report": biweekly_report,
+        "biweekly_report":  biweekly_report,
+        "inefficiencies":   inefficiencies,
         "news":      news,
         "rules_fired":        fired_rules,
         "portfolio_signals":  portfolio_signals,
