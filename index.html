@@ -115,6 +115,7 @@ tr:hover td{background:var(--surface2);}
   <div class="tab" onclick="switchTab('screener')">Скринер</div>
   <div class="tab" onclick="switchTab('mentor')">Ментор</div>
   <div class="tab" onclick="switchTab('analyst')">Аналитик</div>
+  <div class="tab" onclick="switchTab('ofz')">ОФЗ</div>
 </nav>
 
 <main>
@@ -195,6 +196,60 @@ tr:hover td{background:var(--surface2);}
   </div>
 </div>
 
+<div class="panel" id="tab-ofz">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+    <div>
+      <div class="section-title" style="margin:0;">Облигации федерального займа (ОФЗ)</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">Данные MOEX ISS в реальном времени · обновляется вместе со страницей</div>
+    </div>
+    <div id="ofz-cbr" style="font-size:0.8rem;color:var(--muted);text-align:right;"></div>
+  </div>
+
+  <!-- КОРОТКИЕ -->
+  <div class="section-title">Короткие — до 3 лет (сохранение, минимальный риск)</div>
+  <div class="tbl-wrap" style="margin-bottom:20px;">
+    <table>
+      <thead><tr>
+        <th>Выпуск</th><th>Погашение</th><th>Лет до пог.</th>
+        <th>Цена</th><th>Купон</th><th>Доходность</th><th>Купон/год</th>
+      </tr></thead>
+      <tbody id="ofz-short"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- СРЕДНИЕ -->
+  <div class="section-title">Средние — 3–10 лет (оптимальный баланс доходности и риска)</div>
+  <div class="tbl-wrap" style="margin-bottom:20px;">
+    <table>
+      <thead><tr>
+        <th>Выпуск</th><th>Погашение</th><th>Лет до пог.</th>
+        <th>Цена</th><th>Купон</th><th>Доходность</th><th>Купон/год</th>
+      </tr></thead>
+      <tbody id="ofz-mid"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- ДЛИННЫЕ -->
+  <div class="section-title">Длинные — от 10 лет (максимальная доходность при снижении ставки)</div>
+  <div class="tbl-wrap" style="margin-bottom:20px;">
+    <table>
+      <thead><tr>
+        <th>Выпуск</th><th>Погашение</th><th>Лет до пог.</th>
+        <th>Цена</th><th>Купон</th><th>Доходность</th><th>Купон/год</th>
+      </tr></thead>
+      <tbody id="ofz-long"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody>
+    </table>
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;font-size:0.78rem;color:var(--muted);line-height:1.7;">
+    <b style="color:var(--text);">Как читать таблицу:</b><br>
+    <b>Цена</b> — сколько стоит сейчас на бирже (% от номинала 1000 ₽). Цена 75% = платишь 750 ₽, получишь 1000 ₽ при погашении.<br>
+    <b>Купон</b> — выплата каждые 6 месяцев в рублях на одну облигацию.<br>
+    <b>Доходность</b> — эффективная доходность к погашению (учитывает и купоны и разницу цены покупки с номиналом).<br>
+    <b>Купон/год</b> — годовой купонный доход в % к текущей цене покупки.<br>
+    ⚠️ Купонный доход ОФЗ не облагается НДФЛ. Налог 13% платится только с разницы цен при продаже до погашения.
+  </div>
+</div>
 </main>
 
 <script>
@@ -207,7 +262,7 @@ const PORTFOLIO = [
 ];
 
 function switchTab(name) {
-  ['portfolio','screener','mentor','analyst'].forEach((n,i)=>{
+  ['portfolio','screener','mentor','analyst','ofz'].forEach((n,i)=>{
     document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
     document.getElementById('tab-'+n).classList.toggle('active',n===name);
   });
