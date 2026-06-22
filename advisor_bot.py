@@ -239,9 +239,22 @@ def build_morning_report(data):
                 else:
                     ath_str = f" | ATH: {fmt_price(ath)} ({pct_ath:.1f}%)"
 
+            # P/E
+            pe = pos.get("pe")
+            pe_avg = pos.get("pe_sector_avg")
+            pe_str = ""
+            if pe:
+                pe_mark = ""
+                if pe_avg:
+                    if pe < pe_avg * 0.9:
+                        pe_mark = " ✅ дёшево"
+                    elif pe > pe_avg * 1.1:
+                        pe_mark = " ⚠️ дорого"
+                pe_str = f" | P/E: {pe}{pe_mark}"
+
             lines.append(
                 f"  {sig} <b>{pos['ticker']}</b>: {price_str}  "
-                f"({fmt_rub(pos['day_rub'])} / {pos['pct']:+.1f}%){ath_str}"
+                f"({fmt_rub(pos['day_rub'])} / {pos['pct']:+.1f}%){ath_str}{pe_str}"
             )
 
     # 2. МАКРО
