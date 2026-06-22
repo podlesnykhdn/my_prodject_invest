@@ -390,10 +390,16 @@ def build_morning_report(data):
     if rising:
         lines.append(f"\n─ ─ ─\n🔭 <b>Растущий интерес</b>")
         for s in rising[:3]:
-            vg = s.get("vol_growth", 0)
-            sigs = " · ".join(s.get("signals", [])[:2])
+            vg    = s.get("vol_growth", 0)
+            sigs  = " · ".join(s.get("signals", [])[:2])
+            pat   = s.get("pattern_label", "")
+            hint  = s.get("pattern_hint", "")
             lines.append(f"  <b>{s['ticker']}</b> {s.get('name','')[:18]}")
             lines.append(f"     {fmt_price(s['price'])}  объём +{vg:.0f}% н/н  {sigs}")
+            if pat:
+                lines.append(f"     {pat}")
+            if hint:
+                lines.append(f"     <i>{hint[:100]}</i>")
 
     # 7. ТОП ПО ОБЪЁМУ (3 штуки)
     top_vol = screener.get("top_volume", [])
