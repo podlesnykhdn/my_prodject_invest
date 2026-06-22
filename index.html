@@ -512,21 +512,21 @@ async function loadPortfolio(){
         const fund = FUNDAMENTALS[pos.ticker] || {};
         const eps = fund.eps_ttm || 0;
         const peAvg = fund.pe_sector_avg;
-        // Используем цену из лога если MOEX недоступен
         const priceForPE = price || lp.price || 0;
         let peHtml = '—';
-        if(priceForPE && eps){
-          const price = priceForPE;
-          const pe = (price / eps).toFixed(1);
+        if(pos.ticker === 'TGLD'){
+          peHtml = '<span style="color:var(--muted);font-size:0.7rem;">ETF</span>';
+        } else if(eps){
+          const pe = fund.pe_current || (priceForPE ? (priceForPE / eps).toFixed(1) : null);
           let peColor = '';
           if(peAvg){
             if(pe < peAvg * 0.9) peColor = 'color:var(--green);font-weight:600;';
             else if(pe > peAvg * 1.1) peColor = 'color:var(--warn);font-weight:600;';
           }
-          const peAvgStr = peAvg ? ' (ср. '+peAvg+')' : '';
-          peHtml = '<span class="mono" style="'+peColor+'">'+pe+peAvgStr+'</span>';
-        } else if(pos.ticker==='TGLD'){
-          peHtml = '<span style="color:var(--muted);font-size:0.7rem;">ETF</span>';
+          if(pe){
+            const peAvgStr = peAvg ? ' (ср. '+peAvg+')' : '';
+            peHtml = '<span class="mono" style="'+peColor+'">'+pe+peAvgStr+'</span>';
+          }
         }
         return '<tr><td title="'+pos.name+'">'+(pos.short||pos.name)+'</td><td class="mono">'+pos.ticker+'</td><td class="mono">'+fmt(pos.qty)+'</td><td class="mono">'+(price?fmt(price)+' ₽':'—')+'</td><td class="mono">'+prevC+'</td><td class="mono '+cls+'">'+(price?(sign+ch.toFixed(2)+' ('+sign+pct.toFixed(1)+'%)'):'—')+'</td><td class="mono">'+fmtVol(vol)+'</td><td class="mono">'+(price?fmt(pv)+' ₽':'—')+'</td><td>'+athC+'</td><td>'+badge+'</td></tr>';
     });
