@@ -517,11 +517,11 @@ async function loadPortfolio(){
           const pe = (price / eps).toFixed(1);
           let peColor = '';
           if(peAvg){
-            if(pe < peAvg * 0.9) peColor = 'color:var(--green);';
-            else if(pe > peAvg * 1.1) peColor = 'color:var(--warn);';
+            if(pe < peAvg * 0.9) peColor = 'color:var(--green);font-weight:600;';
+            else if(pe > peAvg * 1.1) peColor = 'color:var(--warn);font-weight:600;';
           }
-          peHtml = '<span class="mono" style="'+peColor+'">'+pe+'</span>'
-            +(peAvg?'<br><span style="font-size:0.65rem;color:var(--muted);">ср. '+peAvg+'</span>':'');
+          const peAvgStr = peAvg ? ' (ср. '+peAvg+')' : '';
+          peHtml = '<span class="mono" style="'+peColor+'">'+pe+peAvgStr+'</span>';
         } else if(pos.ticker==='TGLD'){
           peHtml = '<span style="color:var(--muted);font-size:0.7rem;">ETF</span>';
         }
