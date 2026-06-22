@@ -293,10 +293,33 @@ def collect_rising_interest(rules, all_items, vol_history):
         else:
             signals.append(f"↗️ объём +{growth:.0f}%")
 
-        if item["pct"] > 0:
-            signals.append(f"цена +{item['pct']:.1f}%")
-        elif item["pct"] < -3:
-            signals.append(f"⚠️ цена {item['pct']:.1f}%")
+        # Интерпретация паттерна: объём vs цена
+        pct = item["pct"]
+        if abs(pct) < 0.5 and growth >= 100:
+            pattern = "accumulation"   # объём растёт, цена стоит — тихое накопление
+            pattern_label = "🔵 Тихое накопление — объём растёт, цена стоит"
+            pattern_hint  = "Кто-то набирает позицию не двигая цену. Может быть инсайд или стратегический покупатель. Следи за следующими днями."
+        elif pct >= 3 and growth >= 100:
+            pattern = "manipulation"   # объём и цена оба резко вверх — осторожно
+            pattern_label = "🔴 Осторожно — цена и объём резко вверх"
+            pattern_hint  = "Возможна манипуляция (pump): цена задрана на большом объёме. Риск резкого разворота при выходе крупного игрока."
+        elif pct >= 1 and growth >= 100:
+            pattern = "breakout"       # умеренный рост цены + объём — пробой
+            pattern_label = "🟢 Пробой — объём подтверждает рост цены"
+            pattern_hint  = "Здоровый сигнал: цена растёт на увеличенном объёме. Покупатели доминируют."
+        elif pct < -1 and growth >= 100:
+            pattern = "distribution"   # объём растёт, цена падает — распродажа
+            pattern_label = "🟠 Распродажа — объём растёт, цена падает"
+            pattern_hint  = "Крупный игрок выходит из позиции. Осторожно с покупкой."
+        else:
+            pattern = "neutral"
+            pattern_label = "⚪ Нейтрально — сигнал требует подтверждения"
+            pattern_hint  = "Недостаточно данных для однозначного вывода. Наблюдай динамику."
+
+        if pct > 0:
+            signals.append(f"цена +{pct:.1f}%")
+        elif pct < -3:
+            signals.append(f"⚠️ цена {pct:.1f}%")
 
         # Дивиденды
         div_info = rules.get("dividend_payers_directory_temp", {})
@@ -305,15 +328,18 @@ def collect_rising_interest(rules, all_items, vol_history):
             signals.append("💰 дивиденды")
 
         result.append({
-            "ticker":      ticker,
-            "name":        item["name"],
-            "price":       item["price"],
-            "pct":         item["pct"],
-            "volume":      curr_vol,
-            "prev_volume": prev_vol,
-            "vol_growth":  round(growth, 1),
-            "signals":     signals,
-            "score":       _score_rising(growth, item["pct"], curr_vol),
+            "ticker":        ticker,
+            "name":          item["name"],
+            "price":         item["price"],
+            "pct":           item["pct"],
+            "volume":        curr_vol,
+            "prev_volume":   prev_vol,
+            "vol_growth":    round(growth, 1),
+            "signals":       signals,
+            "pattern":       pattern,
+            "pattern_label": pattern_label,
+            "pattern_hint":  pattern_hint,
+            "score":         _score_rising(growth, item["pct"], curr_vol),
         })
 
     # Сортируем по score
