@@ -304,7 +304,6 @@ async function loadPortfolio(){
       const pv=price*pos.qty;if(price>0)hd=true;tv+=pv;tc+=ch*pos.qty;
       const cls=ch>0?'up':ch<0?'dn':'neu',sign=ch>=0?'+':'';
       const badge=pos.etf?'<span class="badge etf">ETF</span>':pos.div?'<span class="badge yes">Да</span>':'<span class="badge no">Нет</span>';
-      const lp=lmap[pos.ticker]||{};
       const prevC=(lp.prev_price&&lp.prev_price!==price)?'<span style="color:var(--muted);font-size:0.72rem;">'+fmt(lp.prev_price)+' ₽</span>':'—';
       let athC='—';
       if(lp.ath){const fire=lp.near_ath?' 🔥':'';const ac=lp.near_ath?'color:var(--warn);font-weight:700;':'';const ps=lp.pct_from_ath!=null?(lp.pct_from_ath>=0?'+':'')+lp.pct_from_ath+'%':'';athC='<span class="mono" style="'+ac+'">'+fmt(lp.ath)+' ₽'+fire+'<br><span style="font-size:0.7rem;color:var(--muted);">'+ps+'</span></span>';}
