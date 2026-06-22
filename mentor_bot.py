@@ -203,8 +203,12 @@ def run_morning():
     lesson, num = load_lesson(num)
     msg = format_lesson(lesson, num)
 
-    result = send(msg)
-    print(f"Урок #{num} отправлен: {result.get('ok')}")
+    try:
+        result = send(msg)
+        print(f"Урок #{num} отправлен: {result.get('ok')}")
+    except Exception as e:
+        print(f"[ERROR] send урок: {e}")
+        result = {}
 
     save_log({
         "date":         TODAY,
@@ -374,17 +378,22 @@ def run_command():
 
 if __name__ == "__main__":
     print(f"Ментор-бот запущен, режим: {MODE}")
-    if MODE == "morning":
-        run_morning()
-    elif MODE == "command":
-        run_command()
-    elif MODE == "alerts":
-        run_term_of_day()
-    elif MODE == "auto":
-        log = load_log()
-        if not log.get("morning_sent"):
+    try:
+        if MODE == "morning":
             run_morning()
-        elif not log.get("term_sent"):
+        elif MODE == "command":
+            run_command()
+        elif MODE == "alerts":
             run_term_of_day()
-        else:
-            print("Урок и термин дня уже отправлены сегодня")
+        elif MODE == "auto":
+            log = load_log()
+            if not log.get("morning_sent"):
+                run_morning()
+            elif not log.get("term_sent"):
+                run_term_of_day()
+            else:
+                print("Урок и термин дня уже отправлены сегодня")
+    except Exception as e:
+        print(f"[ERROR] Ментор: {e}")
+        import traceback
+        traceback.print_exc()
