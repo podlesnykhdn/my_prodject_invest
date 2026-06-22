@@ -197,6 +197,12 @@ tr:hover td{background:var(--surface2);}
     <b style="color:var(--text);">Купон</b> — выплата каждые 6 месяцев. <b style="color:var(--text);">Доходность</b> — эффективная к погашению.<br>
     Купонный доход ОФЗ не облагается НДФЛ.
   </div>
+
+  <div class="st" style="margin-top:24px;">Просадки — когда можно докупить</div>
+  <div style="font-size:0.78rem;color:var(--muted);margin-bottom:12px;">Популярные выпуски которые просели от своего 30-дневного максимума. Просадка >1.5% — потенциальная точка входа при прочих равных.</div>
+  <div id="ofz-dips">
+    <div style="padding:20px;text-align:center;color:var(--muted);font-size:0.8rem;">Загрузка...</div>
+  </div>
 </div>
 
 </main>
@@ -222,7 +228,7 @@ function switchTab(name){
     document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
     document.getElementById('tab-'+n).classList.toggle('active',n===name);
   });
-  if(name==='ofz'&&!window._ofzL){window._ofzL=true;loadOFZ();}
+  if(name==='ofz'&&!window._ofzL){window._ofzL=true;loadOFZ();loadOFZDips();}
   if(name==='market'&&!window._mktL){window._mktL=true;loadMarket();}
 }
 function fmt(n){return new Intl.NumberFormat('ru-RU').format(Math.round(n));}
@@ -425,6 +431,114 @@ async function loadMarket(){
     }
     renderS(ineff.portfolio||[],pfB);renderS(ineff.market||[],mkB);
   }catch(e){pfB.innerHTML='<div class="notice">Открывай без VPN или запусти сборщик через Actions.</div>';mkB.innerHTML='';console.log('Market:',e);}
+}
+
+async function loadOFZDips(){
+  const box = document.getElementById('ofz-dips');
+  if(!box) return;
+
+  // Популярные выпуски ОФЗ — наиболее ликвидные
+  const POPULAR = [
+    'SU26238RMFS4','SU26239RMFS2','SU26240RMFS0','SU26241RMFS8',
+    'SU26243RMFS4','SU26244RMFS2','SU26245RMFS9','SU26246RMFS7',
+    'SU26247RMFS5','SU26248RMFS3','SU26230RMFS1','SU26233RMFS5',
+    'SU26234RMFS3','SU26235RMFS0','SU26236RMFS8','SU26237RMFS6',
+    'SU29006RMFS2','SU29007RMFS0','SU29014RMFS6','SU29025RMFS2',
+  ];
+
+  try{
+    // Запрашиваем текущие данные и 30д историю
+    const url = 'https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQOB/securities.json'
+      + '?iss.meta=off&iss.only=securities,marketdata&securities='+POPULAR.join(',');
+    const data = await moexGet(url);
+
+    const sc = data.securities.columns;
+    const mc = data.marketdata.columns;
+    const mktMap = {};
+    for(const r of data.marketdata.data){
+      const d = Object.fromEntries(mc.map((c,i)=>[c,r[i]]));
+      mktMap[d.SECID] = d;
+    }
+
+    const results = [];
+    for(const r of data.securities.data){
+      const s  = Object.fromEntries(sc.map((c,i)=>[c,r[i]]));
+      const m  = mktMap[s.SECID] || {};
+      const price   = m.LAST || m.PREVPRICE || 0;
+      const prevPrice = m.PREVPRICE || price;
+      const yld     = m.YIELDATPREVWAPRICE || 0;
+      const coupon  = s.COUPONVALUE || 0;
+      const matdate = s.MATDATE || '';
+      if(!price) continue;
+
+      // Получаем 30-дневный максимум через историю свечей
+      try{
+        const hurl = 'https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQOB/securities/'
+          + s.SECID + '/candles.json?interval=24&from='
+          + new Date(Date.now()-31*86400000).toISOString().slice(0,10)
+          + '&iss.meta=off&iss.only=candles';
+        const hdata = await moexGet(hurl);
+        const hcols = hdata.candles.columns;
+        const hrows = hdata.candles.data;
+        if(!hrows.length) continue;
+
+        const hiIdx = hcols.indexOf('high');
+        const max30 = Math.max(...hrows.map(r=>r[hiIdx]||0));
+        const dip   = max30 > 0 ? (price - max30) / max30 * 100 : 0;
+
+        if(dip < -1.0){ // просадка более 1%
+          const yr = (new Date(matdate)-new Date())/(365.25*24*3600*1000);
+          results.push({
+            secid:   s.SECID,
+            matdate: matdate.slice(0,10),
+            yr:      yr.toFixed(1),
+            price,
+            max30:   Math.round(max30*10)/10,
+            dip:     Math.round(dip*10)/10,
+            yld:     Math.round(yld*100)/100,
+            coupon,
+          });
+        }
+      }catch(e){ continue; }
+    }
+
+    results.sort((a,b)=>a.dip-b.dip); // сначала самые глубокие просадки
+
+    if(!results.length){
+      box.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:0.8rem;">'
+        + 'Сейчас нет значимых просадок — популярные ОФЗ торгуются вблизи максимумов</div>';
+      return;
+    }
+
+    box.innerHTML = '<div class="tbl-wrap"><table>'
+      + '<thead><tr><th>Выпуск</th><th>Погашение</th><th>Лет</th>'
+      + '<th>Цена сейчас</th><th>Макс. 30д</th><th>Просадка</th>'
+      + '<th>Доходность</th><th>Купон</th></tr></thead><tbody>'
+      + results.map(b=>{
+          const dipCls = b.dip < -3 ? 'style="color:var(--green);font-weight:700;"'
+                       : b.dip < -2 ? 'style="color:var(--warn);"' : '';
+          const signal = b.dip < -3 ? ' 🟢' : b.dip < -2 ? ' 🟡' : '';
+          return '<tr>'
+            + '<td class="mono" style="font-size:0.8rem;">'+b.secid+'</td>'
+            + '<td class="mono">'+b.matdate+'</td>'
+            + '<td class="mono">'+b.yr+'</td>'
+            + '<td class="mono">'+b.price+'%</td>'
+            + '<td class="mono" style="color:var(--muted);">'+b.max30+'%</td>'
+            + '<td class="mono" '+dipCls+'>'+b.dip+'%'+signal+'</td>'
+            + '<td class="mono" style="color:var(--green);">'+(b.yld?b.yld+'%':'—')+'</td>'
+            + '<td class="mono">'+b.coupon+' ₽</td>'
+            + '</tr>';
+        }).join('')
+      + '</tbody></table></div>'
+      + '<div style="font-size:0.72rem;color:var(--muted);margin-top:8px;padding:0 4px;">'
+      + '🟢 просадка >3% — сильный сигнал · 🟡 просадка >2% — умеренный сигнал · '
+      + 'Данные MOEX ISS · Открывай без VPN</div>';
+
+  }catch(e){
+    box.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:0.8rem;">'
+      + 'Открывай без VPN — MOEX недоступен</div>';
+    console.log('OFZ dips error:', e);
+  }
 }
 
 async function loadOFZ(){
