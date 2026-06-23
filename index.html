@@ -96,6 +96,7 @@ tr:hover td{background:var(--surface2);}
   <div class="tab" onclick="switchTab('analyst')">Аналитик</div>
   <div class="tab" onclick="switchTab('market')">Рынок</div>
   <div class="tab" onclick="switchTab('ofz')">ОФЗ</div>
+  <div class="tab" onclick="switchTab('pnl')">P&amp;L</div>
 </nav>
 <main>
 
@@ -199,6 +200,45 @@ tr:hover td{background:var(--surface2);}
   </div>
 </div>
 
+<div class="panel" id="tab-pnl">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+    <div>
+      <div class="st" style="margin:0;">Реальный P&L — данные из Т-Инвестиций</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">Средняя цена входа · сколько вложено · прибыль или убыток по каждой позиции</div>
+    </div>
+    <div id="pnl-ts" style="font-size:0.72rem;color:var(--muted);text-align:right;"></div>
+  </div>
+
+  <!-- Сводка -->
+  <div class="cards" id="pnl-cards" style="margin-bottom:20px;">
+    <div class="card"><div class="lbl">Вложено</div><div class="val" id="pnl-invested">—</div></div>
+    <div class="card"><div class="lbl">Сейчас</div><div class="val" id="pnl-current">—</div></div>
+    <div class="card"><div class="lbl">P&L ₽</div><div class="val" id="pnl-rub">—</div></div>
+    <div class="card"><div class="lbl">P&L %</div><div class="val" id="pnl-pct">—</div></div>
+  </div>
+
+  <!-- Таблица по позициям -->
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Компания</th>
+        <th>Тикер</th>
+        <th>Кол-во</th>
+        <th>Ср. цена входа</th>
+        <th>Вложено</th>
+        <th>Тек. цена</th>
+        <th>Сейчас</th>
+        <th>P&L ₽</th>
+        <th>P&L %</th>
+      </tr></thead>
+      <tbody id="pnl-tbody">
+        <tr><td colspan="9" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="pnl-notice" style="font-size:0.75rem;color:var(--muted);margin-top:8px;text-align:center;"></div>
+</div>
 </main>
 <script>
 const FUNDAMENTALS={
@@ -219,12 +259,13 @@ const PORTFOLIO=[
 const PNAMES={X5:"ПАО «Корпоративный центр ИКС 5»",LENT:"МКПАО «Лента»",SBER:"ПАО Сбербанк",BELU:"ПАО «НоваБев Групп»",TGLD:"БПИФ «Тинькофф Золото»"};
 
 function switchTab(name){
-  ['portfolio','screener','mentor','analyst','market','ofz'].forEach((n,i)=>{
+  ['portfolio','screener','mentor','analyst','market','ofz','pnl'].forEach((n,i)=>{
     document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
     document.getElementById('tab-'+n).classList.toggle('active',n===name);
   });
   if(name==='ofz'&&!window._ofzL){window._ofzL=true;loadOFZ();}
   if(name==='market'&&!window._mktL){window._mktL=true;loadMarket();}
+  if(name==='pnl'&&!window._pnlL){window._pnlL=true;loadPnL();}
 }
 function fmt(n){return new Intl.NumberFormat('ru-RU').format(Math.round(n));}
 function fmtVol(v){
@@ -454,6 +495,90 @@ async function loadOFZ(){
     document.getElementById('ofz-cbr').textContent='Данные на '+today.toLocaleDateString('ru-RU');
   }catch(e){['ofz-short','ofz-mid','ofz-long'].forEach(id=>{document.getElementById(id).innerHTML='<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--muted);">Открывай без VPN</td></tr>';});console.log('OFZ:',e);}
 }
+
+
+// ── P&L из Т-Инвестиций ───────────────────────────────────────────────────
+async function loadPnL(){
+  const ts     = document.getElementById('pnl-ts');
+  const tbody  = document.getElementById('pnl-tbody');
+  const notice = document.getElementById('pnl-notice');
+
+  try{
+    const log = await getLog();
+    const tp  = log.tinkoff_portfolio;
+
+    if(!tp){
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--muted);">'
+        + 'Данные из Т-Инвестиций ещё не получены.<br>'
+        + '<span style="font-size:0.8rem;">Запусти workflow → Run workflow → auto</span>'
+        + '</td></tr>';
+      return;
+    }
+
+    // Сводка
+    const invested = tp.total_invested || 0;
+    const curr     = tp.total_current  || 0;
+    const pnl      = tp.total_pnl      || 0;
+    const pnlPct   = tp.total_pnl_pct  || 0;
+    const pnlCls   = pnl >= 0 ? 'up' : 'dn';
+    const pnlSign  = pnl >= 0 ? '+' : '';
+
+    document.getElementById('pnl-invested').textContent = fmt(invested) + ' ₽';
+    document.getElementById('pnl-current').textContent  = fmt(curr) + ' ₽';
+    document.getElementById('pnl-rub').textContent      = pnlSign + fmt(pnl) + ' ₽';
+    document.getElementById('pnl-rub').className        = 'val ' + pnlCls;
+    document.getElementById('pnl-pct').textContent      = pnlSign + pnlPct.toFixed(2) + '%';
+    document.getElementById('pnl-pct').className        = 'val ' + pnlCls;
+
+    if(ts) ts.textContent = 'Данные от ' + (tp.as_of || '?');
+
+    // Позиции
+    const positions = tp.positions || [];
+    if(!positions.length){
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--muted);">Нет позиций</td></tr>';
+      return;
+    }
+
+    // Сортируем по абсолютному PnL
+    positions.sort((a,b) => Math.abs(b.pnl) - Math.abs(a.pnl));
+
+    // Маппинг figi → название из PORTFOLIO
+    const nameMap = {};
+    PORTFOLIO.forEach(function(p){ nameMap[p.ticker] = p.short || p.name; });
+
+    tbody.innerHTML = positions.map(function(p){
+      const pnlPos  = p.pnl || 0;
+      const pnlPPos = p.pnl_pct || 0;
+      const cls     = pnlPos >= 0 ? 'up' : 'dn';
+      const sign    = pnlPos >= 0 ? '+' : '';
+      const name    = nameMap[p.ticker] || p.ticker || '—';
+
+      // Бар прогресса P&L
+      const barW   = Math.min(Math.abs(pnlPPos) * 2, 100);
+      const barClr = pnlPos >= 0 ? 'var(--green)' : 'var(--red)';
+      const bar    = '<div style="width:'+barW+'%;height:3px;background:'+barClr+';border-radius:2px;margin-top:3px;"></div>';
+
+      return '<tr>'
+        + '<td>' + name + '</td>'
+        + '<td class="mono">' + (p.ticker||'—') + '</td>'
+        + '<td class="mono">' + (p.qty||'—') + '</td>'
+        + '<td class="mono">' + (p.avg_price ? fmt(p.avg_price)+' ₽' : '—') + '</td>'
+        + '<td class="mono">' + (p.invested ? fmt(p.invested)+' ₽' : '—') + '</td>'
+        + '<td class="mono">' + (p.curr_price ? fmt(p.curr_price)+' ₽' : '—') + '</td>'
+        + '<td class="mono">' + (p.current_val ? fmt(p.current_val)+' ₽' : '—') + '</td>'
+        + '<td class="mono ' + cls + '">' + sign + fmt(pnlPos) + ' ₽' + bar + '</td>'
+        + '<td class="mono ' + cls + '">' + sign + pnlPPos.toFixed(2) + '%</td>'
+        + '</tr>';
+    }).join('');
+
+    notice.textContent = 'Данные обновляются каждый раз при запуске сборщика';
+
+  } catch(e){
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--muted);">Ошибка загрузки</td></tr>';
+    console.log('PnL error:', e);
+  }
+}
+
 
 async function loadAll(){
   document.getElementById('last-update').textContent='Обновлено в '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
