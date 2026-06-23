@@ -468,6 +468,30 @@ def collect_screener(rules):
         top_vol = sorted([i for i in items if i["volume"] > 0],
                          key=lambda x: x["volume"], reverse=True)[:10]
 
+        # Интерпретация паттерна объём/цена для топа
+        for s in top_vol:
+            pct = s.get("pct", 0)
+            if abs(pct) < 0.3:
+                s["vol_pattern"] = "neutral"
+                s["vol_label"]   = "⚪ Борьба — цена стоит"
+                s["vol_hint"]    = "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
+            elif pct >= 2:
+                s["vol_pattern"] = "buyers"
+                s["vol_label"]   = "🟢 Покупатели доминируют"
+                s["vol_hint"]    = f"Цена +{pct:.1f}% на высоком объёме — спрос превышает предложение."
+            elif pct > 0.3:
+                s["vol_pattern"] = "buyers_weak"
+                s["vol_label"]   = "🟡 Слабый перевес покупателей"
+                s["vol_hint"]    = f"Цена +{pct:.1f}% — покупатели чуть активнее."
+            elif pct <= -2:
+                s["vol_pattern"] = "sellers"
+                s["vol_label"]   = "🔴 Продавцы доминируют"
+                s["vol_hint"]    = f"Цена {pct:.1f}% на высоком объёме — давление продавцов."
+            else:
+                s["vol_pattern"] = "sellers_weak"
+                s["vol_label"]   = "🟠 Слабый перевес продавцов"
+                s["vol_hint"]    = f"Цена {pct:.1f}% — продавцы чуть активнее."
+
         # Дешёвые перспективные — базовая фильтрация
         cheap = [
             i for i in items
