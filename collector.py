@@ -1547,6 +1547,135 @@ def collect_price_history(rules, quotes):
     return result
 
 
+
+# ─── Т-ИНВЕСТИЦИИ API ────────────────────────────────────────────────────────
+
+def fetch_tinkoff_portfolio():
+    """
+    Получает реальные данные портфеля из Т-Инвестиций через Open API.
+    Возвращает: вложено, текущая стоимость, просадка, позиции с ценами входа.
+    """
+    tinkoff_token = os.environ.get("TINKOFF_TOKEN")
+    if not tinkoff_token:
+        print("  [Tinkoff] TINKOFF_TOKEN не найден — пропускаем")
+        return None
+
+    print("  [Tinkoff] Получаем данные портфеля...")
+
+    base_url = "https://invest-public-api.tinkoff.ru/rest"
+    t_headers = {
+        "Authorization": f"Bearer {tinkoff_token}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+
+    try:
+        # Получаем список счетов
+        req = urllib.request.Request(
+            f"{base_url}/tinkoff.public.invest.api.contract.v1.UsersService/GetAccounts",
+            data=json.dumps({}).encode(),
+            headers=t_headers,
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=10) as r:
+            accounts_data = json.loads(r.read())
+
+        accounts = accounts_data.get("accounts", [])
+        if not accounts:
+            print("  [Tinkoff] Счета не найдены")
+            return None
+
+        # Берём первый брокерский счёт
+        account = next(
+            (a for a in accounts if a.get("type") == "ACCOUNT_TYPE_TINKOFF"),
+            accounts[0]
+        )
+        account_id = account["id"]
+        print(f"  [Tinkoff] Счёт: {account.get('name', account_id)}")
+
+        # Получаем портфель
+        req2 = urllib.request.Request(
+            f"{base_url}/tinkoff.public.invest.api.contract.v1.OperationsService/GetPortfolio",
+            data=json.dumps({"accountId": account_id, "currency": "RUB"}).encode(),
+            headers=t_headers,
+            method="POST"
+        )
+        with urllib.request.urlopen(req2, timeout=10) as r:
+            portfolio_data = json.loads(r.read())
+
+        # Парсим данные
+        def parse_money(m):
+            if not m: return 0.0
+            units = int(m.get("units", 0))
+            nano  = int(m.get("nano", 0))
+            return units + nano / 1e9
+
+        total_amount_shares   = parse_money(portfolio_data.get("totalAmountShares"))
+        total_amount_etf      = parse_money(portfolio_data.get("totalAmountEtf"))
+        total_amount_bonds    = parse_money(portfolio_data.get("totalAmountBonds"))
+        total_amount_sp       = parse_money(portfolio_data.get("totalAmountSp"))
+        total_amount_portfolio = parse_money(portfolio_data.get("totalAmountPortfolio"))
+        expected_yield        = parse_money(portfolio_data.get("expectedYield"))
+
+        positions = []
+        for pos in portfolio_data.get("positions", []):
+            qty          = parse_money(pos.get("quantity"))
+            avg_price    = parse_money(pos.get("averagePositionPrice"))
+            curr_price   = parse_money(pos.get("currentPrice"))
+            curr_nkd     = parse_money(pos.get("currentNkd"))
+            exp_yield    = parse_money(pos.get("expectedYield"))
+            avg_price_fifo = parse_money(pos.get("averagePositionPriceFifo"))
+
+            invested     = avg_price * qty if avg_price and qty else 0
+            current_val  = curr_price * qty if curr_price and qty else 0
+            pnl          = exp_yield
+            pnl_pct      = (pnl / invested * 100) if invested else 0
+
+            positions.append({
+                "figi":        pos.get("figi"),
+                "ticker":      pos.get("instrumentType", ""),
+                "itype":       pos.get("instrumentType", ""),
+                "qty":         round(qty, 4),
+                "avg_price":   round(avg_price, 4),
+                "curr_price":  round(curr_price, 4),
+                "invested":    round(invested, 2),
+                "current_val": round(current_val, 2),
+                "pnl":         round(pnl, 2),
+                "pnl_pct":     round(pnl_pct, 2),
+            })
+
+        # Считаем общую сумму вложений
+        total_invested = sum(p["invested"] for p in positions if p["invested"] > 0)
+        total_current  = total_amount_portfolio
+        total_pnl      = total_current - total_invested
+        total_pnl_pct  = (total_pnl / total_invested * 100) if total_invested else 0
+
+        result = {
+            "account_id":    account_id,
+            "account_name":  account.get("name", ""),
+            "total_invested": round(total_invested, 2),
+            "total_current":  round(total_current, 2),
+            "total_pnl":      round(total_pnl, 2),
+            "total_pnl_pct":  round(total_pnl_pct, 2),
+            "total_shares":   round(total_amount_shares, 2),
+            "total_etf":      round(total_amount_etf, 2),
+            "total_bonds":    round(total_amount_bonds, 2),
+            "positions":      positions,
+            "as_of":          TODAY,
+        }
+
+        print(f"  [Tinkoff] Вложено: {total_invested:.0f}₽ | "
+              f"Текущая стоимость: {total_current:.0f}₽ | "
+              f"PnL: {total_pnl:+.0f}₽ ({total_pnl_pct:+.1f}%)")
+        return result
+
+    except Exception as e:
+        print(f"  [Tinkoff] Ошибка: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+
+
 # ─── ГЛАВНАЯ ФУНКЦИЯ ──────────────────────────────────────────────────────────
 
 def collect():
@@ -1563,6 +1692,7 @@ def collect():
     assets   = collect_assets(rules, oil)
     news     = collect_news(rules)
 
+    tinkoff_portfolio = fetch_tinkoff_portfolio()
     fired_rules, portfolio_signals = run_rules(rules, currency, oil, quotes, news)
     portfolio = calc_portfolio(rules, quotes)
     all_time_highs = collect_all_time_highs(rules)
@@ -1626,6 +1756,7 @@ def collect():
         "biweekly_report":  biweekly_report,
         "inefficiencies":   inefficiencies,
         "price_history":    price_history,
+        "tinkoff_portfolio": tinkoff_portfolio,
         "news":      news,
         "rules_fired":        fired_rules,
         "portfolio_signals":  portfolio_signals,
