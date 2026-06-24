@@ -368,7 +368,30 @@ async function loadRisingInterest(){
     const log=await getLog();
     const rising=(log.screener||{}).rising_interest||[];
     if(!rising.length){box.innerHTML='<div style="padding:16px;color:var(--muted);font-size:0.8rem;text-align:center;">Данные накапливаются первую неделю</div>';return;}
-    box.innerHTML=rising.map(function(s){const cls=s.pct>=0?'up':'dn';const vg=(s.vol_growth>=0?'+':'')+s.vol_growth+'%';const sigs=(s.signals||[]).join(' · ');return '<div class="sc-item" style="flex-direction:column;align-items:flex-start;gap:3px;"><div style="display:flex;justify-content:space-between;width:100%;"><div><div class="si-name">'+s.name+'</div><div class="si-ticker">'+s.ticker+' · '+fmtVol(s.volume)+' · <span style="color:var(--green);">'+vg+' н/н</span></div></div><div><div class="si-price">'+fmt(s.price)+' ₽</div><div class="si-ch '+cls+'">'+(s.pct>=0?'+':'')+s.pct.toFixed(1)+'%</div></div></div><div style="font-size:0.7rem;color:var(--muted);">'+sigs+'</div></div>';}).join('');
+    box.innerHTML=rising.map(function(s){
+      const cls=s.pct>=0?'up':'dn';
+      const vg=(s.vol_growth>=0?'+':'')+s.vol_growth+'%';
+      const sigs=(s.signals||[]).join(' · ');
+      const tname=TNAMES[s.ticker]||s.name||s.ticker;
+      const pat=s.pattern_label
+        ?('<div style="margin-top:5px;padding:5px 8px;background:var(--surface2);border-radius:5px;">'
+          +'<div style="font-size:0.75rem;font-weight:600;">'+s.pattern_label+'</div>'
+          +(s.pattern_hint?'<div style="font-size:0.68rem;color:var(--muted);margin-top:1px;">'+s.pattern_hint+'</div>':'')
+          +'</div>'):'';
+      return '<div class="sc-item" style="flex-direction:column;align-items:flex-start;gap:3px;">'
+        +'<div style="display:flex;justify-content:space-between;width:100%;">'
+        +'<div>'
+        +'<div class="si-name">'+tname+'</div>'
+        +'<div class="si-ticker">'+s.ticker+' · '+fmtVol(s.volume)+' · <span style="color:var(--green);">'+vg+' н/н</span></div>'
+        +'</div>'
+        +'<div>'
+        +'<div class="si-price">'+fmt(s.price)+' ₽</div>'
+        +'<div class="si-ch '+cls+'">'+(s.pct>=0?'+':'')+s.pct.toFixed(1)+'%</div>'
+        +'</div></div>'
+        +(sigs?'<div style="font-size:0.7rem;color:var(--muted);">'+sigs+'</div>':'')
+        +pat
+        +'</div>';
+    }).join('');
   }catch(e){box.innerHTML='<div style="padding:16px;color:var(--muted);font-size:0.8rem;text-align:center;">Ошибка</div>';}
 }
 
