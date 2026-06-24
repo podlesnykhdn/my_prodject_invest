@@ -287,6 +287,9 @@ def collect_rising_interest(rules, all_items, vol_history):
             continue
         if item["volume"] < 1_000_000:  # минимум 1 млн руб. оборота
             continue
+        # Пропускаем акции только для квалифицированных инвесторов
+        if ticker in QUAL_ONLY_TICKERS:
+            continue
 
         # Сравниваем с прошлой неделей
         prev_vol = vol_history.get(prev_week_key, {}).get(ticker, 0)
@@ -1335,6 +1338,9 @@ def analyze_inefficiencies(rules, quotes, screener, vol_history):
         pct   = item["pct"]
         vol   = item["volume"]
         if not price or t in checked:
+            continue
+        # Пропускаем акции только для квалифицированных инвесторов
+        if t in QUAL_ONLY_TICKERS:
             continue
         checked.add(t)
 
