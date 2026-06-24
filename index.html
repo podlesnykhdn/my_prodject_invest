@@ -373,6 +373,7 @@ async function loadRisingInterest(){
       const vg=(s.vol_growth>=0?'+':'')+s.vol_growth+'%';
       const sigs=(s.signals||[]).join(' · ');
       const tname=TNAMES[s.ticker]||s.name||s.ticker;
+      const qualBadge=s.qual_only?'<span style="background:#7f1d1d;color:#fca5a5;font-size:0.62rem;padding:1px 5px;border-radius:3px;margin-left:4px;">только квалиф.</span>':'';
       const pat=s.pattern_label
         ?('<div style="margin-top:5px;padding:5px 8px;background:var(--surface2);border-radius:5px;">'
           +'<div style="font-size:0.75rem;font-weight:600;">'+s.pattern_label+'</div>'
@@ -381,7 +382,7 @@ async function loadRisingInterest(){
       return '<div class="sc-item" style="flex-direction:column;align-items:flex-start;gap:3px;">'
         +'<div style="display:flex;justify-content:space-between;width:100%;">'
         +'<div>'
-        +'<div class="si-name">'+tname+'</div>'
+        +'<div class="si-name">'+tname+qualBadge+'</div>'
         +'<div class="si-ticker">'+s.ticker+' · '+fmtVol(s.volume)+' · <span style="color:var(--green);">'+vg+' н/н</span></div>'
         +'</div>'
         +'<div>'
