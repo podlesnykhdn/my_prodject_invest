@@ -247,14 +247,31 @@ def collect_rising_interest(rules, all_items, vol_history):
     # Портфельные тикеры тоже исключаем
     portfolio_tickers = {p["ticker"] for p in rules["portfolio"]["positions"]}
 
-    # ETF денежного рынка — исключаем (не акции, огромные объёмы искажают скринер)
-    money_market_etf = {
-        "AKMM", "CASH", "LQDT", "SBMM", "AMNR", "TMON", "RCMM",
-        "VTBM", "AIMM", "GPMU", "GPBS", "SCMM", "EQMX", "TMOS",
-        "SBSP", "TRUR", "AKSP", "BCSE", "INFL", "GOLD", "SUGB",
+    # ETF и фонды — исключаем все (не акции компаний)
+    etf_funds = {
+        # Денежный рынок
+        "AKMM","CASH","LQDT","SBMM","AMNR","TMON","RCMM",
+        "VTBM","AIMM","GPMU","GPBS","SCMM","FMMM","PSMM",
+        # Облигационные фонды
+        "AKFB","AKMP","BCSD","OBLG","SUGB","SBGB","GPBM",
+        "VTBB","SBRB","RCMB","BOND","RUSB","SBRS",
+        # Индексные и акционные фонды
+        "EQMX","TMOS","SBSP","TRUR","AKSP","BCSE","INFL",
+        "SBMX","VTBX","RCMX","INMO","TIPO","DIVD","GOOD",
+        # Товарные фонды
+        "GOLD","TGLD","AKGD","VTBG","SBGD","CNYM","CNYU",
+        "RCMG","SILV","SBSI",
+        # Прочие ETF (содержат ETF в названии)
     }
 
-    exclude = blue_chips | portfolio_tickers | money_market_etf
+    # Дополнительно исключаем по признаку ETF в названии
+    def is_etf(item):
+        name = item.get("name","").upper()
+        return ("ETF" in name or "БПИ" in name or
+                item["ticker"].endswith("ETF") or
+                len(item["ticker"]) >= 5)
+
+    exclude = blue_chips | portfolio_tickers | etf_funds
 
     week_key = _get_week_key()
     prev_week_key = _get_prev_week_key()
@@ -263,6 +280,8 @@ def collect_rising_interest(rules, all_items, vol_history):
     for item in all_items:
         ticker = item["ticker"]
         if ticker in exclude:
+            continue
+        if is_etf(item):
             continue
         if item["price"] <= 0 or item["price"] > 1000:
             continue
