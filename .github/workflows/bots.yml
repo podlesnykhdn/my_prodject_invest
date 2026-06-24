@@ -52,6 +52,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase origin main || true
-          git add logs/**
+          git add logs/** rules.json
           git diff --staged --quiet || git commit -m "logs $(date +%Y-%m-%d_%H%M)"
           git push origin main
