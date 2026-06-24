@@ -11,6 +11,14 @@ import re
 from datetime import date, datetime
 from pathlib import Path
 
+
+# Акции только для квалифицированных инвесторов — не показываем в алертах
+QUAL_ONLY_TICKERS = {
+    "DIOD", "KUZB", "UKUZ", "SVAV", "UWGN", "KCHEP", "KCHPP",
+    "GRNT", "RNFT", "MRKP", "MRKC", "MRKZ", "MRKV", "MRKU",
+    "MRSB", "MRSK", "TORS", "TNSE", "KLSB", "PMSBP",
+}
+
 TOKEN    = os.environ["ADVISOR_BOT_TOKEN"]
 CHAT_ID  = os.environ["TELEGRAM_CHAT_ID"]
 BASE_DIR = Path(__file__).parent
@@ -494,7 +502,9 @@ def build_alert(alert_id, data):
         ineff = data.get("inefficiencies", {})
         port_sigs   = ineff.get("portfolio", [])
         market_sigs = ineff.get("market", [])
-        strong = [s for s in port_sigs + market_sigs if s.get("max_strength", 0) >= 70]
+        strong = [s for s in port_sigs + market_sigs
+                  if s.get("max_strength", 0) >= 70
+                  and s.get("ticker") not in QUAL_ONLY_TICKERS]
         if not strong:
             return None
         item    = strong[0]
