@@ -1,7 +1,7 @@
 {
   "meta": {
     "date": "2026-06-25",
-    "time": "07:46",
+    "time": "08:01",
     "month": 6,
     "weekday": 3,
     "is_friday": false
@@ -21,26 +21,26 @@
     "is_cached": false
   },
   "portfolio": {
-    "total_value": 215785.0,
-    "total_change": 898.0,
-    "total_pct": 0.42,
+    "total_value": 215468.0,
+    "total_change": 580.0,
+    "total_pct": 0.27,
     "positions": [
       {
         "ticker": "X5",
         "name": "ПАО «Корпоративный центр ИКС 5»",
         "qty": 45,
-        "price": 2188.5,
-        "change": 10.5,
-        "pct": 0.48,
-        "value": 98482.0,
-        "day_rub": 472.0,
-        "pe": 7.2,
+        "price": 2183.5,
+        "change": 5.5,
+        "pct": 0.25,
+        "value": 98258.0,
+        "day_rub": 248.0,
+        "pe": 7.1,
         "eps_ttm": 306.0,
         "pe_sector_avg": 6.5,
-        "pe_vs_sector": "выше среднего",
+        "pe_vs_sector": "на уровне среднего",
         "ath": 3764,
         "prev_price": 2188.5,
-        "pct_from_ath": -41.9,
+        "pct_from_ath": -42.0,
         "near_ath": false
       },
       {
@@ -65,36 +65,36 @@
         "ticker": "SBER",
         "name": "ПАО Сбербанк",
         "qty": 80,
-        "price": 303.74,
-        "change": 1.82,
-        "pct": 0.6,
-        "value": 24299.0,
-        "day_rub": 146.0,
+        "price": 302.89,
+        "change": 0.97,
+        "pct": 0.32,
+        "value": 24231.0,
+        "day_rub": 78.0,
         "pe": 3.9,
         "eps_ttm": 78.4,
         "pe_sector_avg": 5.0,
         "pe_vs_sector": "ниже среднего",
         "ath": 388.11,
-        "prev_price": 304.14,
-        "pct_from_ath": -21.7,
+        "prev_price": 303.74,
+        "pct_from_ath": -22.0,
         "near_ath": false
       },
       {
         "ticker": "BELU",
         "name": "ПАО «НоваБев Групп»",
         "qty": 12,
-        "price": 264,
-        "change": 1.2,
-        "pct": 0.46,
-        "value": 3168,
-        "day_rub": 14.0,
+        "price": 262,
+        "change": -0.8,
+        "pct": -0.3,
+        "value": 3144,
+        "day_rub": -10.0,
         "pe": 4.2,
         "eps_ttm": 63.0,
         "pe_sector_avg": 8.0,
         "pe_vs_sector": "ниже среднего",
         "ath": 6822,
         "prev_price": 264,
-        "pct_from_ath": -96.1,
+        "pct_from_ath": -96.2,
         "near_ath": false
       },
       {
@@ -119,32 +119,32 @@
   },
   "quotes": {
     "BELU": {
-      "price": 264,
-      "prev": 264,
-      "change": 1.2,
-      "pct": 0.46,
-      "volume": 42271398
+      "price": 262,
+      "prev": 262,
+      "change": -0.8,
+      "pct": -0.3,
+      "volume": 47048662
     },
     "LENT": {
       "price": 1695,
       "prev": 1695,
       "change": 5,
       "pct": 0.3,
-      "volume": 26116341
+      "volume": 28572412
     },
     "SBER": {
-      "price": 303.74,
-      "prev": 303.74,
-      "change": 1.82,
-      "pct": 0.6,
-      "volume": 2168317484
+      "price": 302.89,
+      "prev": 302.89,
+      "change": 0.97,
+      "pct": 0.32,
+      "volume": 2390194876
     },
     "X5": {
-      "price": 2188.5,
-      "prev": 2188.5,
-      "change": 10.5,
-      "pct": 0.48,
-      "volume": 275304825
+      "price": 2183.5,
+      "prev": 2183.5,
+      "change": 5.5,
+      "pct": 0.25,
+      "volume": 306341602
     }
   },
   "screener": {
@@ -345,11 +345,11 @@
     "account_id": "2231486341",
     "account_name": "Брокерский счет",
     "total_invested": 318952.3,
-    "total_current": 273612.9,
-    "total_pnl": -45339.4,
-    "total_pnl_pct": -14.22,
-    "total_shares": 215491.8,
-    "total_etf": 58100.0,
+    "total_current": 272990.2,
+    "total_pnl": -45962.1,
+    "total_pnl_pct": -14.41,
+    "total_shares": 214669.1,
+    "total_etf": 58300.0,
     "total_bonds": 0.0,
     "positions": [
       {
@@ -358,11 +358,11 @@
         "itype": "share",
         "qty": 45.0,
         "avg_price": 2907.0,
-        "curr_price": 2184.0,
+        "curr_price": 2180.5,
         "invested": 130815.0,
-        "current_val": 98280.0,
-        "pnl": -32675.0,
-        "pnl_pct": -24.98
+        "current_val": 98122.5,
+        "pnl": -32832.5,
+        "pnl_pct": -25.1
       },
       {
         "figi": "BBG0063FKTD9",
@@ -370,11 +370,11 @@
         "itype": "share",
         "qty": 53.0,
         "avg_price": 1742.1,
-        "curr_price": 1695.0,
+        "curr_price": 1685.0,
         "invested": 92331.3,
-        "current_val": 89835.0,
-        "pnl": -2494.0,
-        "pnl_pct": -2.7
+        "current_val": 89305.0,
+        "pnl": -3024.0,
+        "pnl_pct": -3.28
       },
       {
         "figi": "BBG000TY1CD1",
@@ -382,11 +382,11 @@
         "itype": "share",
         "qty": 12.0,
         "avg_price": 453.6,
-        "curr_price": 262.0,
+        "curr_price": 260.4,
         "invested": 5443.2,
-        "current_val": 3144.0,
-        "pnl": -2299.2,
-        "pnl_pct": -42.24
+        "current_val": 3124.8,
+        "pnl": -2318.4,
+        "pnl_pct": -42.59
       },
       {
         "figi": "TCS80A101X50",
@@ -394,11 +394,11 @@
         "itype": "etf",
         "qty": 5000.0,
         "avg_price": 13.25,
-        "curr_price": 11.62,
+        "curr_price": 11.66,
         "invested": 66250.0,
-        "current_val": 58100.0,
-        "pnl": -8125.3,
-        "pnl_pct": -12.26
+        "current_val": 58300.0,
+        "pnl": -7925.3,
+        "pnl_pct": -11.96
       },
       {
         "figi": "BBG004730N88",
@@ -406,11 +406,11 @@
         "itype": "share",
         "qty": 80.0,
         "avg_price": 301.41,
-        "curr_price": 302.91,
+        "curr_price": 301.46,
         "invested": 24112.8,
-        "current_val": 24232.8,
-        "pnl": 120.24,
-        "pnl_pct": 0.5
+        "current_val": 24116.8,
+        "pnl": 4.24,
+        "pnl_pct": 0.02
       }
     ],
     "as_of": "2026-06-25"
