@@ -598,6 +598,107 @@ def run_alerts_only():
         log = check_alerts(data, log)
         save_log(log)
 
+
+def build_full_analysis(data):
+    """
+    Полный анализ портфеля: Сборщик + Аналитик.
+    Формирует детальный промт и отправляет в Claude API.
+    Разбивает ответ на части если длинный.
+    """
+    groq_key = os.environ.get("GROQ_API_KEY", "")
+
+    # Собираем контекст портфеля
+    tp = data.get("tinkoff_portfolio", {}) if data else {}
+    portfolio = data.get("portfolio", {}) if data else {}
+    divs = data.get("dividends", {}) if data else {}
+    macro = data.get("currency", {}) if data else {}
+    oil = data.get("oil", {}) if data else {}
+
+    # Формируем данные по позициям
+    positions_text = ""
+    for p in tp.get("positions", []):
+        t = p.get("ticker", "")
+        if not t or t == "RUB":
+            continue
+        pnl_pct = p.get("pnl_pct", 0)
+        positions_text += (
+            f"  {t}: {p.get('qty')} шт, "
+            f"avg={p.get('avg_price')}₽, "
+            f"curr={p.get('curr_price')}₽, "
+            f"pnl={p.get('pnl')}₽ ({pnl_pct:+.1f}%)\n"
+        )
+
+    # Дивиденды
+    divs_text = ""
+    for t, info in divs.items():
+        np = info.get("next_payment") or info.get("announced") or {}
+        if np.get("amount_per_share"):
+            divs_text += (
+                f"  {t}: {np.get('amount_per_share')}₽/акц, "
+                f"отсечка {np.get('record_date')}, "
+                f"чистыми {np.get('your_total_net', '?')}₽\n"
+            )
+
+    invested = tp.get("total_invested", 0)
+    current  = tp.get("total_current", 0)
+    pnl      = tp.get("total_pnl", 0)
+    pnl_pct  = tp.get("total_pnl_pct", 0)
+
+    prompt = f"""Ты опытный портфельный управляющий с 20+ лет на российском рынке.
+Инвестор: начинающий, неквалифицированный статус, долгосрочная дивидендная стратегия, горизонт 5+ лет.
+
+ТЕКУЩИЙ ПОРТФЕЛЬ (данные из Т-Инвестиций):
+Вложено: {invested:,.0f}₽ | Сейчас: {current:,.0f}₽ | PnL: {pnl:+,.0f}₽ ({pnl_pct:+.1f}%)
+
+ПОЗИЦИИ:
+{positions_text}
+
+БЛИЖАЙШИЕ ДИВИДЕНДЫ:
+{divs_text if divs_text else "  Нет объявленных дивидендов"}
+
+МАКРО (на сегодня):
+- Ставка ЦБ: 14.25% (снижена 19.06, следующее заседание 24.07.2026)
+- IMOEX: ~2260 пунктов (-12% за год, 16 недель падения подряд)
+- USD/RUB: ~74₽ (крепкий рубль давит на TGLD)
+- Нефть Brent: падение -4% накануне
+
+ЗАДАЧА — выдай полный анализ в формате:
+
+📊 СБОРЩИК — ключевые факты по каждой позиции (2-3 строки на каждую)
+
+🧠 АНАЛИТИК — вердикт:
+Для каждой позиции: тезис + главный риск + вердикт (🟢 Держать / 🔵 Докупить / 🟡 Наблюдать / 🔴 Продать)
+
+🎯 ТОП-3 ДЕЙСТВИЯ прямо сейчас с датами
+
+⚠️ ГЛАВНЫЙ РИСК для портфеля
+
+Говори прямо, без воды. Максимум 800 слов. На русском."""
+
+    # Отправляем в Claude через Anthropic API
+    try:
+        anthropic_req = urllib.request.Request(
+            "https://api.anthropic.com/v1/messages",
+            data=json.dumps({
+                "model": "claude-haiku-4-5-20251001",
+                "max_tokens": 1500,
+                "messages": [{"role": "user", "content": prompt}]
+            }).encode(),
+            headers={
+                "Content-Type": "application/json",
+                "anthropic-version": "2023-06-01",
+            },
+            method="POST"
+        )
+        with urllib.request.urlopen(anthropic_req, timeout=30) as r:
+            resp = json.loads(r.read())
+        analysis = resp["content"][0]["text"]
+        return f"🔬 <b>ПОЛНЫЙ АНАЛИЗ ПОРТФЕЛЯ</b> — {TODAY}\n\n" + analysis
+    except Exception as e:
+        print(f"  [Analysis] Claude API ошибка: {e}")
+        return f"⚠️ Ошибка получения анализа: {e}"
+
+
 def run_command():
     """Обработка команд пользователя."""
     url = f"https://api.telegram.org/bot{TOKEN}/getUpdates?timeout=5"
@@ -624,7 +725,8 @@ def run_command():
                 "• Сработавшие правила аналитики\n"
                 "• Перспективные акции и активы\n\n"
                 "<b>Команды:</b>\n"
-                "/advice — полная сводка прямо сейчас\n"
+                "/advice — утренняя сводка прямо сейчас\n"
+                "/analysis — полный анализ портфеля (Сборщик + Аналитик)\n"
                 "/portfolio — только портфель\n"
                 "/screener — перспективные акции\n"
                 "/top — топ по объёму торгов"
@@ -668,6 +770,17 @@ def run_command():
                     f"   Объём: {fmt_vol(s['volume'])}"
                 )
             send("\n".join(lines))
+
+        elif text in ("/analysis", "/analyst", "/анализ", "Полный анализ"):
+            send("⏳ Запускаю Сборщик + Аналитик... (~20 сек)")
+            analysis_text = build_full_analysis(data)
+            # Разбиваем если длинное (лимит Telegram 4096 символов)
+            if len(analysis_text) > 4000:
+                parts = [analysis_text[i:i+4000] for i in range(0, len(analysis_text), 4000)]
+                for part in parts:
+                    send(part)
+            else:
+                send(analysis_text)
 
         elif text == "/top":
             screener = data.get("screener", {}) if data else {}
