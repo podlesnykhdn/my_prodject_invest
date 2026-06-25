@@ -1,7 +1,12 @@
 {
-  "alerts_sent": 0,
+  "alerts_sent": 1,
   "morning_sent": true,
-  "alerts": [],
+  "alerts": [
+    {
+      "id": "INEFFICIENCY",
+      "sent_at": "11:17 МСК (08:17 UTC)"
+    }
+  ],
   "sent_at": "10:13 МСК (07:13 UTC)",
   "date": "2026-06-25"
 }
