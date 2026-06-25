@@ -1045,6 +1045,14 @@ def calc_portfolio(rules, quotes):
         day_rub = change * pos["qty"]
         total_value  += value
         total_change += day_rub
+        # Fallback цены из Tinkoff если MOEX вернул 0
+        if price == 0 and tinkoff_portfolio:
+            for tp in tinkoff_portfolio.get("positions", []):
+                if tp.get("ticker") == ticker and tp.get("curr_price", 0) > 0:
+                    price = tp["curr_price"]
+                    print(f"  {ticker}: цена из Tinkoff {price}₽ (MOEX вернул 0)")
+                    break
+
         # P/E расчёт по данным из rules["fundamentals"]
         fund = rules.get("fundamentals", {}).get(pos["ticker"], {})
         eps  = fund.get("eps_ttm")
