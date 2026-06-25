@@ -115,7 +115,19 @@ tr:hover td{background:var(--surface2);}
       <tbody id="ptbody"><tr><td colspan="10" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody>
     </table>
   </div>
-  <div class="st">Дивидендный календарь</div>
+
+  <div style="background:#0d1525;border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:flex-start;gap:12px;">
+    <div style="font-size:1.2rem;flex-shrink:0;">📏</div>
+    <div>
+      <div style="font-size:0.78rem;font-weight:600;color:var(--text);margin-bottom:4px;">Правило: Долг/EBITDA</div>
+      <div style="font-size:0.75rem;color:var(--muted);line-height:1.6;">
+        🚫 <b style="color:var(--red);">Не покупать</b> — Долг/EBITDA &gt;3 при ставке ЦБ &gt;10% (сейчас <span id="cbr-rate-display" style="color:var(--warn);font-weight:600;"></span>)<br>
+        ⚠️ <b style="color:var(--warn);">Следи</b> — 2–3x: дивиденды могут отменить, долг давит<br>
+        ✅ <b style="color:var(--green);">Норма</b> — меньше 1.5x: компания комфортно обслуживает долг
+      </div>
+    </div>
+  </div>
+    <div class="st">Дивидендный календарь</div>
   <div id="dividend-calendar" class="sg"></div>
 </div>
 
