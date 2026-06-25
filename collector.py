@@ -29,11 +29,31 @@ def load_rules():
 
 # ─── УТИЛИТЫ ──────────────────────────────────────────────────────────────────
 
-def fetch(url, timeout=8, headers=None):
-    h = {"User-Agent": "Mozilla/5.0", **(headers or {})}
-    req = urllib.request.Request(url, headers=h)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read()
+def fetch(url, timeout=10, headers=None):
+    import time
+    h = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "ru-RU,ru;q=0.9,en;q=0.8",
+        "Referer": "https://www.moex.com/",
+        **(headers or {})
+    }
+    # Retry 3 раза с паузой
+    last_err = None
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(url, headers=h)
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read()
+        except Exception as e:
+            last_err = e
+            if attempt < 2:
+                time.sleep(2 + attempt * 2)
+    raise last_err
 
 def safe_fetch(url, timeout=8, headers=None):
     try:
@@ -456,7 +476,9 @@ def collect_screener(rules):
                "boards/TQBR/securities.json?iss.meta=off&iss.only=marketdata,securities")
         data = safe_fetch(url)
         if not data:
-            return {"top_volume": [], "cheap_growth": [], "ipo": []}
+            print("  [WARN] MOEX ISS недоступен — скринер пустой")
+            return {"top_volume": [], "cheap_growth": [], "ipo": [],
+                    "rising_interest": [], "rising_new": [], "rising_dropped": []}
 
         d = json.loads(data)
         mc = d["marketdata"]["columns"]
