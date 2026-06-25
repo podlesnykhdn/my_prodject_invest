@@ -111,7 +111,7 @@ tr:hover td{background:var(--surface2);}
   <div class="st">Мой портфель</div>
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>Компания</th><th>Тикер</th><th>Кол-во</th><th>Цена</th><th>Пред.</th><th>Изм. за день</th><th>Объём</th><th>Стоимость</th><th>ATH</th><th>P/E</th><th>Дивид.</th></tr></thead>
+      <thead><tr><th>Компания</th><th>Тикер</th><th>Кол-во</th><th>Цена</th><th>Пред.</th><th>Изм. за день</th><th>Объём</th><th>Стоимость</th><th>ATH</th><th>P/E</th><th>Долг/EBITDA</th><th>Дивид.</th></tr></thead>
       <tbody id="ptbody"><tr><td colspan="10" style="text-align:center;padding:20px;color:var(--muted);">Загрузка...</td></tr></tbody>
     </table>
   </div>
@@ -215,6 +215,8 @@ const FUNDAMENTALS={
   BELU: {eps_ttm:63,   pe_sector_avg:8.0},
   TGLD: {eps_ttm:null, pe_sector_avg:null},
 };
+const CBR_RATE=20.0;
+const DEBT_DATA={"X5": {"debt_ebitda": 0.5, "note": "МСФО 2025"}, "LENT": {"debt_ebitda": 2.38, "note": "временно из-за O'Key"}, "SBER": {"debt_ebitda": null, "note": "банк"}, "BELU": {"debt_ebitda": 1.96, "note": "МСФО 2025"}, "TGLD": {"debt_ebitda": null, "note": "ETF"}};
 const TNAMES={"AKFB": "Альфа-Капитал Обл с перем купоном", "AKMP": "Альфа-Капитал Денежный рынок Плюс", "BCSD": "БКС Денежный рынок", "CNYM": "Альфа-Капитал Юань", "FMMM": "Финам Денежный рынок", "OBLG": "ВТБ Российские облигации", "PSMM": "ПСБ Денежный рынок", "AKMM": "Альфа-Капитал Денежный рынок", "AKMB": "Альфа-Капитал Управляемые облигации", "LQDT": "ВТБ Ликвидность", "CASH": "ААА Ежедневный процент", "TMON": "Т-Капитал Денежный рынок", "SBMM": "Сбер Денежный рынок", "SCLI": "Система-Капитал Ликвидный", "GOOD": "ДОХОДЪ Денежный рынок", "MONY": "АК БАРС Денежный рынок", "TGLD": "Тинькофф Золото", "GOLD": "ВТБ Золото", "EQMX": "ВТБ Индекс МосБиржи", "TMOS": "Тинькофф Индекс МосБиржи", "SBGB": "Сбер Гособлигации", "SBER": "Сбер", "SBERP": "Сбер п", "LKOH": "Лукойл", "GAZP": "Газпром", "ROSN": "Роснефть", "NVTK": "Новатэк", "GMKN": "Норникель", "TATN": "Татнефть", "TATNP": "Татнефть п", "MGNT": "Магнит", "YDEX": "Яндекс", "MTSS": "МТС", "MOEX": "Мосбиржа", "PLZL": "Полюс", "CHMF": "Северсталь", "NLMK": "НЛМК", "MAGN": "ММК", "ALRS": "Алроса", "SNGS": "Сургутнефтегаз", "VTBR": "ВТБ", "T": "Т-Технологии", "SMLT": "Самолёт", "UGLD": "ЮГК", "AFKS": "АФК Система", "AFLT": "Аэрофлот", "ASTR": "Астра", "CBOM": "МКБ", "ENPG": "ЭН+ Груп", "IRAO": "Интер РАО", "MTLR": "Мечел", "MTLRP": "Мечел п", "PIKK": "ПИК", "HYDR": "РусГидро", "FEES": "Россети", "MSNG": "Мосэнерго", "RUAL": "Русал", "FLOT": "Совкомфлот", "PHOR": "ФосАгро", "OZON": "Озон", "HEAD": "Хэдхантер", "POSI": "Позитив", "SGZH": "Сегежа", "VKCO": "ВК", "SELG": "Селигдар", "WUSH": "Whoosh", "LEAS": "Европлан", "BSPB": "БСП", "SVCB": "Совкомбанк", "SPBE": "СПБ Биржа", "RTKM": "Ростелеком", "UPRO": "Юнипро", "TRNFP": "Транснефть п", "NMTP": "НМТП", "FESH": "FESCO", "SVAV": "СОЛЛЕРС", "UKUZ": "Южный Кузбасс", "KUZB": "Кузбасская топл", "MBNK": "МТС Банк", "RENI": "Ренессанс страхование", "ZAYM": "Займер", "FIXR": "Fix Price", "MVID": "М.Видео", "LSRG": "ЛСР", "AKRN": "Акрон", "TRMK": "ТМК", "RASP": "Распадская", "KMAZ": "КАМАЗ", "NKNC": "Нижнекамскнефтехим", "BELU": "НоваБев (Белуга)", "LENT": "Лента", "X5": "ИКС 5 (Пятёрочка)", "ABRD": "Абрау-Дюрсо", "AQUA": "Инарктика", "DELI": "Делимобиль", "DIAS": "Диасофт", "EUTR": "ЕвроТранс", "HNFG": "Хэндерсон", "MDMG": "Мать и дитя", "NKHP": "НКХП", "OKEY": "О'Кей", "PRMD": "Промомед", "RUGR": "Русагро", "SFIN": "ЭсЭфАй", "SOFL": "Softline", "SFTL": "Softline", "TNSE": "ТНС энерго"};
 const PORTFOLIO=[
   {name:"ПАО «Корпоративный центр ИКС 5»",short:"ИКС 5",ticker:"X5",board:"TQBR",qty:45,div:true},
@@ -316,6 +318,36 @@ async function loadPortfolio(){
       const prevC=(lp.prev_price&&lp.prev_price!==price)?'<span style="color:var(--muted);font-size:0.72rem;">'+fmt(lp.prev_price)+' ₽</span>':'—';
       let athC='—';
       if(lp.ath){const fire=lp.near_ath?' 🔥':'';const ac=lp.near_ath?'color:var(--warn);font-weight:700;':'';const ps=lp.pct_from_ath!=null?(lp.pct_from_ath>=0?'+':'')+lp.pct_from_ath+'%':'';athC='<span class="mono" style="'+ac+'">'+fmt(lp.ath)+' ₽'+fire+'<br><span style="font-size:0.7rem;color:var(--muted);">'+ps+'</span></span>';}
+      // Долг/EBITDA оценка
+      const dInfo = DEBT_DATA[pos.ticker] || {};
+      const deRatio = dInfo.debt_ebitda;
+      let deHtml = '—';
+      if(pos.ticker === 'SBER'){
+        deHtml = '<span style="color:var(--muted);font-size:0.7rem;">банк</span>';
+      } else if(pos.ticker === 'TGLD'){
+        deHtml = '<span style="color:var(--muted);font-size:0.7rem;">ETF</span>';
+      } else if(deRatio != null){
+        let deColor = 'var(--green)';
+        let deIcon  = '✅';
+        let deLabel = '';
+        if(deRatio > 3 && CBR_RATE > 10){
+          deColor = 'var(--red)';
+          deIcon  = '🚫';
+          deLabel = '<br><span style="font-size:0.62rem;color:var(--red);">не покупать</span>';
+        } else if(deRatio > 2){
+          deColor = 'var(--warn)';
+          deIcon  = '⚠️';
+          deLabel = '<br><span style="font-size:0.62rem;color:var(--warn);">следи</span>';
+        } else if(deRatio > 1.5){
+          deColor = 'var(--warn)';
+          deIcon  = '🟡';
+          deLabel = '';
+        }
+        deHtml = '<span class="mono" style="color:'+deColor+';font-weight:600;">'+deRatio.toFixed(1)+'x '+deIcon+'</span>'
+          + (dInfo.note ? '<br><span style="font-size:0.62rem;color:var(--muted);">'+dInfo.note+'</span>' : '')
+          + deLabel;
+      }
+
       // P/E расчёт
       const fund=FUNDAMENTALS[pos.ticker]||{};
       const eps=lp.eps_ttm||fund.eps_ttm||0;
@@ -531,6 +563,9 @@ async function loadPnL(){
 }
 
 async function loadAll(){
+  // Показываем ставку ЦБ
+  const cbrEl = document.getElementById('cbr-rate-display');
+  if(cbrEl) cbrEl.textContent = CBR_RATE + '%';
   document.getElementById('last-update').textContent='Обновлено в '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
   await Promise.all([loadPortfolio(),loadScreener(),loadIPO(),loadDividends(),loadRisingInterest()]);
 }
