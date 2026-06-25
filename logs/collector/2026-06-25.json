@@ -1,7 +1,7 @@
 {
   "meta": {
     "date": "2026-06-25",
-    "time": "07:20",
+    "time": "07:37",
     "month": 6,
     "weekday": 3,
     "is_friday": false
@@ -21,25 +21,25 @@
     "is_cached": false
   },
   "portfolio": {
-    "total_value": 216279.0,
-    "total_change": 1391.0,
-    "total_pct": 0.65,
+    "total_value": 216192.0,
+    "total_change": 1304.0,
+    "total_pct": 0.61,
     "positions": [
       {
         "ticker": "X5",
         "name": "ПАО «Корпоративный центр ИКС 5»",
         "qty": 45,
-        "price": 2195,
-        "change": 17,
-        "pct": 0.78,
-        "value": 98775,
-        "day_rub": 765,
+        "price": 2193,
+        "change": 15,
+        "pct": 0.69,
+        "value": 98685,
+        "day_rub": 675,
         "pe": 7.2,
         "eps_ttm": 306.0,
         "pe_sector_avg": 6.5,
         "pe_vs_sector": "выше среднего",
         "ath": 3764,
-        "prev_price": 2192,
+        "prev_price": 2195,
         "pct_from_ath": -41.7,
         "near_ath": false
       },
@@ -47,17 +47,17 @@
         "ticker": "LENT",
         "name": "МКПАО «Лента»",
         "qty": 53,
-        "price": 1698,
-        "change": 8,
-        "pct": 0.47,
-        "value": 89994,
-        "day_rub": 424,
+        "price": 1697,
+        "change": 7,
+        "pct": 0.41,
+        "value": 89941,
+        "day_rub": 371,
         "pe": 5.9,
         "eps_ttm": 290.0,
         "pe_sector_avg": 6.5,
         "pe_vs_sector": "на уровне среднего",
         "ath": 2300,
-        "prev_price": 1695,
+        "prev_price": 1698,
         "pct_from_ath": -26.2,
         "near_ath": false
       },
@@ -65,35 +65,35 @@
         "ticker": "SBER",
         "name": "ПАО Сбербанк",
         "qty": 80,
-        "price": 304.06,
-        "change": 2.14,
-        "pct": 0.71,
-        "value": 24325.0,
-        "day_rub": 171.0,
+        "price": 304.73,
+        "change": 2.81,
+        "pct": 0.93,
+        "value": 24378.0,
+        "day_rub": 225.0,
         "pe": 3.9,
         "eps_ttm": 78.4,
         "pe_sector_avg": 5.0,
         "pe_vs_sector": "ниже среднего",
         "ath": 388.11,
-        "prev_price": 303.18,
-        "pct_from_ath": -21.7,
+        "prev_price": 304.06,
+        "pct_from_ath": -21.5,
         "near_ath": false
       },
       {
         "ticker": "BELU",
         "name": "ПАО «НоваБев Групп»",
         "qty": 12,
-        "price": 265.4,
-        "change": 2.6,
-        "pct": 0.99,
-        "value": 3185.0,
-        "day_rub": 31.0,
+        "price": 265.6,
+        "change": 2.8,
+        "pct": 1.07,
+        "value": 3187.0,
+        "day_rub": 34.0,
         "pe": 4.2,
         "eps_ttm": 63.0,
         "pe_sector_avg": 8.0,
         "pe_vs_sector": "ниже среднего",
         "ath": 6822,
-        "prev_price": 265.8,
+        "prev_price": 265.4,
         "pct_from_ath": -96.1,
         "near_ath": false
       },
@@ -119,32 +119,32 @@
   },
   "quotes": {
     "BELU": {
-      "price": 265.4,
-      "prev": 265.4,
-      "change": 2.6,
-      "pct": 0.99,
-      "volume": 29590572
+      "price": 265.6,
+      "prev": 265.6,
+      "change": 2.8,
+      "pct": 1.07,
+      "volume": 35339520
     },
     "LENT": {
-      "price": 1698,
-      "prev": 1698,
-      "change": 8,
-      "pct": 0.47,
-      "volume": 20742589
+      "price": 1697,
+      "prev": 1697,
+      "change": 7,
+      "pct": 0.41,
+      "volume": 22767848
     },
     "SBER": {
-      "price": 304.06,
-      "prev": 304.06,
-      "change": 2.14,
-      "pct": 0.71,
-      "volume": 1380586177
+      "price": 304.73,
+      "prev": 304.73,
+      "change": 2.81,
+      "pct": 0.93,
+      "volume": 1995485746
     },
     "X5": {
-      "price": 2195,
-      "prev": 2195,
-      "change": 17,
-      "pct": 0.78,
-      "volume": 173980230
+      "price": 2193,
+      "prev": 2193,
+      "change": 15,
+      "pct": 0.69,
+      "volume": 242059093
     }
   },
   "screener": {
@@ -345,11 +345,11 @@
     "account_id": "2231486341",
     "account_name": "Брокерский счет",
     "total_invested": 318952.3,
-    "total_current": 274493.9,
-    "total_pnl": -44458.4,
-    "total_pnl_pct": -13.94,
-    "total_shares": 216222.8,
-    "total_etf": 58250.0,
+    "total_current": 273708.4,
+    "total_pnl": -45243.9,
+    "total_pnl_pct": -14.19,
+    "total_shares": 215387.3,
+    "total_etf": 58300.0,
     "total_bonds": 0.0,
     "positions": [
       {
@@ -358,11 +358,11 @@
         "itype": "share",
         "qty": 45.0,
         "avg_price": 2907.0,
-        "curr_price": 2190.5,
+        "curr_price": 2181.0,
         "invested": 130815.0,
-        "current_val": 98572.5,
-        "pnl": -32382.5,
-        "pnl_pct": -24.75
+        "current_val": 98145.0,
+        "pnl": -32810.0,
+        "pnl_pct": -25.08
       },
       {
         "figi": "BBG0063FKTD9",
@@ -370,11 +370,11 @@
         "itype": "share",
         "qty": 53.0,
         "avg_price": 1742.1,
-        "curr_price": 1699.5,
+        "curr_price": 1695.5,
         "invested": 92331.3,
-        "current_val": 90073.5,
-        "pnl": -2255.5,
-        "pnl_pct": -2.44
+        "current_val": 89861.5,
+        "pnl": -2467.5,
+        "pnl_pct": -2.67
       },
       {
         "figi": "BBG000TY1CD1",
@@ -382,11 +382,11 @@
         "itype": "share",
         "qty": 12.0,
         "avg_price": 453.6,
-        "curr_price": 266.4,
+        "curr_price": 262.8,
         "invested": 5443.2,
-        "current_val": 3196.8,
-        "pnl": -2246.4,
-        "pnl_pct": -41.27
+        "current_val": 3153.6,
+        "pnl": -2289.6,
+        "pnl_pct": -42.06
       },
       {
         "figi": "TCS80A101X50",
@@ -394,11 +394,11 @@
         "itype": "etf",
         "qty": 5000.0,
         "avg_price": 13.25,
-        "curr_price": 11.65,
+        "curr_price": 11.66,
         "invested": 66250.0,
-        "current_val": 58250.0,
-        "pnl": -7975.3,
-        "pnl_pct": -12.04
+        "current_val": 58300.0,
+        "pnl": -7925.3,
+        "pnl_pct": -11.96
       },
       {
         "figi": "BBG004730N88",
@@ -406,11 +406,11 @@
         "itype": "share",
         "qty": 80.0,
         "avg_price": 301.41,
-        "curr_price": 304.75,
+        "curr_price": 302.84,
         "invested": 24112.8,
-        "current_val": 24380.0,
-        "pnl": 267.44,
-        "pnl_pct": 1.11
+        "current_val": 24227.2,
+        "pnl": 114.64,
+        "pnl_pct": 0.48
       }
     ],
     "as_of": "2026-06-25"
