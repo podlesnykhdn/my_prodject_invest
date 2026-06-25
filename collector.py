@@ -610,11 +610,13 @@ def collect_screener(rules):
         d = json.loads(data)
         mc = d["marketdata"]["columns"]
         sc = d["securities"]["columns"]
-        print(f"  [Screener] MOEX ответил: {len(d['marketdata']['data'])} строк marketdata, {len(d['securities']['data'])} строк securities")
-        # Смотрим первые 3 строки
-        for row in d["marketdata"]["data"][:3]:
+        md_rows = d["marketdata"]["data"]
+        sc_rows = d["securities"]["data"]
+        print(f"  [Screener] MOEX: {len(md_rows)} marketdata, {len(sc_rows)} securities")
+        # Первые 5 строк для диагностики
+        for row in md_rows[:5]:
             r = dict(zip(mc, row))
-            print(f"    {r.get('SECID')}: LAST={r.get('LAST')} VALTODAY={r.get('VALTODAY')}")
+            print(f"    {r.get('SECID')}: LAST={r.get('LAST')} PREV={r.get('PREVPRICE')} VAL={r.get('VALTODAY')}")
 
         names = {}
         for row in d["securities"]["data"]:
