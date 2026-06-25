@@ -17,6 +17,9 @@ QUAL_ONLY_TICKERS = {
     "DIOD", "KUZB", "UKUZ", "SVAV", "UWGN", "KCHEP", "KCHPP",
     "GRNT", "RNFT", "MRKP", "MRKC", "MRKZ", "MRKV", "MRKU",
     "MRSB", "MRSK", "TORS", "TNSE", "KLSB", "PMSBP",
+    "CHKZ", "KOGK", "KROT", "KZOS", "LNZL", "NNSB",
+    "PRFN", "RUGP", "SAGO", "SAGOP", "TGKB", "TGKBP",
+    "TGKD", "TGKDP", "VLHZ", "WTCM", "WTCMP", "YAKG",
 }
 
 TOKEN    = os.environ["ADVISOR_BOT_TOKEN"]
