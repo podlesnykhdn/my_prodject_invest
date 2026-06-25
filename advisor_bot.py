@@ -461,6 +461,18 @@ def build_morning_report(data):
     psigs  = data.get("portfolio_signals", {})
     lines.append(build_conclusion(data, fired, psigs))
 
+    # ── АНАЛИЗ ЧЕРЕЗ CLAUDE ──────────────────────────────────────────────────
+    try:
+        analysis = build_full_analysis(data)
+        # Берём тело без первого заголовка
+        sep = '\n\n'
+        analysis_body = analysis.split(sep, 1)[1] if sep in analysis else analysis
+        lines.append(f"\n{'─' * 28}")
+        lines.append("🧠 <b>АНАЛИТИК — РАЗБОР И СОВЕТЫ</b>")
+        lines.append(analysis_body)
+    except Exception as e:
+        lines.append(f"\n⚠️ Аналитик: {e}")
+
     # Ссылка на дашборд
     lines.append(
         f"\n─ ─ ─\n"
