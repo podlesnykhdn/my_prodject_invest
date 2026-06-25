@@ -17,6 +17,13 @@ BASE_DIR = Path(__file__).parent
 RULES_FILE = BASE_DIR / "rules.json"
 LOGS_DIR = BASE_DIR / "logs"
 TODAY = date.today().isoformat()
+
+# Акции только для квалифицированных инвесторов (недоступны в Т-Инвестициях)
+QUAL_ONLY_TICKERS = {
+    "DIOD", "KUZB", "UKUZ", "SVAV", "UWGN", "KCHEP", "KCHPP",
+    "GRNT", "RNFT", "MRKP", "MRKC", "MRKZ", "MRKV", "MRKU",
+    "MRSB", "MRSK", "TORS", "TNSE", "KLSB", "PMSBP",
+}
 NOW = datetime.now().strftime("%H:%M")
 MONTH = datetime.now().month
 WEEKDAY = datetime.now().weekday()  # 0=пн, 4=пт
