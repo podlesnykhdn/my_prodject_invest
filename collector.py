@@ -743,8 +743,15 @@ def collect_screener(rules):
         }
 
     except Exception as e:
+        import traceback
+        tb = traceback.format_exc()
         print(f"  [ERROR] screener: {e}")
-        return {"top_volume": [], "cheap_growth": []}
+        print(f"  [TRACEBACK] {tb}")
+        return {
+            "top_volume": [], "cheap_growth": [], "ipo": [],
+            "rising_interest": [], "rising_new": [], "rising_dropped": [],
+            "_error": str(e), "_traceback": tb[:500]
+        }
 
 def _score_stock(stock, rules):
     """Простая оценка по доступным данным (без истории)."""
