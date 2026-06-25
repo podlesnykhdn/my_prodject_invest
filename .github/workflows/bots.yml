@@ -45,6 +45,7 @@ jobs:
           ADVISOR_BOT_TOKEN: ${{ secrets.ADVISOR_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           BOT_MODE: ${{ steps.mode.outputs.mode }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: python advisor_bot.py || true
       - name: Сохранить логи
         if: always()
