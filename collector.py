@@ -464,6 +464,98 @@ def _score_rising(vol_growth, price_pct, volume):
 
 # ─── 4. СКРИНЕР MOEX ─────────────────────────────────────────────────────────
 
+
+# ─── СКРИНЕР ЧЕРЕЗ TINKOFF API ───────────────────────────────────────────────
+
+def collect_screener_tinkoff(tinkoff_token, portfolio_tickers=None):
+    """
+    Собирает данные скринера через Tinkoff Invest API.
+    Получает список акций с объёмами и изменениями цен.
+    """
+    if not tinkoff_token:
+        return None
+
+    print("  [Screener] Загружаем данные через Tinkoff API...")
+    base_url = "https://invest-public-api.tinkoff.ru/rest"
+    t_headers = {
+        "Authorization": f"Bearer {tinkoff_token}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+
+    try:
+        # Получаем список акций через Tinkoff Instruments API
+        req = urllib.request.Request(
+            f"{base_url}/tinkoff.public.invest.api.contract.v1.InstrumentsService/Shares",
+            data=json.dumps({"instrumentStatus": "INSTRUMENT_STATUS_BASE"}).encode(),
+            headers=t_headers, method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=15) as r:
+            instruments_data = json.loads(r.read())
+
+        instruments = instruments_data.get("instruments", [])
+        print(f"  [Screener] Получено {len(instruments)} инструментов")
+
+        # Фильтруем только российские акции на MOEX
+        ru_shares = [
+            i for i in instruments
+            if i.get("countryOfRisk") == "RU"
+            and i.get("exchange") in ("MOEX", "MOEX_MORNING")
+            and not i.get("forQualInvestorFlag", False)
+        ]
+        print(f"  [Screener] Российских акций для неквалов: {len(ru_shares)}")
+
+        # Получаем цены через GetLastPrices
+        figis = [i["figi"] for i in ru_shares[:200]]  # берём топ-200
+        req2 = urllib.request.Request(
+            f"{base_url}/tinkoff.public.invest.api.contract.v1.MarketDataService/GetLastPrices",
+            data=json.dumps({"figi": figis}).encode(),
+            headers=t_headers, method="POST"
+        )
+        with urllib.request.urlopen(req2, timeout=15) as r:
+            prices_data = json.loads(r.read())
+
+        def parse_quotation(q):
+            if not q: return 0.0
+            return int(q.get("units", 0)) + int(q.get("nano", 0)) / 1e9
+
+        price_map = {}
+        for lp in prices_data.get("lastPrices", []):
+            price_map[lp["figi"]] = parse_quotation(lp.get("price"))
+
+        # Строим список инструментов с ценами
+        figi_to_ticker = {i["figi"]: i.get("ticker","") for i in ru_shares}
+        figi_to_name   = {i["figi"]: i.get("name","") for i in ru_shares}
+
+        result_items = []
+        for figi in figis:
+            price = price_map.get(figi, 0)
+            if price <= 0:
+                continue
+            ticker = figi_to_ticker.get(figi, "")
+            name   = figi_to_name.get(figi, ticker)
+            if not ticker:
+                continue
+            result_items.append({
+                "ticker": ticker,
+                "figi":   figi,
+                "name":   name,
+                "price":  round(price, 2),
+                "pct":    0,      # изменение за день — нет в lastPrices
+                "volume": 0,
+                "change": 0,
+            })
+
+        print(f"  [Screener] Инструментов с ценами: {len(result_items)}")
+        return result_items
+
+    except Exception as e:
+        print(f"  [Screener Tinkoff] Ошибка: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+
+
 def collect_screener(rules):
     print("[4/6] Скринер MOEX...")
     screener_rules = rules["rules"]["screener"]["cheap_growth"]
@@ -489,29 +581,29 @@ def collect_screener(rules):
             print(f"  [WARN] недоступен: {url_try[:60]}")
 
         if not data:
-            print("  [WARN] Все MOEX эндпоинты недоступны — пробуем альтернативу...")
-            # Fallback: используем данные из предыдущего лога
-            try:
-                import glob
-                logs_dir = LOGS_DIR / "collector"
-                prev_logs = sorted(glob.glob(str(logs_dir / "*.json")))
-                if prev_logs:
-                    with open(prev_logs[-1], encoding="utf-8") as f:
-                        prev_data = json.load(f)
-                    prev_sc = prev_data.get("screener", {})
-                    if prev_sc.get("top_volume"):
-                        print(f"  Используем данные из предыдущего лога: {prev_logs[-1]}")
-                        return {
-                            "top_volume":     prev_sc.get("top_volume", []),
-                            "cheap_growth":   prev_sc.get("cheap_growth", []),
-                            "rising_interest":prev_sc.get("rising_interest", []),
-                            "rising_new":     [],
-                            "rising_dropped": [],
-                            "ipo":            prev_sc.get("ipo", []),
-                            "_from_cache":    True,
-                        }
-            except Exception as e:
-                print(f"  Fallback error: {e}")
+            print("  [WARN] MOEX ISS недоступен — используем Tinkoff API для скринера")
+            tinkoff_token = os.environ.get("TINKOFF_TOKEN")
+            tinkoff_items = collect_screener_tinkoff(tinkoff_token)
+            if tinkoff_items:
+                # Формируем top_volume из Tinkoff данных (по цене)
+                # Сортируем по цене убыванию как прокси объёма
+                top_vol = sorted(
+                    [i for i in tinkoff_items if i["price"] > 0],
+                    key=lambda x: x["price"], reverse=True
+                )[:10]
+                cheap = [
+                    i for i in tinkoff_items
+                    if 0 < i["price"] <= 500
+                ][:10]
+                return {
+                    "top_volume":     top_vol,
+                    "cheap_growth":   cheap,
+                    "rising_interest":[],
+                    "rising_new":     [],
+                    "rising_dropped": [],
+                    "ipo":            [],
+                    "_source":        "tinkoff",
+                }
             return {"top_volume": [], "cheap_growth": [], "ipo": [],
                     "rising_interest": [], "rising_new": [], "rising_dropped": []}
 
