@@ -2261,8 +2261,23 @@ def collect():
     screener_tickers = [s["ticker"] for s in screener.get("cheap_growth", [])]
     dividends = build_dividend_calendar(rules, screener_tickers)
     vol_history_data = _load_vol_history()
+    # Ежемесячная ревизия и обновление списка квал-only
+    tinkoff_token = os.environ.get("TINKOFF_TOKEN")
+    update_qual_only_tickers(tinkoff_token)
     inefficiencies = analyze_inefficiencies(rules, quotes, screener, vol_history_data)
+    # Фильтруем аномалии — убираем квал-only и проверяем новые тикеры
+    if inefficiencies:
+        port = inefficiencies.get("portfolio", [])
+        mkt  = inefficiencies.get("market", [])
+        port = check_and_filter_anomalies(port, tinkoff_token)
+        mkt  = check_and_filter_anomalies(mkt, tinkoff_token)
+        inefficiencies["portfolio"] = port
+        inefficiencies["market"]    = mkt
     price_history = collect_price_history(rules, quotes)
+    # Фильтруем rising_interest от квал-only
+    if isinstance(rising, dict):
+        rising["current"] = check_and_filter_anomalies(rising.get("current", []), tinkoff_token)
+        rising["new"]     = check_and_filter_anomalies(rising.get("new", []), tinkoff_token)
 
     # Применяем дивидендные данные к карточкам скринера
     for stock in screener.get("cheap_growth", []):
