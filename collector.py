@@ -2219,12 +2219,36 @@ def collect():
 
     rules = load_rules()
 
-    currency = collect_currency()
-    oil      = collect_oil()
-    quotes   = collect_moex(rules)
-    screener = collect_screener(rules)
-    assets   = collect_assets(rules, oil)
-    news     = collect_news(rules)
+    try:
+        currency = collect_currency()
+    except Exception as e:
+        print(f'[ERROR] collect_currency: {e}')
+        currency = {}
+    try:
+        oil = collect_oil()
+    except Exception as e:
+        print(f'[ERROR] collect_oil: {e}')
+        oil = {}
+    try:
+        quotes = collect_moex(rules)
+    except Exception as e:
+        print(f'[ERROR] collect_moex: {e}')
+        quotes = {}
+    try:
+        screener = collect_screener(rules)
+    except Exception as e:
+        print(f'[ERROR] collect_screener: {e}')
+        screener = {}
+    try:
+        assets = collect_assets(rules, oil)
+    except Exception as e:
+        print(f'[ERROR] collect_assets: {e}')
+        assets = []
+    try:
+        news = collect_news(rules)
+    except Exception as e:
+        print(f'[ERROR] collect_news: {e}')
+        news = []
 
     tinkoff_portfolio = fetch_tinkoff_portfolio()
     # Синхронизируем портфель из Т-Инвестиций и сохраняем rules.json
@@ -2238,7 +2262,7 @@ def collect():
         except Exception as e:
             print(f"  [Sync] Ошибка сохранения rules.json: {e}")
     fired_rules, portfolio_signals = run_rules(rules, currency, oil, quotes, news)
-    portfolio = calc_portfolio(rules, quotes)
+    portfolio = calc_portfolio(rules, quotes, tinkoff_portfolio)
     all_time_highs = collect_all_time_highs(rules)
     # Добавляем ATH и предыдущую цену в каждую позицию
     last_log = _load_last_log("collector")
