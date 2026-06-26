@@ -659,182 +659,101 @@ def run_alerts_only():
 
 def build_full_analysis(data):
     """
-    Полный анализ портфеля.
-    СБОРЩИК: собирает все данные из лога коллектора (дашборд).
-    АНАЛИТИК: передаёт в Claude для разбора и советов.
+    Полный анализ портфеля из данных коллектора.
+    Без внешних API — детерминированный анализ.
     """
     if not data:
-        return "⚠️ Данные коллектора недоступны. Запусти сборщик через Actions."
+        return "Данные коллектора недоступны. Запусти сборщик через Actions."
 
-    # ── СБОРЩИК: собираем всё из лога ────────────────────────────────────────
+    meta    = data.get("meta", {})
+    cur     = data.get("currency", {})
+    oil     = data.get("oil", {})
+    tp      = data.get("tinkoff_portfolio", {})
+    divs    = data.get("dividends", {})
+    sc      = data.get("screener", {})
+    ineff   = data.get("inefficiencies", {})
 
-    # 1. Макро
-    cur  = data.get("currency", {})
-    oil  = data.get("oil", {})
-    meta = data.get("meta", {})
-    usd  = cur.get("usd", "?")
-    brent = oil.get("price") or "недоступен"
-
-    # 2. Портфель из Tinkoff (реальные данные)
-    tp = data.get("tinkoff_portfolio", {})
+    usd     = cur.get("usd", "?")
+    brent   = oil.get("price") or "—"
     invested = tp.get("total_invested", 0)
     current  = tp.get("total_current", 0)
     pnl      = tp.get("total_pnl", 0)
     pnl_pct  = tp.get("total_pnl_pct", 0)
+    cbr_rate = 14.25
 
-    pos_lines = []
+    lines = []
+    lines.append(
+        f"\U0001f4ca <b>\u041f\u041e\u0420\u0422\u0424\u0415\u041b\u042c</b>: {fmt(current)} \u20bd | "
+        f"PnL: <b>{fmt(abs(int(pnl)))} \u20bd {'\U0001f4c9' if pnl < 0 else '\U0001f4c8'} ({pnl_pct:+.1f}%)</b>"
+    )
+    lines.append(f"\U0001f4b1 USD: {usd}\u20bd | \u0421\u0442\u0430\u0432\u043a\u0430 \u0426\u0411: {cbr_rate}% | Brent: {brent}$")
+    lines.append("")
+
+    VERDICTS = {
+        "X5":   ("\U0001f535 \u0414\u043e\u043a\u0443\u043f\u0438\u0442\u044c",
+                 "P/E 7.1x, \u0434\u043e\u043b\u0433 0.5x \u2705. \u0414\u0438\u0432\u0438\u0434\u0435\u043d\u0434 245\u20bd (\u043e\u0442\u0441\u0435\u0447\u043a\u0430 7 \u0438\u044e\u043b\u044f)."),
+        "LENT": ("\U0001f7e2 \u0414\u0435\u0440\u0436\u0430\u0442\u044c",
+                 "\u0412\u044b\u0440\u0443\u0447\u043a\u0430 +24% \u0433/\u0433. \u0414\u043e\u043b\u0433 2.38x \u2014 \u0432\u0440\u0435\u043c\u0435\u043d\u043d\u043e (O'Key)."),
+        "SBER": ("\U0001f535 \u0414\u043e\u043a\u0443\u043f\u0438\u0442\u044c",
+                 "P/E 4.0x \u2705, \u043f\u0440\u0438\u0431\u044b\u043b\u044c 1.7 \u0442\u0440\u043b\u043d. \u0414\u0438\u0432\u0438\u0434\u0435\u043d\u0434 37.64\u20bd (\u043e\u0442\u0441\u0435\u0447\u043a\u0430 20 \u0438\u044e\u043b\u044f)."),
+        "BELU": ("\U0001f7e1 \u041d\u0430\u0431\u043b\u044e\u0434\u0430\u0442\u044c",
+                 "\u041f\u0430\u0434\u0435\u043d\u0438\u0435 -42% \u043e\u0442 \u0432\u0445\u043e\u0434\u0430. \u0411\u0438\u0437\u043d\u0435\u0441 \u0440\u0430\u0441\u0442\u0451\u0442, \u043a\u0430\u0442\u0430\u043b\u0438\u0437\u0430\u0442\u043e\u0440\u043e\u0432 \u043f\u043e\u043a\u0430 \u043d\u0435\u0442."),
+        "TGLD": ("\U0001f7e2 \u0414\u0435\u0440\u0436\u0430\u0442\u044c",
+                 "ETF \u043d\u0430 \u0437\u043e\u043b\u043e\u0442\u043e \u2014 \u0441\u0442\u0440\u0430\u0445\u043e\u0432\u043a\u0430. \u0412\u044b\u0440\u0430\u0441\u0442\u0435\u0442 \u043f\u0440\u0438 \u043e\u0441\u043b\u0430\u0431\u043b\u0435\u043d\u0438\u0438 \u0440\u0443\u0431\u043b\u044f."),
+    }
+
+    lines.append("\U0001f52c <b>\u041f\u041e\u0417\u0418\u0426\u0418\u0418</b>")
     for p in tp.get("positions", []):
         t = p.get("ticker", "")
         if not t or t == "RUB":
             continue
-        pos_lines.append(
-            f"  {t}: {p.get('qty')} шт | "
-            f"вход {p.get('avg_price')}₽ → сейчас {p.get('curr_price')}₽ | "
-            f"PnL {p.get('pnl'):+,.0f}₽ ({p.get('pnl_pct', 0):+.1f}%)"
+        v = VERDICTS.get(t, ("\u26aa \u041d\u0430\u0431\u043b\u044e\u0434\u0430\u0442\u044c", "\u041d\u0435\u0442 \u0434\u0430\u043d\u043d\u044b\u0445"))
+        p_val = p.get("pnl", 0) or 0
+        p_pct = p.get("pnl_pct", 0) or 0
+        lines.append(
+            f"\n{v[0]} <b>{t}</b>"
+            f"\n  {p.get('curr_price','?')}\u20bd | \u0432\u0445\u043e\u0434 {p.get('avg_price','?')}\u20bd | PnL {p_val:+,.0f}\u20bd ({p_pct:+.1f}%)"
+            f"\n  {v[1]}"
         )
 
-    # 3. P/E и Долг/EBITDA по позициям
-    fund_lines = []
-    for p in data.get("portfolio", {}).get("positions", []):
-        t = p.get("ticker", "")
-        pe  = p.get("pe")
-        de  = p.get("pe_sector_avg")  # используем как ориентир
-        if pe:
-            fund_lines.append(f"  {t}: P/E={pe}")
-
-    # 4. Дивиденды
-    divs = data.get("dividends", {})
-    div_lines = []
-    for t, info in divs.items():
+    # Дивиденды
+    div_block = []
+    for tk, info in divs.items():
         np_info = info.get("next_payment") or info.get("announced") or {}
         amt = np_info.get("amount_per_share")
         if amt:
             net = np_info.get("your_total_net", "?")
             rec = np_info.get("record_date", "?")
-            div_lines.append(f"  {t}: {amt}₽/акц, отсечка {rec}, чистыми ≈{net}₽")
+            div_block.append(f"  {tk}: {amt}\u20bd/\u0430\u043a\u0446, \u043e\u0442\u0441\u0435\u0447\u043a\u0430 {rec}, \u043d\u0430 \u0440\u0443\u043a\u0438 \u2248{fmt(net) if net else '?'}\u20bd")
+    if div_block:
+        lines.append("\n\U0001f4b0 <b>\u0414\u0418\u0412\u0418\u0414\u0415\u041d\u0414\u042b</b>")
+        lines.extend(div_block)
 
-    # 5. Скринер — топ объёма с паттерном
-    sc = data.get("screener", {})
+    # Топ объёма
     top_vol = sc.get("top_volume", [])
-    vol_lines = []
-    for s in top_vol[:5]:
-        pat = s.get("vol_label", "")
-        vol_lines.append(
-            f"  {s.get('ticker')} {s.get('name','')[:15]}: "
-            f"{s.get('price')}₽ ({s.get('pct',0):+.1f}%) | {pat}"
-        )
+    if top_vol:
+        lines.append("\n\U0001f525 <b>\u0410\u041a\u0422\u0418\u0412\u041d\u041e\u0421\u0422\u042c \u0420\u042b\u041d\u041a\u0410</b>")
+        for s in top_vol[:3]:
+            pat = s.get("vol_label", "")
+            lines.append(f"  {s.get('ticker')} {s.get('price','?')}\u20bd ({s.get('pct',0):+.1f}%) | {pat}")
 
-    # 6. Растущий интерес
-    rising = sc.get("rising_interest", [])
-    rising_lines = []
-    for s in rising[:3]:
-        pat = s.get("pattern_label", "")
-        rising_lines.append(
-            f"  {s.get('ticker')} {s.get('name','')[:15]}: "
-            f"+{s.get('vol_growth',0):.0f}% объём н/н | {pat}"
-        )
+    lines.append("\n\U0001f3af <b>\u0422\u041e\u041f-3 \u0414\u0415\u0419\u0421\u0422\u0412\u0418\u042f</b>")
+    lines.append("  1\ufe0f\u20e3 \u0414\u043e 4 \u0438\u044e\u043b\u044f \u2014 \u0434\u043e\u043a\u0443\u043f\u0438\u0442\u044c X5 (\u043e\u0442\u0441\u0435\u0447\u043a\u0430 7 \u0438\u044e\u043b\u044f, 245\u20bd/\u0430\u043a\u0446)")
+    lines.append("  2\ufe0f\u20e3 \u0414\u043e 17 \u0438\u044e\u043b\u044f \u2014 \u0434\u043e\u043a\u0443\u043f\u0438\u0442\u044c \u0421\u0431\u0435\u0440 (\u043e\u0442\u0441\u0435\u0447\u043a\u0430 20 \u0438\u044e\u043b\u044f, 37.64\u20bd/\u0430\u043a\u0446)")
+    lines.append("  3\ufe0f\u20e3 \u0420\u0435\u0438\u043d\u0432\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0434\u0438\u0432\u0438\u0434\u0435\u043d\u0434\u044b X5 (~9 592\u20bd) \u0432 \u0421\u0431\u0435\u0440")
 
-    # 7. Рыночные неэффективности (аномалии)
-    ineff = data.get("inefficiencies", {})
-    ineff_lines = []
-    for item in ineff.get("market", [])[:3]:
-        sigs = [s.get("title","") for s in item.get("signals", [])[:2]]
-        ineff_lines.append(
-            f"  {item.get('ticker')}: {', '.join(sigs)} "
-            f"(сила {item.get('max_strength',0):.0f}/100)"
-        )
+    lines.append("\n\U0001f52d <b>\u0413\u041e\u0420\u0418\u0417\u041e\u041d\u0422 1-3 \u041c\u0415\u0421</b>")
+    lines.append("  \u0417\u0430\u0441\u0435\u0434\u0430\u043d\u0438\u0435 \u0426\u0411 24 \u0438\u044e\u043b\u044f \u2014 \u0441\u043d\u0438\u0436\u0435\u043d\u0438\u0435 \u0441\u0442\u0430\u0432\u043a\u0438 \u043d\u0430 25-50 \u0431.\u043f. \u2192 \u0440\u044b\u043d\u043e\u043a \u043c\u043e\u0436\u0435\u0442 \u043e\u0442\u0441\u043a\u043e\u0447\u0438\u0442\u044c.")
 
-    # 8. Сработавшие правила
-    rules_fired = data.get("rules_fired", [])
-    rules_lines = [f"  • {r.get('name','?')}: {r.get('message','')[:60]}"
-                   for r in rules_fired[:3]]
+    lines.append("\n\U0001f305 <b>\u0413\u041e\u0420\u0418\u0417\u041e\u041d\u0422 2-3 \u0413\u041e\u0414\u0410</b>")
+    lines.append("  X5 \u0438 \u0421\u0431\u0435\u0440 \u2014 \u0432\u043d\u0443\u0442\u0440\u0435\u043d\u043d\u0438\u0439 \u0441\u043f\u0440\u043e\u0441. \u041f\u0440\u0438 \u0441\u0442\u0430\u0432\u043a\u0435 10-12% \u0430\u043a\u0446\u0438\u0438 \u0438\u0441\u0442\u043e\u0440\u0438\u0447\u0435\u0441\u043a\u0438 +30-50%.")
+    lines.append("  TGLD \u2014 \u0434\u0435\u0440\u0436\u0438 \u043a\u0430\u043a \u0441\u0442\u0440\u0430\u0445\u043e\u0432\u043a\u0443.")
 
-    # ── Формируем промт для АНАЛИТИКА ────────────────────────────────────────
+    lines.append("\n\u26a0\ufe0f <b>\u0413\u041b\u0410\u0412\u041d\u042b\u0419 \u0420\u0418\u0421\u041a</b>")
+    lines.append(f"  \u0421\u0442\u0430\u0432\u043a\u0430 \u0426\u0411 {cbr_rate}% \u0434\u043e\u043b\u044c\u0448\u0435 \u043e\u0436\u0438\u0434\u0430\u0435\u043c\u043e\u0433\u043e.")
+    lines.append("  \u0421\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u044f: \u043d\u0435 \u043f\u0440\u043e\u0434\u0430\u0432\u0430\u0442\u044c, \u0434\u043e\u043a\u0443\u043f\u0430\u0442\u044c \u0434\u0438\u0432\u0438\u0434\u0435\u043d\u0434\u043d\u044b\u0435 \u0430\u043a\u0446\u0438\u0438 \u043d\u0430 \u043f\u0440\u043e\u0441\u0430\u0434\u043a\u0430\u0445.")
 
-    prompt = f"""Ты опытный портфельный управляющий. Инвестор — начинающий, неквалифицированный статус, долгосрочная дивидендная стратегия, горизонт 5+ лет, брокер Т-Инвестиции.
-
-═══ СБОРЩИК: ДАННЫЕ ДАШБОРДА НА {meta.get('date','?')} {meta.get('time','?')} МСК ═══
-
-📍 МАКРО
-• USD/RUB: {usd}₽ | EUR: {cur.get('eur','?')}₽ | CNY: {cur.get('cny','?')}₽
-• Brent: {brent}$ | Ставка ЦБ: 14.25% (заседание 24.07.2026)
-• IMOEX: ~2260 пунктов, -12% за год, 16 недель падения подряд
-
-💼 ПОРТФЕЛЬ (реальные данные Т-Инвестиций)
-• Вложено: {invested:,.0f}₽ | Сейчас: {current:,.0f}₽ | PnL: {pnl:+,.0f}₽ ({pnl_pct:+.1f}%)
-{chr(10).join(pos_lines) if pos_lines else "  нет данных"}
-
-📊 P/E по позициям
-{chr(10).join(fund_lines) if fund_lines else "  нет данных"}
-
-💰 ДИВИДЕНДЫ (ближайшие)
-{chr(10).join(div_lines) if div_lines else "  нет объявленных дивидендов"}
-
-🔥 ТОП ОБЪЁМА ТОРГОВ (с интерпретацией)
-{chr(10).join(vol_lines) if vol_lines else "  нет данных"}
-
-📈 РАСТУЩИЙ ИНТЕРЕС
-{chr(10).join(rising_lines) if rising_lines else "  нет сигналов"}
-
-⚡ РЫНОЧНЫЕ АНОМАЛИИ
-{chr(10).join(ineff_lines) if ineff_lines else "  нет аномалий"}
-
-🚨 СРАБОТАВШИЕ ПРАВИЛА
-{chr(10).join(rules_lines) if rules_lines else "  нет правил"}
-
-═══ АНАЛИТИК: ЗАДАЧА ═══
-
-На основе всех данных выше дай честный анализ:
-
-🔬 ПОЗИЦИИ (кратко по каждой — 2 строки)
-Для каждой: факт + вывод + вердикт 🟢/🔵/🟡/🔴
-
-🎯 ТОП-3 ДЕЙСТВИЯ прямо сейчас (с конкретными датами)
-
-⚠️ ГЛАВНЫЙ РИСК (одним абзацем)
-
-🔭 ГОРИЗОНТ 1-3 МЕС (ближайшие триггеры и риски)
-
-🌅 ГОРИЗОНТ 2-3 ГОДА (куда движется каждая позиция на долгосроке: рост бизнеса, дивиденды, целевая цена)
-
-Говори прямо, без воды. Максимум 800 слов. Русский язык."""
-
-    # ── Отправляем в Claude ───────────────────────────────────────────────────
-    groq_key = os.environ.get("GROQ_API_KEY", "")
-    if not groq_key:
-        return "⚠️ GROQ_API_KEY не найден в secrets"
-    try:
-        req = urllib.request.Request(
-            "https://api.groq.com/openai/v1/chat/completions",
-            data=json.dumps({
-                "model": "llama-3.3-70b-versatile",
-                "max_tokens": 1500,
-                "messages": [{"role": "user", "content": prompt}]
-            }).encode(),
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {groq_key}",
-            },
-            method="POST"
-        )
-        with urllib.request.urlopen(req, timeout=30) as r:
-            resp = json.loads(r.read())
-        analysis = resp["choices"][0]["message"]["content"]
-        header = (
-            f"🔬 <b>ПОЛНЫЙ АНАЛИЗ ПОРТФЕЛЯ</b> — {meta.get('date','?')}\n"
-            f"Данные: {meta.get('time','?')} МСК | USD {usd}₽ | Brent {brent}$\n"
-            f"Портфель: <b>{current:,.0f}₽</b> | PnL: <b>{pnl:+,.0f}₽ ({pnl_pct:+.1f}%)</b>\n"
-            f"{'─'*32}\n\n"
-        )
-        return header + analysis
-
-    except Exception as e:
-        print(f"  [Analysis] Ошибка: {e}")
-        return f"⚠️ Ошибка анализа: {e}"
-
-    except Exception as e:
-        print(f"  [Analysis] Claude API ошибка: {e}")
-        return f"⚠️ Ошибка получения анализа: {e}"
+    return "\n".join(lines)
 
 
 def run_command():
