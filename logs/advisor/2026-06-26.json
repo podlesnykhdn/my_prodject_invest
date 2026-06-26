@@ -1,7 +1,1 @@
-{
-  "alerts_sent": 0,
-  "morning_sent": true,
-  "alerts": [],
-  "sent_at": "11:00 МСК (08:00 UTC)",
-  "date": "2026-06-26"
-}
+{"alerts_sent": 0, "morning_sent": false, "alerts": [], "sent_at": "11:00 МСК (08:00 UTC)", "date": "2026-06-26"}
