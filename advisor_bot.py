@@ -800,23 +800,26 @@ def build_full_analysis(data):
 Говори прямо, без воды. Максимум 800 слов. Русский язык."""
 
     # ── Отправляем в Claude ───────────────────────────────────────────────────
+    groq_key = os.environ.get("GROQ_API_KEY", "")
+    if not groq_key:
+        return "⚠️ GROQ_API_KEY не найден в secrets"
     try:
         req = urllib.request.Request(
-            "https://api.anthropic.com/v1/messages",
+            "https://api.groq.com/openai/v1/chat/completions",
             data=json.dumps({
-                "model": "claude-haiku-4-5-20251001",
+                "model": "llama-3.3-70b-versatile",
                 "max_tokens": 1500,
                 "messages": [{"role": "user", "content": prompt}]
             }).encode(),
             headers={
                 "Content-Type": "application/json",
-                "anthropic-version": "2023-06-01",
+                "Authorization": f"Bearer {groq_key}",
             },
             method="POST"
         )
         with urllib.request.urlopen(req, timeout=30) as r:
             resp = json.loads(r.read())
-        analysis = resp["content"][0]["text"]
+        analysis = resp["choices"][0]["message"]["content"]
         header = (
             f"🔬 <b>ПОЛНЫЙ АНАЛИЗ ПОРТФЕЛЯ</b> — {meta.get('date','?')}\n"
             f"Данные: {meta.get('time','?')} МСК | USD {usd}₽ | Brent {brent}$\n"
