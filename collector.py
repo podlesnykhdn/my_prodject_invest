@@ -2299,9 +2299,13 @@ def collect():
         inefficiencies["market"]    = mkt
     price_history = collect_price_history(rules, quotes)
     # Фильтруем rising_interest от квал-only
-    if isinstance(rising, dict):
-        rising["current"] = check_and_filter_anomalies(rising.get("current", []), tinkoff_token)
-        rising["new"]     = check_and_filter_anomalies(rising.get("new", []), tinkoff_token)
+    rising = screener if isinstance(screener, dict) else {}
+    if rising:
+        curr = rising.get("rising_interest", [])
+        new_r = rising.get("rising_new", [])
+        rising["rising_interest"] = check_and_filter_anomalies(curr, tinkoff_token)
+        rising["rising_new"]      = check_and_filter_anomalies(new_r, tinkoff_token)
+        screener = rising
 
     # Применяем дивидендные данные к карточкам скринера
     for stock in screener.get("cheap_growth", []):
