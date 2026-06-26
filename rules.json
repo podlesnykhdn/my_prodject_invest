@@ -71,7 +71,7 @@
       {
         "ticker": "TGLD",
         "name": "БПИФ «Тинькофф Золото»",
-        "qty": 5000,
+        "qty": 5001,
         "sector": "gold",
         "div": false,
         "board": "TQTF",

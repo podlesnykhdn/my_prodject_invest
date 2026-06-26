@@ -1,17 +1,17 @@
 {
   "meta": {
     "date": "2026-06-26",
-    "time": "13:36",
+    "time": "15:31",
     "month": 6,
     "weekday": 4,
     "is_friday": true
   },
   "currency": {
-    "usd": 75.63,
-    "eur": 85.77,
-    "cny": 11.044,
+    "usd": 77.06,
+    "eur": 87.4,
+    "cny": 11.3359,
     "usd_prev": 75.63,
-    "usd_change": 0.0
+    "usd_change": 1.89
   },
   "oil": {
     "price": null,
@@ -21,90 +21,90 @@
     "is_cached": false
   },
   "portfolio": {
-    "total_value": 279873.0,
-    "total_change": 3928.0,
-    "total_pct": 1.42,
+    "total_value": 281795.0,
+    "total_change": 4888.0,
+    "total_pct": 1.77,
     "positions": [
       {
         "ticker": "X5",
         "name": "ПАО «Корпоративный центр ИКС 5»",
         "qty": 45,
-        "price": 2196,
-        "change": 27,
-        "pct": 1.24,
-        "value": 98820,
-        "day_rub": 1215,
-        "pe": 7.2,
+        "price": 2170.5,
+        "change": 1.5,
+        "pct": 0.07,
+        "value": 97672.0,
+        "day_rub": 68.0,
+        "pe": 7.1,
         "eps_ttm": 306.0,
         "pe_sector_avg": 6.5,
-        "pe_vs_sector": "выше среднего",
+        "pe_vs_sector": "на уровне среднего",
         "ath": 3764,
-        "prev_price": 2187.5,
-        "pct_from_ath": -41.7,
+        "prev_price": 2196,
+        "pct_from_ath": -42.3,
         "near_ath": false
       },
       {
         "ticker": "LENT",
         "name": "МКПАО «Лента»",
         "qty": 53,
-        "price": 1740.5,
-        "change": 43.5,
-        "pct": 2.56,
-        "value": 92246.0,
-        "day_rub": 2306.0,
-        "pe": 6.0,
+        "price": 1787,
+        "change": 90,
+        "pct": 5.3,
+        "value": 94711,
+        "day_rub": 4770,
+        "pe": 6.2,
         "eps_ttm": 290.0,
         "pe_sector_avg": 6.5,
         "pe_vs_sector": "на уровне среднего",
         "ath": 2300,
-        "prev_price": 1739,
-        "pct_from_ath": -24.3,
+        "prev_price": 1740.5,
+        "pct_from_ath": -22.3,
         "near_ath": false
       },
       {
         "ticker": "SBER",
         "name": "ПАО Сбербанк",
         "qty": 80,
-        "price": 299.48,
-        "change": 4.32,
-        "pct": 1.46,
-        "value": 23958.0,
-        "day_rub": 346.0,
+        "price": 296.21,
+        "change": 1.05,
+        "pct": 0.36,
+        "value": 23697.0,
+        "day_rub": 84.0,
         "pe": 3.8,
         "eps_ttm": 78.4,
         "pe_sector_avg": 5.0,
         "pe_vs_sector": "ниже среднего",
         "ath": 388.11,
-        "prev_price": 299,
-        "pct_from_ath": -22.8,
+        "prev_price": 299.48,
+        "pct_from_ath": -23.7,
         "near_ath": false
       },
       {
         "ticker": "BELU",
         "name": "ПАО «НоваБев Групп»",
         "qty": 12,
-        "price": 258.2,
-        "change": 5.2,
-        "pct": 2.06,
-        "value": 3098.0,
-        "day_rub": 62.0,
-        "pe": 4.1,
+        "price": 250.2,
+        "change": -2.8,
+        "pct": -1.11,
+        "value": 3002.0,
+        "day_rub": -34.0,
+        "pe": 4.0,
         "eps_ttm": 63.0,
         "pe_sector_avg": 8.0,
         "pe_vs_sector": "ниже среднего",
         "ath": 6822,
-        "prev_price": 257.4,
-        "pct_from_ath": -96.2,
+        "prev_price": 258.2,
+        "pct_from_ath": -96.3,
         "near_ath": false
       },
       {
         "ticker": "TGLD",
         "name": "БПИФ «Тинькофф Золото»",
-        "qty": 5000,
-        "price": 12.35,
+        "qty": 5001,
+        "price": 12.54,
         "change": 0,
         "pct": 0,
-        "value": 61750.0,
+        "value": 62713.0,
         "day_rub": 0,
         "pe": null,
         "eps_ttm": null,
@@ -119,32 +119,32 @@
   },
   "quotes": {
     "BELU": {
-      "price": 258.2,
-      "prev": 258.2,
-      "change": 5.2,
-      "pct": 2.06,
-      "volume": 223728087
+      "price": 250.2,
+      "prev": 250.2,
+      "change": -2.8,
+      "pct": -1.11,
+      "volume": 254328330
     },
     "LENT": {
-      "price": 1740.5,
-      "prev": 1740.5,
-      "change": 43.5,
-      "pct": 2.56,
-      "volume": 155196650
+      "price": 1787,
+      "prev": 1787,
+      "change": 90,
+      "pct": 5.3,
+      "volume": 235806699
     },
     "SBER": {
-      "price": 299.48,
-      "prev": 299.48,
-      "change": 4.32,
-      "pct": 1.46,
-      "volume": 20098141065
+      "price": 296.21,
+      "prev": 296.21,
+      "change": 1.05,
+      "pct": 0.36,
+      "volume": 23646494664
     },
     "X5": {
-      "price": 2196,
-      "prev": 2196,
-      "change": 27,
-      "pct": 1.24,
-      "volume": 3224003991
+      "price": 2170.5,
+      "prev": 2170.5,
+      "change": 1.5,
+      "pct": 0.07,
+      "volume": 3694689284
     }
   },
   "screener": {
@@ -152,11 +152,11 @@
       {
         "ticker": "SBER",
         "name": "Сбербанк",
-        "price": 299.45,
-        "prev": 299.45,
+        "price": 296.21,
+        "prev": 296.21,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 20098722357,
+        "volume": 23646549166,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -164,11 +164,11 @@
       {
         "ticker": "GAZP",
         "name": "ГАЗПРОМ ао",
-        "price": 100.03,
-        "prev": 100.03,
+        "price": 98.41,
+        "prev": 98.41,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 8612492206,
+        "volume": 10137617013,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -176,11 +176,11 @@
       {
         "ticker": "LKOH",
         "name": "ЛУКОЙЛ",
-        "price": 4361.5,
-        "prev": 4361.5,
-        "change": 0.0,
+        "price": 4261,
+        "prev": 4261,
+        "change": 0,
         "pct": 0.0,
-        "volume": 7455231535,
+        "volume": 9251367193,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -188,11 +188,11 @@
       {
         "ticker": "T",
         "name": "Т-Техно ао",
-        "price": 269.58,
-        "prev": 269.58,
-        "change": 0.0,
+        "price": 264,
+        "prev": 264,
+        "change": 0,
         "pct": 0.0,
-        "volume": 6563364192,
+        "volume": 8038451766,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -200,11 +200,11 @@
       {
         "ticker": "VTBR",
         "name": "ВТБ ао",
-        "price": 72.11,
-        "prev": 72.11,
+        "price": 71.09,
+        "prev": 71.09,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 5472032958,
+        "volume": 6421128777,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -216,7 +216,7 @@
         "prev": 172.41,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4620130949,
+        "volume": 6019888532,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -224,11 +224,11 @@
       {
         "ticker": "YDEX",
         "name": "ЯНДЕКС",
-        "price": 3602,
-        "prev": 3602,
+        "price": 3534,
+        "prev": 3534,
         "change": 0,
         "pct": 0.0,
-        "volume": 4205750209,
+        "volume": 5380796026,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -240,7 +240,7 @@
         "prev": 2.02,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3986817337,
+        "volume": 5367301470,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -248,11 +248,11 @@
       {
         "ticker": "NVTK",
         "name": "Новатэк ао",
-        "price": 953.2,
-        "prev": 953.2,
+        "price": 912.4,
+        "prev": 912.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3800703193,
+        "volume": 5330697875,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -260,11 +260,11 @@
       {
         "ticker": "ROSN",
         "name": "Роснефть",
-        "price": 320.4,
-        "prev": 320.4,
+        "price": 314.15,
+        "prev": 314.15,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3779250483,
+        "volume": 4538030394,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -278,146 +278,146 @@
       {
         "ticker": "ABIO",
         "name": "iАРТГЕН ао",
-        "price": 35.58,
-        "prev": 35.58,
+        "price": 35.04,
+        "prev": 35.04,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 15205664
+        "volume": 18177719
       },
       {
         "ticker": "ABRD",
         "name": "АбрауДюрсо",
-        "price": 110,
-        "prev": 110,
-        "change": 0,
+        "price": 109.2,
+        "prev": 109.2,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 9344970
+        "volume": 11836410
       },
       {
         "ticker": "AFKS",
         "name": "Система ао",
-        "price": 11.97,
-        "prev": 11.97,
+        "price": 11.74,
+        "prev": 11.74,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3471276194
+        "volume": 3961271326
       },
       {
         "ticker": "AFLT",
         "name": "Аэрофлот",
-        "price": 38.76,
-        "prev": 38.76,
+        "price": 37.29,
+        "prev": 37.29,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1448521861
+        "volume": 1840962577
       },
       {
         "ticker": "AKAI",
         "name": "AKAI ETF",
-        "price": 96.2,
-        "prev": 96.2,
+        "price": 94.92,
+        "prev": 94.92,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 40775
+        "volume": 44795
       },
       {
         "ticker": "AKBC",
         "name": "AKBC ETF",
-        "price": 85.5,
-        "prev": 85.5,
+        "price": 84.4,
+        "prev": 84.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 916562
+        "volume": 1038186
       },
       {
         "ticker": "AKCN",
         "name": "AKCN ETF",
-        "price": 72.7,
-        "prev": 72.7,
+        "price": 71.9,
+        "prev": 71.9,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 42598
+        "volume": 44478
       },
       {
         "ticker": "AKFB",
         "name": "AKFB ETF",
-        "price": 136.26,
-        "prev": 136.26,
+        "price": 136.33,
+        "prev": 136.33,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 350788020
+        "volume": 440264523
       },
       {
         "ticker": "AKFN",
         "name": "AKFN ETF",
-        "price": 93.4,
-        "prev": 93.4,
-        "change": 0.0,
+        "price": 92,
+        "prev": 92,
+        "change": 0,
         "pct": 0.0,
-        "volume": 454299
+        "volume": 482728
       },
       {
         "ticker": "AKGD",
         "name": "AKGD ETF",
-        "price": 224.24,
-        "prev": 224.24,
+        "price": 226.47,
+        "prev": 226.47,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 58382513
+        "volume": 71729246
       },
       {
         "ticker": "AKGP",
         "name": "AKGP ETF",
-        "price": 1.1,
-        "prev": 1.1,
+        "price": 1.11,
+        "prev": 1.11,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 140435532
+        "volume": 151235420
       },
       {
         "ticker": "AKHT",
         "name": "AKHT ETF",
-        "price": 86.08,
-        "prev": 86.08,
+        "price": 84.78,
+        "prev": 84.78,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 783606
+        "volume": 818211
       },
       {
         "ticker": "AKIE",
         "name": "ETF AKIE",
-        "price": 842.52,
-        "prev": 842.52,
+        "price": 827.24,
+        "prev": 827.24,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1552349
+        "volume": 1655418
       },
       {
         "ticker": "AKMB",
         "name": "ETF AKMB",
-        "price": 1.95,
-        "prev": 1.95,
+        "price": 1.94,
+        "prev": 1.94,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 251522123
+        "volume": 315820805
       },
       {
         "ticker": "AKMC",
         "name": "AKMC ETF",
-        "price": 1205.77,
-        "prev": 1205.77,
+        "price": 1216.68,
+        "prev": 1216.68,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 27541373
+        "volume": 36407167
       },
       {
         "ticker": "AKME",
         "name": "ETF AKME",
-        "price": 163.86,
-        "prev": 163.86,
+        "price": 160.36,
+        "prev": 160.36,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 58858150
+        "volume": 69644016
       },
       {
         "ticker": "AKMM",
@@ -426,7 +426,7 @@
         "prev": 172.41,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4620130949,
+        "volume": 6019888532,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -438,52 +438,52 @@
         "prev": 1.23,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 373202205
+        "volume": 434594381
       },
       {
         "ticker": "AKPP",
         "name": "AKPP ETF",
-        "price": 122.42,
-        "prev": 122.42,
+        "price": 124.11,
+        "prev": 124.11,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4296766
+        "volume": 5234810
       },
       {
         "ticker": "AKQU",
         "name": "AKQU ETF",
-        "price": 63.59,
-        "prev": 63.59,
+        "price": 62.42,
+        "prev": 62.42,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 686424
+        "volume": 698519
       },
       {
         "ticker": "AKRN",
         "name": "Акрон",
-        "price": 15526,
-        "prev": 15526,
+        "price": 15532,
+        "prev": 15532,
         "change": 0,
         "pct": 0.0,
-        "volume": 16523636
+        "volume": 18638910
       },
       {
         "ticker": "AKUP",
         "name": "AKUP ETF",
-        "price": 11.88,
-        "prev": 11.88,
+        "price": 11.81,
+        "prev": 11.81,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 902482
+        "volume": 1495565
       },
       {
         "ticker": "ALRS",
         "name": "АЛРОСА ао",
-        "price": 21.55,
-        "prev": 21.55,
+        "price": 20.43,
+        "prev": 20.43,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2144956823
+        "volume": 2803226221
       },
       {
         "ticker": "AMFL",
@@ -492,7 +492,7 @@
         "prev": 136,
         "change": 0,
         "pct": 0.0,
-        "volume": 122015979
+        "volume": 122709310
       },
       {
         "ticker": "AMGB",
@@ -501,25 +501,25 @@
         "prev": 125.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3955762
+        "volume": 4043353
       },
       {
         "ticker": "AMGL",
         "name": "AMGL ETF",
-        "price": 121.5,
-        "prev": 121.5,
+        "price": 123.1,
+        "prev": 123.1,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 919267
+        "volume": 1448823
       },
       {
         "ticker": "AMIX",
         "name": "AMIX ETF",
-        "price": 92.6,
-        "prev": 92.6,
+        "price": 90.4,
+        "prev": 90.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1913876
+        "volume": 1935060
       },
       {
         "ticker": "AMNR",
@@ -528,88 +528,88 @@
         "prev": 152.18,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 394420443
+        "volume": 454546476
       },
       {
         "ticker": "AMNY",
         "name": "AMNY ETF",
-        "price": 1225,
-        "prev": 1225,
-        "change": 0,
+        "price": 1233.69,
+        "prev": 1233.69,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 1010228210
+        "volume": 1022067017
       },
       {
         "ticker": "AMRE",
         "name": "AMRE ETF",
-        "price": 101.1,
-        "prev": 101.1,
+        "price": 99.5,
+        "prev": 99.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2077932
+        "volume": 3776637
       },
       {
         "ticker": "AMRH",
         "name": "AMRH ETF",
-        "price": 160.9,
-        "prev": 160.9,
+        "price": 160.5,
+        "prev": 160.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 6397547
+        "volume": 6472351
       },
       {
         "ticker": "AMVD",
         "name": "AMVD ETF",
-        "price": 776,
-        "prev": 776,
+        "price": 780,
+        "prev": 780,
         "change": 0,
         "pct": 0.0,
-        "volume": 24449
+        "volume": 25229
       },
       {
         "ticker": "AMVY",
         "name": "AMVY ETF",
-        "price": 1147,
-        "prev": 1147,
+        "price": 1162,
+        "prev": 1162,
         "change": 0,
         "pct": 0.0,
-        "volume": 26188
+        "volume": 28504
       },
       {
         "ticker": "APRI",
         "name": "АПРИ",
-        "price": 16.61,
-        "prev": 16.61,
+        "price": 16.83,
+        "prev": 16.83,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 222344
+        "volume": 329640
       },
       {
         "ticker": "APTK",
         "name": "Аптеки36и6",
-        "price": 4.47,
-        "prev": 4.47,
+        "price": 4.37,
+        "prev": 4.37,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 8198588
+        "volume": 10498874
       },
       {
         "ticker": "AQUA",
         "name": "ИНАРКТИКА",
-        "price": 311,
-        "prev": 311,
-        "change": 0,
+        "price": 301.3,
+        "prev": 301.3,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 50891886
+        "volume": 56844077
       },
       {
         "ticker": "ARSA",
         "name": "Арсагера",
-        "price": 5.98,
-        "prev": 5.98,
+        "price": 5.96,
+        "prev": 5.96,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 572778
+        "volume": 690462
       },
       {
         "ticker": "ASSB",
@@ -618,61 +618,61 @@
         "prev": 2.19,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1734735
+        "volume": 2318720
       },
       {
         "ticker": "ASTR",
         "name": "iАстра ао",
-        "price": 172.05,
-        "prev": 172.05,
+        "price": 168.9,
+        "prev": 168.9,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 365133307
+        "volume": 419882048
       },
       {
         "ticker": "AVAN",
         "name": "Авангрд-ао",
-        "price": 536,
-        "prev": 536,
+        "price": 537,
+        "prev": 537,
         "change": 0,
         "pct": 0.0,
-        "volume": 2394420
+        "volume": 2710547
       },
       {
         "ticker": "BANE",
         "name": "Башнефт ао",
-        "price": 1053,
-        "prev": 1053,
-        "change": 0,
+        "price": 1011.5,
+        "prev": 1011.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 30878942
+        "volume": 37277596
       },
       {
         "ticker": "BANEP",
         "name": "Башнефт ап",
-        "price": 838,
-        "prev": 838,
-        "change": 0,
+        "price": 822.5,
+        "prev": 822.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 152367490
+        "volume": 170040780
       },
       {
         "ticker": "BAZA",
         "name": "iБАЗИС",
-        "price": 96.98,
-        "prev": 96.98,
+        "price": 96.2,
+        "prev": 96.2,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 30477601
+        "volume": 31326499
       },
       {
         "ticker": "BCSB",
         "name": "BCSB ETF",
-        "price": 16.46,
-        "prev": 16.46,
+        "price": 16.41,
+        "prev": 16.41,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4553017
+        "volume": 5140788
       },
       {
         "ticker": "BCSD",
@@ -681,88 +681,88 @@
         "prev": 13.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 551888949
+        "volume": 755133395
       },
       {
         "ticker": "BCSE",
         "name": "BCSE ETF",
-        "price": 912,
-        "prev": 912,
+        "price": 928,
+        "prev": 928,
         "change": 0,
         "pct": 0.0,
-        "volume": 2284161
+        "volume": 2784638
       },
       {
         "ticker": "BCSG",
         "name": "BCSG ETF",
-        "price": 11.98,
-        "prev": 11.98,
+        "price": 12.08,
+        "prev": 12.08,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 985996
+        "volume": 1190376
       },
       {
         "ticker": "BCSR",
         "name": "BCSR ETF",
-        "price": 9.82,
-        "prev": 9.82,
+        "price": 9.65,
+        "prev": 9.65,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3529074
+        "volume": 3601064
       },
       {
         "ticker": "BCSW",
         "name": "BCSW ETF",
-        "price": 10.48,
-        "prev": 10.48,
+        "price": 10.47,
+        "prev": 10.47,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 104298
+        "volume": 107538
       },
       {
         "ticker": "BELU",
         "name": "НоваБев ао",
-        "price": 258.4,
-        "prev": 258.4,
+        "price": 250.2,
+        "prev": 250.2,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 223728604
+        "volume": 254328580
       },
       {
         "ticker": "BISVP",
         "name": "БашИнСв ап",
-        "price": 9.75,
-        "prev": 9.75,
+        "price": 9.62,
+        "prev": 9.62,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 128954
+        "volume": 169717
       },
       {
         "ticker": "BLNG",
         "name": "Белон ао",
-        "price": 6.81,
-        "prev": 6.81,
+        "price": 6.78,
+        "prev": 6.78,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4375979
+        "volume": 4994213
       },
       {
         "ticker": "BNDA",
         "name": "BNDA ETF",
-        "price": 1221.1,
-        "prev": 1221.1,
+        "price": 1220.5,
+        "prev": 1220.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 167416
+        "volume": 168637
       },
       {
         "ticker": "BNDB",
         "name": "BNDB ETF",
-        "price": 1280.8,
-        "prev": 1280.8,
+        "price": 1280.6,
+        "prev": 1280.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 111417
+        "volume": 160070
       },
       {
         "ticker": "BNDC",
@@ -776,56 +776,56 @@
       {
         "ticker": "BOND",
         "name": "BOND ETF",
-        "price": 1657,
-        "prev": 1657,
-        "change": 0,
+        "price": 1655.2,
+        "prev": 1655.2,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 12109440
+        "volume": 12245338
       },
       {
         "ticker": "BRZL",
         "name": "БурЗолото",
-        "price": 912,
-        "prev": 912,
+        "price": 914,
+        "prev": 914,
         "change": 0,
         "pct": 0.0,
-        "volume": 3289102
+        "volume": 4073714
       },
       {
         "ticker": "BSPB",
         "name": "БСП ао",
-        "price": 251.61,
-        "prev": 251.61,
+        "price": 250.43,
+        "prev": 250.43,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 330076662
+        "volume": 369164037
       },
       {
         "ticker": "BSPBP",
         "name": "БСП ап",
-        "price": 35.35,
-        "prev": 35.35,
+        "price": 33.95,
+        "prev": 33.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 8734100
+        "volume": 10656380
       },
       {
         "ticker": "BTBR",
         "name": "В2В-РТС",
-        "price": 126.12,
-        "prev": 126.12,
+        "price": 125.18,
+        "prev": 125.18,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 17741725
+        "volume": 20799071
       },
       {
         "ticker": "CARM",
         "name": "СТГ",
-        "price": 0.81,
-        "prev": 0.81,
+        "price": 0.84,
+        "prev": 0.84,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2280668
+        "volume": 2862935
       },
       {
         "ticker": "CASH",
@@ -834,25 +834,25 @@
         "prev": 13.29,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 156672293
+        "volume": 185163688
       },
       {
         "ticker": "CBOM",
         "name": "МКБ ао",
-        "price": 8.59,
-        "prev": 8.59,
+        "price": 8.47,
+        "prev": 8.47,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 158109527
+        "volume": 185551773
       },
       {
         "ticker": "CHGZ",
         "name": "РН-ЗапСиб",
-        "price": 79,
-        "prev": 79,
-        "change": 0,
+        "price": 78.6,
+        "prev": 78.6,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 1965280
+        "volume": 2259592
       },
       {
         "ticker": "CHKZ",
@@ -866,29 +866,29 @@
       {
         "ticker": "CHMF",
         "name": "СевСт-ао",
-        "price": 581.8,
-        "prev": 581.8,
+        "price": 562.4,
+        "prev": 562.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1261444489
+        "volume": 1539441870
       },
       {
         "ticker": "CHMK",
         "name": "ЧМК ао",
-        "price": 3105,
-        "prev": 3105,
+        "price": 3070,
+        "prev": 3070,
         "change": 0,
         "pct": 0.0,
-        "volume": 1210965
+        "volume": 1229395
       },
       {
         "ticker": "CNRU",
         "name": "iЦиан",
-        "price": 517.6,
-        "prev": 517.6,
+        "price": 503.4,
+        "prev": 503.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 195745945
+        "volume": 239820870
       },
       {
         "ticker": "CNTL",
@@ -897,124 +897,124 @@
         "prev": 8.08,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 217482
+        "volume": 252076
       },
       {
         "ticker": "CNTLP",
         "name": "Телеграф-п",
-        "price": 4.1,
-        "prev": 4.1,
+        "price": 4.16,
+        "prev": 4.16,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 219102
+        "volume": 239850
       },
       {
         "ticker": "CNYM",
         "name": "CNYM ETF",
-        "price": 130.5,
-        "prev": 130.5,
+        "price": 130.96,
+        "prev": 130.96,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 205575116
+        "volume": 251935155
       },
       {
         "ticker": "DATA",
         "name": "iАренадата",
-        "price": 75.2,
-        "prev": 75.2,
+        "price": 73.72,
+        "prev": 73.72,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 52818780
+        "volume": 59200543
       },
       {
         "ticker": "DELI",
         "name": "iКаршеринг",
-        "price": 41.95,
-        "prev": 41.95,
+        "price": 40.6,
+        "prev": 40.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 27576764
+        "volume": 30877866
       },
       {
         "ticker": "DIAS",
         "name": "iДиасофт",
-        "price": 1013.5,
-        "prev": 1013.5,
-        "change": 0.0,
+        "price": 993,
+        "prev": 993,
+        "change": 0,
         "pct": 0.0,
-        "volume": 44330426
+        "volume": 47328180
       },
       {
         "ticker": "DIOD",
         "name": "ЗаводДИОД",
-        "price": 6.79,
-        "prev": 6.79,
+        "price": 6.82,
+        "prev": 6.82,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 178683
+        "volume": 190904
       },
       {
         "ticker": "DIVD",
         "name": "ETF DIVD",
-        "price": 1005.4,
-        "prev": 1005.4,
+        "price": 993.4,
+        "prev": 993.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1458566
+        "volume": 1510403
       },
       {
         "ticker": "DOMRF",
         "name": "ДОМ.РФ",
-        "price": 2210.6,
-        "prev": 2210.6,
+        "price": 2172.4,
+        "prev": 2172.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 990560738
+        "volume": 1121926056
       },
       {
         "ticker": "DVEC",
         "name": "ДЭК ао",
-        "price": 1.28,
-        "prev": 1.28,
+        "price": 1.27,
+        "prev": 1.27,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1764148
+        "volume": 2098813
       },
       {
         "ticker": "DZRD",
         "name": "ДонскЗР",
-        "price": 1065,
-        "prev": 1065,
+        "price": 1025,
+        "prev": 1025,
         "change": 0,
         "pct": 0.0,
-        "volume": 6886955
+        "volume": 9631460
       },
       {
         "ticker": "DZRDP",
         "name": "ДонскЗР п",
-        "price": 1540,
-        "prev": 1540,
+        "price": 1560,
+        "prev": 1560,
         "change": 0,
         "pct": 0.0,
-        "volume": 171590
+        "volume": 398320
       },
       {
         "ticker": "EELT",
         "name": "ЕвроЭлтех",
-        "price": 6.92,
-        "prev": 6.92,
-        "change": 0.0,
+        "price": 7,
+        "prev": 7,
+        "change": 0,
         "pct": 0.0,
-        "volume": 3477482
+        "volume": 4683997
       },
       {
         "ticker": "ELFV",
         "name": "ЭЛ5Энер ао",
-        "price": 0.35,
-        "prev": 0.35,
+        "price": 0.34,
+        "prev": 0.34,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 9036253
+        "volume": 10971056
       },
       {
         "ticker": "ELMT",
@@ -1023,34 +1023,34 @@
         "prev": 0.1,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 6424873
+        "volume": 7351367
       },
       {
         "ticker": "ENPG",
         "name": "ЭН+ГРУП ао",
-        "price": 319.15,
-        "prev": 319.15,
-        "change": 0.0,
+        "price": 311,
+        "prev": 311,
+        "change": 0,
         "pct": 0.0,
-        "volume": 358460147
+        "volume": 411279903
       },
       {
         "ticker": "EQMX",
         "name": "EQMX ETF",
-        "price": 121.5,
-        "prev": 121.5,
+        "price": 119.35,
+        "prev": 119.35,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 311376549
+        "volume": 352568125
       },
       {
         "ticker": "ESGE",
         "name": "ESGE ETF",
-        "price": 67.5,
-        "prev": 67.5,
+        "price": 66.05,
+        "prev": 66.05,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4988946
+        "volume": 5036187
       },
       {
         "ticker": "ESGR",
@@ -1064,56 +1064,56 @@
       {
         "ticker": "ETLN",
         "name": "ЭталонГруп",
-        "price": 22.78,
-        "prev": 22.78,
+        "price": 22.84,
+        "prev": 22.84,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 29041023
+        "volume": 37058593
       },
       {
         "ticker": "EUTR",
         "name": "ЕвроТранс",
-        "price": 59.85,
-        "prev": 59.85,
+        "price": 59.5,
+        "prev": 59.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 80288950
+        "volume": 87426509
       },
       {
         "ticker": "EVRZ",
         "name": "ЕВРАЗ",
-        "price": 51.55,
-        "prev": 51.55,
+        "price": 51.59,
+        "prev": 51.59,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3940840
+        "volume": 4653413
       },
       {
         "ticker": "FEES",
         "name": "Россети",
-        "price": 0.05,
-        "prev": 0.05,
+        "price": 0.04,
+        "prev": 0.04,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 360406166
+        "volume": 414184198
       },
       {
         "ticker": "FESH",
         "name": "ДВМП ао",
-        "price": 55.18,
-        "prev": 55.18,
+        "price": 54.14,
+        "prev": 54.14,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 289194434
+        "volume": 346427260
       },
       {
         "ticker": "FINC",
         "name": "FINC ETF",
-        "price": 1377,
-        "prev": 1377,
-        "change": 0,
+        "price": 1377.1,
+        "prev": 1377.1,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 68858
+        "volume": 151484
       },
       {
         "ticker": "FIXR",
@@ -1122,16 +1122,16 @@
         "prev": 0.41,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 53218271
+        "volume": 63021295
       },
       {
         "ticker": "FLOT",
         "name": "Совкомфлот",
-        "price": 73.6,
-        "prev": 73.6,
+        "price": 73.18,
+        "prev": 73.18,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 260710490
+        "volume": 302266906
       },
       {
         "ticker": "FLOW",
@@ -1140,7 +1140,7 @@
         "prev": 1024.3,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 112198310
+        "volume": 125406955
       },
       {
         "ticker": "FMBR",
@@ -1149,7 +1149,7 @@
         "prev": 11.06,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 273326
+        "volume": 299672
       },
       {
         "ticker": "FMMM",
@@ -1158,16 +1158,16 @@
         "prev": 13.44,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 131945572
+        "volume": 160835550
       },
       {
         "ticker": "FMSA",
         "name": "FMSA ETF",
-        "price": 9.67,
-        "prev": 9.67,
+        "price": 9.59,
+        "prev": 9.59,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 821167
+        "volume": 852833
       },
       {
         "ticker": "GAZA",
@@ -1181,20 +1181,20 @@
       {
         "ticker": "GAZAP",
         "name": "ГАЗ ап",
-        "price": 341,
-        "prev": 341,
+        "price": 338,
+        "prev": 338,
         "change": 0,
         "pct": 0.0,
-        "volume": 34075
+        "volume": 37455
       },
       {
         "ticker": "GAZP",
         "name": "ГАЗПРОМ ао",
-        "price": 100.03,
-        "prev": 100.03,
+        "price": 98.41,
+        "prev": 98.41,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 8612492206,
+        "volume": 10137617013,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -1202,209 +1202,209 @@
       {
         "ticker": "GCHE",
         "name": "ЧеркизГ-ао",
-        "price": 2915,
-        "prev": 2915,
+        "price": 2859,
+        "prev": 2859,
         "change": 0,
         "pct": 0.0,
-        "volume": 9148368
+        "volume": 11043812
       },
       {
         "ticker": "GECO",
         "name": "iГЕНЕТИКО",
-        "price": 11.77,
-        "prev": 11.77,
+        "price": 11.36,
+        "prev": 11.36,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 8096425
+        "volume": 9622325
       },
       {
         "ticker": "GEMA",
         "name": "iММЦБ ао",
-        "price": 108.2,
-        "prev": 108.2,
-        "change": 0.0,
+        "price": 109,
+        "prev": 109,
+        "change": 0,
         "pct": 0.0,
-        "volume": 3262844
+        "volume": 3987267
       },
       {
         "ticker": "GEMC",
         "name": "МКПАО ЮМГ",
-        "price": 639.8,
-        "prev": 639.8,
+        "price": 632.6,
+        "prev": 632.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 20304402
+        "volume": 23913040
       },
       {
         "ticker": "GLRX",
         "name": "ГЛОРАКС",
-        "price": 37.07,
-        "prev": 37.07,
+        "price": 36.36,
+        "prev": 36.36,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 34510819
+        "volume": 38801347
       },
       {
         "ticker": "GMKN",
         "name": "ГМКНорНик",
-        "price": 126.12,
-        "prev": 126.12,
+        "price": 124.66,
+        "prev": 124.66,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3685406504
+        "volume": 4213111493
       },
       {
         "ticker": "GOLD",
         "name": "GOLD ETF",
-        "price": 2.59,
-        "prev": 2.59,
+        "price": 2.62,
+        "prev": 2.62,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 243943242
+        "volume": 311954269
       },
       {
         "ticker": "GOOD",
         "name": "GOOD ETF",
-        "price": 1358.4,
-        "prev": 1358.4,
+        "price": 1357.8,
+        "prev": 1357.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1431367
+        "volume": 1451734
       },
       {
         "ticker": "GROD",
         "name": "ETF GROD",
-        "price": 716,
-        "prev": 716,
-        "change": 0,
+        "price": 708.5,
+        "prev": 708.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 135777
+        "volume": 148544
       },
       {
         "ticker": "GTRK",
         "name": "ГТМ ао",
-        "price": 51,
-        "prev": 51,
-        "change": 0,
+        "price": 49.4,
+        "prev": 49.4,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 58615113
+        "volume": 66159487
       },
       {
         "ticker": "HEAD",
         "name": "Хэдхантер",
-        "price": 2591,
-        "prev": 2591,
+        "price": 2534,
+        "prev": 2534,
         "change": 0,
         "pct": 0.0,
-        "volume": 545347923
+        "volume": 641285917
       },
       {
         "ticker": "HIMCP",
         "name": "Химпром ап",
-        "price": 11.2,
-        "prev": 11.2,
+        "price": 11.1,
+        "prev": 11.1,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2505404
+        "volume": 2781290
       },
       {
         "ticker": "HNFG",
         "name": "ХЭНДЕРСОН",
-        "price": 280.6,
-        "prev": 280.6,
+        "price": 272.6,
+        "prev": 272.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 18606507
+        "volume": 23434151
       },
       {
         "ticker": "HYDR",
         "name": "РусГидро",
-        "price": 0.31,
-        "prev": 0.31,
+        "price": 0.3,
+        "prev": 0.3,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 130301084
+        "volume": 145352722
       },
       {
         "ticker": "IGST",
         "name": "Ижсталь2ао",
-        "price": 3920,
-        "prev": 3920,
+        "price": 3840,
+        "prev": 3840,
         "change": 0,
         "pct": 0.0,
-        "volume": 251040
+        "volume": 347040
       },
       {
         "ticker": "IGSTP",
         "name": "Ижсталь ап",
-        "price": 2750,
-        "prev": 2750,
+        "price": 2710,
+        "prev": 2710,
         "change": 0,
         "pct": 0.0,
-        "volume": 163890
+        "volume": 166600
       },
       {
         "ticker": "INCB",
         "name": "Инкаб",
-        "price": 87,
-        "prev": 87,
-        "change": 0,
+        "price": 87.3,
+        "prev": 87.3,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 6872638
+        "volume": 8784762
       },
       {
         "ticker": "INFL",
         "name": "INFL ETF",
-        "price": 142.48,
-        "prev": 142.48,
+        "price": 142.84,
+        "prev": 142.84,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1480819
+        "volume": 1763320
       },
       {
         "ticker": "INGO",
         "name": "INGO ETF",
-        "price": 161.9,
-        "prev": 161.9,
+        "price": 161.8,
+        "prev": 161.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 5887477
+        "volume": 7044746
       },
       {
         "ticker": "IRAO",
         "name": "ИнтерРАОао",
-        "price": 2.6,
-        "prev": 2.6,
+        "price": 2.55,
+        "prev": 2.55,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 649648875
+        "volume": 734436828
       },
       {
         "ticker": "IRKT",
         "name": "Яковлев-3",
-        "price": 15.48,
-        "prev": 15.48,
+        "price": 15.02,
+        "prev": 15.02,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 107275258
+        "volume": 119426186
       },
       {
         "ticker": "IVAT",
         "name": "iИВА",
-        "price": 58.1,
-        "prev": 58.1,
+        "price": 53.6,
+        "prev": 53.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 101171837
+        "volume": 203326552
       },
       {
         "ticker": "JNOS",
         "name": "Славн-ЯНОС",
-        "price": 19,
-        "prev": 19,
-        "change": 0,
+        "price": 19.42,
+        "prev": 19.42,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 4850292
+        "volume": 6127932
       },
       {
         "ticker": "JNOSP",
@@ -1413,34 +1413,34 @@
         "prev": 9,
         "change": 0,
         "pct": 0.0,
-        "volume": 1273800
+        "volume": 1433436
       },
       {
         "ticker": "KAZT",
         "name": "Куйбазот",
-        "price": 279.4,
-        "prev": 279.4,
+        "price": 269.8,
+        "prev": 269.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 14094450
+        "volume": 16685916
       },
       {
         "ticker": "KAZTP",
         "name": "Куйбазот-п",
-        "price": 282.5,
-        "prev": 282.5,
-        "change": 0.0,
+        "price": 280,
+        "prev": 280,
+        "change": 0,
         "pct": 0.0,
-        "volume": 1884240
+        "volume": 1968460
       },
       {
         "ticker": "KBSB",
         "name": "ТНСэКубань",
-        "price": 697,
-        "prev": 697,
+        "price": 725,
+        "prev": 725,
         "change": 0,
         "pct": 0.0,
-        "volume": 792320
+        "volume": 799570
       },
       {
         "ticker": "KCHE",
@@ -1449,7 +1449,7 @@
         "prev": 0.26,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 120940
+        "volume": 157080
       },
       {
         "ticker": "KCHEP",
@@ -1472,83 +1472,83 @@
       {
         "ticker": "KLSB",
         "name": "КалужскСК",
-        "price": 17.23,
-        "prev": 17.23,
+        "price": 17.24,
+        "prev": 17.24,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1960177
+        "volume": 1965351
       },
       {
         "ticker": "KLVZ",
         "name": "Кристалл",
-        "price": 1.78,
-        "prev": 1.78,
+        "price": 1.76,
+        "prev": 1.76,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 689995
+        "volume": 777223
       },
       {
         "ticker": "KMAZ",
         "name": "КАМАЗ",
-        "price": 43.1,
-        "prev": 43.1,
+        "price": 41.8,
+        "prev": 41.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 40655355
+        "volume": 44912207
       },
       {
         "ticker": "KMEZ",
         "name": "КМЗ",
-        "price": 708,
-        "prev": 708,
+        "price": 706,
+        "prev": 706,
         "change": 0,
         "pct": 0.0,
-        "volume": 148942
+        "volume": 151068
       },
       {
         "ticker": "KOGK",
         "name": "КоршГОК ао",
-        "price": 191.2,
-        "prev": 191.2,
+        "price": 184.8,
+        "prev": 184.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 888019
+        "volume": 941062
       },
       {
         "ticker": "KRKN",
         "name": "СаратНПЗ",
-        "price": 10750,
-        "prev": 10750,
+        "price": 10300,
+        "prev": 10300,
         "change": 0,
         "pct": 0.0,
-        "volume": 86859450
+        "volume": 87121650
       },
       {
         "ticker": "KRKNP",
         "name": "СаратНПЗ-п",
-        "price": 5660,
-        "prev": 5660,
+        "price": 5640,
+        "prev": 5640,
         "change": 0,
         "pct": 0.0,
-        "volume": 6903540
+        "volume": 7028880
       },
       {
         "ticker": "KRKOP",
         "name": "ТКЗКК ап",
-        "price": 10.82,
-        "prev": 10.82,
+        "price": 11.04,
+        "prev": 11.04,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 353936
+        "volume": 379288
       },
       {
         "ticker": "KROT",
         "name": "КрасОкт-ао",
-        "price": 856,
-        "prev": 856,
+        "price": 838,
+        "prev": 838,
         "change": 0,
         "pct": 0.0,
-        "volume": 2544540
+        "volume": 2923820
       },
       {
         "ticker": "KROTP",
@@ -1562,20 +1562,20 @@
       {
         "ticker": "KRSB",
         "name": "Красэсб ао",
-        "price": 19.32,
-        "prev": 19.32,
+        "price": 19.36,
+        "prev": 19.36,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 403228
+        "volume": 551846
       },
       {
         "ticker": "KRSBP",
         "name": "Красэсб ап",
-        "price": 20.2,
-        "prev": 20.2,
+        "price": 20.04,
+        "prev": 20.04,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 184482
+        "volume": 198510
       },
       {
         "ticker": "KUZB",
@@ -1584,61 +1584,61 @@
         "prev": 0.03,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 169403
+        "volume": 374387
       },
       {
         "ticker": "KZOS",
         "name": "ОргСинт ао",
-        "price": 51.8,
-        "prev": 51.8,
+        "price": 52.6,
+        "prev": 52.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4891993
+        "volume": 6079362
       },
       {
         "ticker": "KZOSP",
         "name": "ОргСинт ап",
-        "price": 10.27,
-        "prev": 10.27,
+        "price": 10.24,
+        "prev": 10.24,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1629792
+        "volume": 1811990
       },
       {
         "ticker": "LEAS",
         "name": "Европлан",
-        "price": 658,
-        "prev": 658,
+        "price": 660,
+        "prev": 660,
         "change": 0,
         "pct": 0.0,
-        "volume": 46317000
+        "volume": 63892151
       },
       {
         "ticker": "LENT",
         "name": "Лента ао",
-        "price": 1740.5,
-        "prev": 1740.5,
+        "price": 1787.5,
+        "prev": 1787.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 155196650
+        "volume": 235812061
       },
       {
         "ticker": "LIFE",
         "name": "Фармсинтез",
-        "price": 1.79,
-        "prev": 1.79,
+        "price": 1.74,
+        "prev": 1.74,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 8382668
+        "volume": 9517017
       },
       {
         "ticker": "LKOH",
         "name": "ЛУКОЙЛ",
-        "price": 4361.5,
-        "prev": 4361.5,
-        "change": 0.0,
+        "price": 4261,
+        "prev": 4261,
+        "change": 0,
         "pct": 0.0,
-        "volume": 7455231535,
+        "volume": 9251367193,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -1646,20 +1646,20 @@
       {
         "ticker": "LMBZ",
         "name": "Ламбумиз",
-        "price": 467,
-        "prev": 467,
+        "price": 471,
+        "prev": 471,
         "change": 0,
         "pct": 0.0,
-        "volume": 722887
+        "volume": 723358
       },
       {
         "ticker": "LPSB",
         "name": "ЛЭСК ао",
-        "price": 46.45,
-        "prev": 46.45,
+        "price": 46.55,
+        "prev": 46.55,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 310040
+        "volume": 314695
       },
       {
         "ticker": "LQDT",
@@ -1668,7 +1668,7 @@
         "prev": 2.02,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3986817337,
+        "volume": 5367301470,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -1676,101 +1676,101 @@
       {
         "ticker": "LSNG",
         "name": "РСетиЛЭ",
-        "price": 11,
-        "prev": 11,
-        "change": 0,
+        "price": 10.48,
+        "prev": 10.48,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 15349633
+        "volume": 17482028
       },
       {
         "ticker": "LSNGP",
         "name": "РСетиЛЭ-п",
-        "price": 329.3,
-        "prev": 329.3,
+        "price": 314.7,
+        "prev": 314.7,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 130338112
+        "volume": 234120532
       },
       {
         "ticker": "LSRG",
         "name": "ЛСР ао",
-        "price": 572.2,
-        "prev": 572.2,
-        "change": 0.0,
+        "price": 566,
+        "prev": 566,
+        "change": 0,
         "pct": 0.0,
-        "volume": 66108522
+        "volume": 76614595
       },
       {
         "ticker": "LVHK",
         "name": "Левенгук",
-        "price": 16.5,
-        "prev": 16.5,
-        "change": 0.0,
+        "price": 16,
+        "prev": 16,
+        "change": 0,
         "pct": 0.0,
-        "volume": 1808765
+        "volume": 1916645
       },
       {
         "ticker": "MAGE",
         "name": "МагадЭн ао",
-        "price": 1.83,
-        "prev": 1.83,
+        "price": 1.82,
+        "prev": 1.82,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 925945
+        "volume": 968942
       },
       {
         "ticker": "MAGEP",
         "name": "МагадЭн ап",
-        "price": 1.84,
-        "prev": 1.84,
+        "price": 1.75,
+        "prev": 1.75,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1187641
+        "volume": 1328484
       },
       {
         "ticker": "MAGN",
         "name": "ММК",
-        "price": 18.38,
-        "prev": 18.38,
+        "price": 17.73,
+        "prev": 17.73,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1303021161
+        "volume": 1648267735
       },
       {
         "ticker": "MBNK",
         "name": "МТС Банк",
-        "price": 1036,
-        "prev": 1036,
-        "change": 0,
+        "price": 1028.5,
+        "prev": 1028.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 106959694
+        "volume": 120953140
       },
       {
         "ticker": "MDMG",
         "name": "MDMG-ао",
-        "price": 1247.4,
-        "prev": 1247.4,
+        "price": 1230.6,
+        "prev": 1230.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 169551933
+        "volume": 255991667
       },
       {
         "ticker": "MFGS",
         "name": "Мегион-ао",
-        "price": 230,
-        "prev": 230,
+        "price": 235,
+        "prev": 235,
         "change": 0,
         "pct": 0.0,
-        "volume": 4663780
+        "volume": 5055100
       },
       {
         "ticker": "MFGSP",
         "name": "Мегион-ап",
-        "price": 153.5,
-        "prev": 153.5,
-        "change": 0.0,
+        "price": 150,
+        "prev": 150,
+        "change": 0,
         "pct": 0.0,
-        "volume": 3237940
+        "volume": 3481535
       },
       {
         "ticker": "MGKL",
@@ -1779,52 +1779,52 @@
         "prev": 2.42,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 9274063
+        "volume": 10340857
       },
       {
         "ticker": "MGNT",
         "name": "Магнит ао",
-        "price": 1833.5,
-        "prev": 1833.5,
+        "price": 1774.5,
+        "prev": 1774.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1459305553
+        "volume": 1651901371
       },
       {
         "ticker": "MGTS",
         "name": "МГТС-5ао",
-        "price": 1128,
-        "prev": 1128,
+        "price": 1116,
+        "prev": 1116,
         "change": 0,
         "pct": 0.0,
-        "volume": 1031274
+        "volume": 1038020
       },
       {
         "ticker": "MGTSP",
         "name": "МГТС-4ап",
-        "price": 1270,
-        "prev": 1270,
+        "price": 1266,
+        "prev": 1266,
         "change": 0,
         "pct": 0.0,
-        "volume": 8713996
+        "volume": 8831862
       },
       {
         "ticker": "MISB",
         "name": "ТНСэнМарЭл",
-        "price": 36,
-        "prev": 36,
-        "change": 0,
+        "price": 35.5,
+        "prev": 35.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 337020
+        "volume": 340570
       },
       {
         "ticker": "MISBP",
         "name": "ТНСэМаЭл-п",
-        "price": 39.2,
-        "prev": 39.2,
+        "price": 38.5,
+        "prev": 38.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2737190
+        "volume": 2894240
       },
       {
         "ticker": "MKBD",
@@ -1838,11 +1838,11 @@
       {
         "ticker": "MOEX",
         "name": "МосБиржа",
-        "price": 164.33,
-        "prev": 164.33,
+        "price": 161.96,
+        "prev": 161.96,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1276365939
+        "volume": 1415982390
       },
       {
         "ticker": "MONY",
@@ -1851,25 +1851,25 @@
         "prev": 128.79,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 340046
+        "volume": 342493
       },
       {
         "ticker": "MRKC",
         "name": "РоссЦентр",
-        "price": 0.56,
-        "prev": 0.56,
+        "price": 0.55,
+        "prev": 0.55,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 59272284
+        "volume": 68747472
       },
       {
         "ticker": "MRKK",
         "name": "Россети СК",
-        "price": 14.62,
-        "prev": 14.62,
+        "price": 14.5,
+        "prev": 14.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 840874
+        "volume": 940263
       },
       {
         "ticker": "MRKP",
@@ -1878,7 +1878,7 @@
         "prev": 0.57,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 60998651
+        "volume": 69263581
       },
       {
         "ticker": "MRKS",
@@ -1887,7 +1887,7 @@
         "prev": 0.36,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 8558729
+        "volume": 9864536
       },
       {
         "ticker": "MRKU",
@@ -1896,7 +1896,7 @@
         "prev": 0.52,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 27864928
+        "volume": 32173816
       },
       {
         "ticker": "MRKV",
@@ -1905,7 +1905,7 @@
         "prev": 0.2,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 66006646
+        "volume": 75287263
       },
       {
         "ticker": "MRKY",
@@ -1914,7 +1914,7 @@
         "prev": 0.06,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 5433962
+        "volume": 6441642
       },
       {
         "ticker": "MRKZ",
@@ -1923,7 +1923,7 @@
         "prev": 0.12,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 39132684
+        "volume": 48282495
       },
       {
         "ticker": "MRSB",
@@ -1932,88 +1932,88 @@
         "prev": 0.92,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 228340
+        "volume": 995680
       },
       {
         "ticker": "MSNG",
         "name": "+МосЭнерго",
-        "price": 1.85,
-        "prev": 1.85,
+        "price": 1.81,
+        "prev": 1.81,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 114584223
+        "volume": 123310431
       },
       {
         "ticker": "MSRS",
         "name": "РСетиМР ао",
-        "price": 1.63,
-        "prev": 1.63,
+        "price": 1.61,
+        "prev": 1.61,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 56445951
+        "volume": 60324815
       },
       {
         "ticker": "MSTT",
         "name": "Мостотрест",
-        "price": 65.7,
-        "prev": 65.7,
+        "price": 63.25,
+        "prev": 63.25,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 9513809
+        "volume": 11181142
       },
       {
         "ticker": "MTLR",
         "name": "Мечел ао",
-        "price": 40.06,
-        "prev": 40.06,
+        "price": 38.47,
+        "prev": 38.47,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1151522149
+        "volume": 1501992940
       },
       {
         "ticker": "MTLRP",
         "name": "Мечел ап",
-        "price": 36.9,
-        "prev": 36.9,
+        "price": 35.1,
+        "prev": 35.1,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 142323742
+        "volume": 202003988
       },
       {
         "ticker": "MTSS",
         "name": "МТС-ао",
-        "price": 217.6,
-        "prev": 217.6,
+        "price": 216.75,
+        "prev": 216.75,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1718587122
+        "volume": 1853269610
       },
       {
         "ticker": "MVID",
         "name": "М.видео",
-        "price": 57.2,
-        "prev": 57.2,
+        "price": 56.6,
+        "prev": 56.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 27599042
+        "volume": 33235354
       },
       {
         "ticker": "NAUK",
         "name": "iНПОНаука",
-        "price": 474.5,
-        "prev": 474.5,
+        "price": 466.5,
+        "prev": 466.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 825230
+        "volume": 862620
       },
       {
         "ticker": "NFAZ",
         "name": "НЕФАЗ",
-        "price": 159,
-        "prev": 159,
-        "change": 0,
+        "price": 155.5,
+        "prev": 155.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 535980
+        "volume": 550015
       },
       {
         "ticker": "NFKL",
@@ -2022,97 +2022,97 @@
         "prev": 100.21,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 55272
+        "volume": 55372
       },
       {
         "ticker": "NKHP",
         "name": "НКХП ао",
-        "price": 340.5,
-        "prev": 340.5,
-        "change": 0.0,
+        "price": 339,
+        "prev": 339,
+        "change": 0,
         "pct": 0.0,
-        "volume": 18017365
+        "volume": 20374270
       },
       {
         "ticker": "NKNC",
         "name": "НКНХ ао",
-        "price": 47.95,
-        "prev": 47.95,
-        "change": 0.0,
+        "price": 48,
+        "prev": 48,
+        "change": 0,
         "pct": 0.0,
-        "volume": 1591141
+        "volume": 1813647
       },
       {
         "ticker": "NKNCP",
         "name": "НКНХ ап",
-        "price": 37.06,
-        "prev": 37.06,
+        "price": 36.92,
+        "prev": 36.92,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4935329
+        "volume": 6401426
       },
       {
         "ticker": "NKSH",
         "name": "Нижкамшина",
-        "price": 28.35,
-        "prev": 28.35,
+        "price": 27.7,
+        "prev": 27.7,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 820950
+        "volume": 851730
       },
       {
         "ticker": "NLMK",
         "name": "НЛМК ао",
-        "price": 61.72,
-        "prev": 61.72,
+        "price": 59.42,
+        "prev": 59.42,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2122356999
+        "volume": 2573242979
       },
       {
         "ticker": "NMTP",
         "name": "НМТП ао",
-        "price": 8.26,
-        "prev": 8.26,
+        "price": 8.19,
+        "prev": 8.19,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 87209214
+        "volume": 99225891
       },
       {
         "ticker": "NNSB",
         "name": "ТНСэнНН ао",
-        "price": 2880,
-        "prev": 2880,
+        "price": 2790,
+        "prev": 2790,
         "change": 0,
         "pct": 0.0,
-        "volume": 421710
+        "volume": 603040
       },
       {
         "ticker": "NNSBP",
         "name": "ТНСэнНН ап",
-        "price": 1020,
-        "prev": 1020,
+        "price": 1026,
+        "prev": 1026,
         "change": 0,
         "pct": 0.0,
-        "volume": 598976
+        "volume": 600002
       },
       {
         "ticker": "NSVZ",
         "name": "iНаукаСвяз",
-        "price": 230,
-        "prev": 230,
-        "change": 0,
+        "price": 222.5,
+        "prev": 222.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 12249100
+        "volume": 12698975
       },
       {
         "ticker": "NVTK",
         "name": "Новатэк ао",
-        "price": 953.2,
-        "prev": 953.2,
+        "price": 912.4,
+        "prev": 912.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3800703193,
+        "volume": 5330697875,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -2120,29 +2120,29 @@
       {
         "ticker": "OBLG",
         "name": "OBLG ETF",
-        "price": 203.68,
-        "prev": 203.68,
+        "price": 203.56,
+        "prev": 203.56,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 246125987
+        "volume": 308794572
       },
       {
         "ticker": "OGKB",
         "name": "ОГК-2 ао",
-        "price": 0.2,
-        "prev": 0.2,
+        "price": 0.19,
+        "prev": 0.19,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 51230185
+        "volume": 54512389
       },
       {
         "ticker": "OKEY",
         "name": "OKEY-гдр",
-        "price": 41.13,
-        "prev": 41.13,
+        "price": 40.95,
+        "prev": 40.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 585839
+        "volume": 655559
       },
       {
         "ticker": "OLIQ",
@@ -2151,7 +2151,7 @@
         "prev": 100.17,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 55293
+        "volume": 61003
       },
       {
         "ticker": "OMZZP",
@@ -2160,61 +2160,61 @@
         "prev": 9600,
         "change": 0,
         "pct": 0.0,
-        "volume": 96000
+        "volume": 105600
       },
       {
         "ticker": "OZON",
         "name": "Озон",
-        "price": 3468,
-        "prev": 3468,
-        "change": 0,
+        "price": 3423.5,
+        "prev": 3423.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 3059095277
+        "volume": 3510705622
       },
       {
         "ticker": "OZPH",
         "name": "iОзонФарм",
-        "price": 40.09,
-        "prev": 40.09,
+        "price": 39.58,
+        "prev": 39.58,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 33930959
+        "volume": 38504816
       },
       {
         "ticker": "PAZA",
         "name": "ПавлАвт ао",
-        "price": 8100,
-        "prev": 8100,
+        "price": 8020,
+        "prev": 8020,
         "change": 0,
         "pct": 0.0,
-        "volume": 56800
+        "volume": 105320
       },
       {
         "ticker": "PHOR",
         "name": "ФосАгро ао",
-        "price": 5197,
-        "prev": 5197,
+        "price": 5114,
+        "prev": 5114,
         "change": 0,
         "pct": 0.0,
-        "volume": 1070417590
+        "volume": 1242481561
       },
       {
         "ticker": "PIKK",
         "name": "ПИК ао",
-        "price": 543.2,
-        "prev": 543.2,
+        "price": 529.5,
+        "prev": 529.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 320510541
+        "volume": 361928690
       },
       {
         "ticker": "PLZL",
         "name": "Полюс",
-        "price": 1942.8,
-        "prev": 1942.8,
+        "price": 1941.2,
+        "prev": 1941.2,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2502028791
+        "volume": 2929994772
       },
       {
         "ticker": "PMSB",
@@ -2223,7 +2223,7 @@
         "prev": 376.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 5673293
+        "volume": 6386742
       },
       {
         "ticker": "PMSBP",
@@ -2232,25 +2232,25 @@
         "prev": 392,
         "change": 0,
         "pct": 0.0,
-        "volume": 5582930
+        "volume": 7248186
       },
       {
         "ticker": "POSI",
         "name": "iПозитив",
-        "price": 781,
-        "prev": 781,
-        "change": 0,
+        "price": 760.6,
+        "prev": 760.6,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 637601911
+        "volume": 750203326
       },
       {
         "ticker": "PRFN",
         "name": "ТЕПЛАНТ ао",
-        "price": 2.44,
-        "prev": 2.44,
+        "price": 2.37,
+        "prev": 2.37,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1796241
+        "volume": 2266406
       },
       {
         "ticker": "PRIE",
@@ -2273,20 +2273,20 @@
       {
         "ticker": "PRMD",
         "name": "iПРОМОМЕД",
-        "price": 355.15,
-        "prev": 355.15,
+        "price": 347.2,
+        "prev": 347.2,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 83180893
+        "volume": 127136374
       },
       {
         "ticker": "PSGM",
         "name": "PSGM ETF",
-        "price": 11.71,
-        "prev": 11.71,
+        "price": 11.95,
+        "prev": 11.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 399901
+        "volume": 465664
       },
       {
         "ticker": "PSMM",
@@ -2295,7 +2295,7 @@
         "prev": 14.24,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 32540517
+        "volume": 43597927
       },
       {
         "ticker": "PSRB",
@@ -2304,61 +2304,61 @@
         "prev": 13.47,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 91297
+        "volume": 91404
       },
       {
         "ticker": "PSRE",
         "name": "PSRE ETF",
-        "price": 8.74,
-        "prev": 8.74,
+        "price": 8.62,
+        "prev": 8.62,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 68552
+        "volume": 104761
       },
       {
         "ticker": "RAGR",
         "name": "Русагро",
-        "price": 79.66,
-        "prev": 79.66,
+        "price": 77.12,
+        "prev": 77.12,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 520426007
+        "volume": 594453503
       },
       {
         "ticker": "RASP",
         "name": "Распадская",
-        "price": 105.4,
-        "prev": 105.4,
+        "price": 103.3,
+        "prev": 103.3,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 114113544
+        "volume": 125388121
       },
       {
         "ticker": "RBCM",
         "name": "ГК РБК ао",
-        "price": 6.23,
-        "prev": 6.23,
+        "price": 6.03,
+        "prev": 6.03,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 17127071
+        "volume": 21239088
       },
       {
         "ticker": "RDRB",
         "name": "РДБанк ао",
-        "price": 104.4,
-        "prev": 104.4,
+        "price": 104.6,
+        "prev": 104.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 530304
+        "volume": 535534
       },
       {
         "ticker": "RENI",
         "name": "Ренессанс",
-        "price": 79.86,
-        "prev": 79.86,
+        "price": 78.58,
+        "prev": 78.58,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 134911797
+        "volume": 147051598
       },
       {
         "ticker": "RGSS",
@@ -2367,43 +2367,43 @@
         "prev": 0.17,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1047003
+        "volume": 1097299
       },
       {
         "ticker": "RKKE",
         "name": "ЭнергияРКК",
-        "price": 10200,
-        "prev": 10200,
+        "price": 10130,
+        "prev": 10130,
         "change": 0,
         "pct": 0.0,
-        "volume": 14965950
+        "volume": 16262420
       },
       {
         "ticker": "RNFT",
         "name": "РуссНфт ао",
-        "price": 72.55,
-        "prev": 72.55,
+        "price": 69.4,
+        "prev": 69.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 633482359
+        "volume": 821525715
       },
       {
         "ticker": "ROLO",
         "name": "Русолово",
-        "price": 0.23,
-        "prev": 0.23,
+        "price": 0.22,
+        "prev": 0.22,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 42511181
+        "volume": 46249457
       },
       {
         "ticker": "ROSN",
         "name": "Роснефть",
-        "price": 320.4,
-        "prev": 320.4,
+        "price": 314.15,
+        "prev": 314.15,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3779250483,
+        "volume": 4538030394,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -2411,20 +2411,20 @@
       {
         "ticker": "ROST",
         "name": "РОСИНТЕРао",
-        "price": 67.6,
-        "prev": 67.6,
+        "price": 68.8,
+        "prev": 68.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 140610
+        "volume": 142650
       },
       {
         "ticker": "RSHU",
         "name": "RSHU ETF",
-        "price": 122.94,
-        "prev": 122.94,
+        "price": 123.88,
+        "prev": 123.88,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 317934
+        "volume": 383780
       },
       {
         "ticker": "RTGZ",
@@ -2433,25 +2433,25 @@
         "prev": 32000,
         "change": 0,
         "pct": 0.0,
-        "volume": 5306800
+        "volume": 5370800
       },
       {
         "ticker": "RTKM",
         "name": "Ростел -ао",
-        "price": 42.7,
-        "prev": 42.7,
+        "price": 41.74,
+        "prev": 41.74,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 513804192
+        "volume": 603797193
       },
       {
         "ticker": "RTKMP",
         "name": "Ростел -ап",
-        "price": 43.75,
-        "prev": 43.75,
+        "price": 42.95,
+        "prev": 42.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 84151354
+        "volume": 90149354
       },
       {
         "ticker": "RTSB",
@@ -2460,70 +2460,79 @@
         "prev": 2.42,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 547355
+        "volume": 554350
       },
       {
         "ticker": "RTSBP",
         "name": "ТНСэнРст-п",
-        "price": 1.12,
-        "prev": 1.12,
+        "price": 1.08,
+        "prev": 1.08,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2717620
+        "volume": 2855144
       },
       {
         "ticker": "RU0005418747",
         "name": "ФондПервый",
-        "price": 171.5,
-        "prev": 171.5,
-        "change": 0.0,
+        "price": 179,
+        "prev": 179,
+        "change": 0,
         "pct": 0.0,
-        "volume": 6020
+        "volume": 7316
       },
       {
         "ticker": "RU0006922010",
         "name": "ФондКонс",
-        "price": 119.9,
-        "prev": 119.9,
+        "price": 119.55,
+        "prev": 119.55,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 12618255
+        "volume": 24332732
       },
       {
         "ticker": "RU0006922044",
         "name": "БКСАкцрост",
-        "price": 142.2,
-        "prev": 142.2,
+        "price": 139.6,
+        "prev": 139.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 631940
+        "volume": 655807
       },
       {
         "ticker": "RU000A0HGNG6",
         "name": "АрсагераФА",
-        "price": 12020,
-        "prev": 12020,
+        "price": 12016,
+        "prev": 12016,
         "change": 0,
         "pct": 0.0,
-        "volume": 4780618
+        "volume": 4867020
+      },
+      {
+        "ticker": "RU000A0HGNH4",
+        "name": "ПИФАрсСИ",
+        "price": 9798,
+        "prev": 9798,
+        "change": 0,
+        "pct": 0.0,
+        "volume": 48990
       },
       {
         "ticker": "RU000A0JP773",
         "name": "БКС РосАкц",
-        "price": 4.32,
-        "prev": 4.32,
+        "price": 4.28,
+        "prev": 4.28,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 14382134
+        "volume": 20574066
       },
       {
         "ticker": "RU000A0JP799",
         "name": "БКС РосОбл",
-        "price": 4.27,
-        "prev": 4.27,
+        "price": 4.26,
+        "prev": 4.26,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 13172716
+        "volume": 18288402
       },
       {
         "ticker": "RU000A0JPMD2",
@@ -2532,16 +2541,16 @@
         "prev": 9740,
         "change": 0,
         "pct": 0.0,
-        "volume": 2363586
+        "volume": 2840846
       },
       {
         "ticker": "RU000A0JR282",
         "name": "ПИФ Акции",
-        "price": 46.65,
-        "prev": 46.65,
+        "price": 46.3,
+        "prev": 46.3,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 10673239
+        "volume": 11387616
       },
       {
         "ticker": "RU000A0JR290",
@@ -2559,7 +2568,7 @@
         "prev": 107.45,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 7635120
+        "volume": 8183138
       },
       {
         "ticker": "RU000A0JRHC0",
@@ -2568,7 +2577,7 @@
         "prev": 2950,
         "change": 0,
         "pct": 0.0,
-        "volume": 108470
+        "volume": 111420
       },
       {
         "ticker": "RU000A0JUR61",
@@ -2582,47 +2591,47 @@
       {
         "ticker": "RU000A0JVJ29",
         "name": "БКСДрагМет",
-        "price": 273.5,
-        "prev": 273.5,
-        "change": 0.0,
+        "price": 278,
+        "prev": 278,
+        "change": 0,
         "pct": 0.0,
-        "volume": 2280731
+        "volume": 2465879
       },
       {
         "ticker": "RU000A0JWCE7",
         "name": "Перловский",
-        "price": 1320,
-        "prev": 1320,
+        "price": 1350,
+        "prev": 1350,
         "change": 0,
         "pct": 0.0,
-        "volume": 31680
+        "volume": 35730
       },
       {
         "ticker": "RU000A0JXP78",
         "name": "ЗПИФДОМ.РФ",
-        "price": 10200,
-        "prev": 10200,
+        "price": 10800,
+        "prev": 10800,
         "change": 0,
         "pct": 0.0,
-        "volume": 557800
+        "volume": 631650
       },
       {
         "ticker": "RU000A0JXWF0",
         "name": "АрсКР1.55",
-        "price": 2875,
-        "prev": 2875,
-        "change": 0,
+        "price": 2825.5,
+        "prev": 2825.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 11576
+        "volume": 48710
       },
       {
         "ticker": "RU000A0ZZ5R2",
         "name": "СоврАрБиз3",
-        "price": 934,
-        "prev": 934,
+        "price": 930,
+        "prev": 930,
         "change": 0,
         "pct": 0.0,
-        "volume": 7410270
+        "volume": 7579692
       },
       {
         "ticker": "RU000A0ZZCD8",
@@ -2663,47 +2672,47 @@
       {
         "ticker": "RU000A100EQ2",
         "name": "БКС РосЕвр",
-        "price": 12.23,
-        "prev": 12.23,
+        "price": 12.3,
+        "prev": 12.3,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 5001306
+        "volume": 6539419
       },
       {
         "ticker": "RU000A100WZ5",
         "name": "АКЦЕНТ 4",
-        "price": 1420,
-        "prev": 1420,
+        "price": 1400,
+        "prev": 1400,
         "change": 0,
         "pct": 0.0,
-        "volume": 796507
+        "volume": 1218703
       },
       {
         "ticker": "RU000A101NK4",
         "name": "ЗПИФ ФПР",
-        "price": 721.5,
-        "prev": 721.5,
-        "change": 0.0,
+        "price": 734,
+        "prev": 734,
+        "change": 0,
         "pct": 0.0,
-        "volume": 4238724
+        "volume": 4580120
       },
       {
         "ticker": "RU000A1022Z1",
         "name": "ПАРУС-ОЗН",
-        "price": 9000,
-        "prev": 9000,
+        "price": 8993,
+        "prev": 8993,
         "change": 0,
         "pct": 0.0,
-        "volume": 1255457
+        "volume": 1408404
       },
       {
         "ticker": "RU000A1027E5",
         "name": "ЗПИФ ВДО",
-        "price": 15420,
-        "prev": 15420,
+        "price": 15500,
+        "prev": 15500,
         "change": 0,
         "pct": 0.0,
-        "volume": 1002560
+        "volume": 1266040
       },
       {
         "ticker": "RU000A102AH5",
@@ -2717,20 +2726,20 @@
       {
         "ticker": "RU000A102N77",
         "name": "ЗПИФРД",
-        "price": 129850,
-        "prev": 129850,
+        "price": 129600,
+        "prev": 129600,
         "change": 0,
         "pct": 0.0,
-        "volume": 3115300
+        "volume": 3504200
       },
       {
         "ticker": "RU000A102PE0",
         "name": "Фондсуб1",
-        "price": 10050,
-        "prev": 10050,
+        "price": 10000,
+        "prev": 10000,
         "change": 0,
         "pct": 0.0,
-        "volume": 107050
+        "volume": 127050
       },
       {
         "ticker": "RU000A102PF7",
@@ -2748,7 +2757,7 @@
         "prev": 13200,
         "change": 0,
         "pct": 0.0,
-        "volume": 1280400
+        "volume": 1359600
       },
       {
         "ticker": "RU000A1034U7",
@@ -2757,34 +2766,34 @@
         "prev": 97600,
         "change": 0,
         "pct": 0.0,
-        "volume": 37044400
+        "volume": 37924400
       },
       {
         "ticker": "RU000A103B62",
         "name": "РенДохПРО",
-        "price": 1492,
-        "prev": 1492,
-        "change": 0,
+        "price": 1490.5,
+        "prev": 1490.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 2027277
+        "volume": 2240438
       },
       {
         "ticker": "RU000A104172",
         "name": "ПАРУС-СБЛ",
-        "price": 1666,
-        "prev": 1666,
+        "price": 1676,
+        "prev": 1676,
         "change": 0,
         "pct": 0.0,
-        "volume": 3483870
+        "volume": 4061481
       },
       {
         "ticker": "RU000A104KU3",
         "name": "ПАРУС-НОРД",
-        "price": 1290,
-        "prev": 1290,
+        "price": 1287,
+        "prev": 1287,
         "change": 0,
         "pct": 0.0,
-        "volume": 10372080
+        "volume": 11508848
       },
       {
         "ticker": "RU000A104M43",
@@ -2793,43 +2802,43 @@
         "prev": 20800,
         "change": 0,
         "pct": 0.0,
-        "volume": 1308300
+        "volume": 1391300
       },
       {
         "ticker": "RU000A104YX8",
         "name": "ЗПИФКомНед",
-        "price": 936,
-        "prev": 936,
+        "price": 938,
+        "prev": 938,
         "change": 0,
         "pct": 0.0,
-        "volume": 11435196
+        "volume": 11493278
       },
       {
         "ticker": "RU000A105328",
         "name": "ПАРУС-ЛОГ",
-        "price": 1328,
-        "prev": 1328,
+        "price": 1344,
+        "prev": 1344,
         "change": 0,
         "pct": 0.0,
-        "volume": 1345445
+        "volume": 2014752
       },
       {
         "ticker": "RU000A105RJ8",
         "name": "РСХБДолРын",
-        "price": 1490,
-        "prev": 1490,
+        "price": 1510,
+        "prev": 1510,
         "change": 0,
         "pct": 0.0,
-        "volume": 4410
+        "volume": 23900
       },
       {
         "ticker": "RU000A105TU1",
         "name": "БКСКапитал",
-        "price": 476.8,
-        "prev": 476.8,
+        "price": 476.6,
+        "prev": 476.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 15123197
+        "volume": 16871050
       },
       {
         "ticker": "RU000A1068X9",
@@ -2838,16 +2847,16 @@
         "prev": 1101,
         "change": 0,
         "pct": 0.0,
-        "volume": 3209595
+        "volume": 4666205
       },
       {
         "ticker": "RU000A106G80",
         "name": "ТКЗамещОбл",
-        "price": 830,
-        "prev": 830,
-        "change": 0,
+        "price": 831.5,
+        "prev": 831.5,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 2342023
+        "volume": 2461400
       },
       {
         "ticker": "RU000A107U08",
@@ -2861,11 +2870,11 @@
       {
         "ticker": "RU000A108TT7",
         "name": "БКСДивАкци",
-        "price": 69.52,
-        "prev": 69.52,
+        "price": 68.02,
+        "prev": 68.02,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 50764202
+        "volume": 51422787
       },
       {
         "ticker": "RU000A108UH0",
@@ -2874,34 +2883,34 @@
         "prev": 871,
         "change": 0,
         "pct": 0.0,
-        "volume": 10202428
+        "volume": 11806321
       },
       {
         "ticker": "RU000A108VR7",
         "name": "ПАРУС-МАКС",
-        "price": 1480,
-        "prev": 1480,
+        "price": 1497,
+        "prev": 1497,
         "change": 0,
         "pct": 0.0,
-        "volume": 4730713
+        "volume": 5073540
       },
       {
         "ticker": "RU000A108ZB2",
         "name": "2хОФЗ",
-        "price": 133850,
-        "prev": 133850,
+        "price": 136000,
+        "prev": 136000,
         "change": 0,
         "pct": 0.0,
-        "volume": 48618900
+        "volume": 53855850
       },
       {
         "ticker": "RU000A1099U0",
         "name": "ЗПИФСовр 9",
-        "price": 6.56,
-        "prev": 6.56,
+        "price": 6.55,
+        "prev": 6.55,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 17795611
+        "volume": 17874044
       },
       {
         "ticker": "RU000A109G79",
@@ -2924,20 +2933,20 @@
       {
         "ticker": "RU000A109QR5",
         "name": "ААА Золото",
-        "price": 2780,
-        "prev": 2780,
+        "price": 2900,
+        "prev": 2900,
         "change": 0,
         "pct": 0.0,
-        "volume": 587740
+        "volume": 750825
       },
       {
         "ticker": "RU000A109R27",
         "name": "2х Акции",
-        "price": 582.5,
-        "prev": 582.5,
+        "price": 565.5,
+        "prev": 565.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 35895317
+        "volume": 40521753
       },
       {
         "ticker": "RU000A10AN72",
@@ -2951,11 +2960,11 @@
       {
         "ticker": "RU000A10AQT4",
         "name": "Достояние",
-        "price": 12.27,
-        "prev": 12.27,
+        "price": 12.3,
+        "prev": 12.3,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 59786924
+        "volume": 59794994
       },
       {
         "ticker": "RU000A10BBS6",
@@ -2964,25 +2973,25 @@
         "prev": 899,
         "change": 0,
         "pct": 0.0,
-        "volume": 158532124
+        "volume": 200618769
       },
       {
         "ticker": "RU000A10BM31",
         "name": "ВИМ Вал пл",
-        "price": 10165,
-        "prev": 10165,
+        "price": 10150,
+        "prev": 10150,
         "change": 0,
         "pct": 0.0,
-        "volume": 3189710
+        "volume": 3402885
       },
       {
         "ticker": "RU000A10BQP0",
         "name": "БКС ОФЗ ВД",
-        "price": 100.47,
-        "prev": 100.47,
+        "price": 100.5,
+        "prev": 100.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 9145828
+        "volume": 9262079
       },
       {
         "ticker": "RU000A10CFM8",
@@ -2991,7 +3000,7 @@
         "prev": 823,
         "change": 0,
         "pct": 0.0,
-        "volume": 2492470
+        "volume": 2777526
       },
       {
         "ticker": "RU000A10CKQ9",
@@ -3027,34 +3036,34 @@
         "prev": 900,
         "change": 0,
         "pct": 0.0,
-        "volume": 95503207
+        "volume": 101948346
       },
       {
         "ticker": "RUAL",
         "name": "РУСАЛ ао",
-        "price": 28.59,
-        "prev": 28.59,
+        "price": 27.64,
+        "prev": 27.64,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1869479789
+        "volume": 2240192415
       },
       {
         "ticker": "RUSI",
         "name": "ИКРУСС-ИНВ",
-        "price": 46.3,
-        "prev": 46.3,
-        "change": 0.0,
+        "price": 46,
+        "prev": 46,
+        "change": 0,
         "pct": 0.0,
-        "volume": 1338811
+        "volume": 1357747
       },
       {
         "ticker": "RZSB",
         "name": "РязЭнСб",
-        "price": 31.12,
-        "prev": 31.12,
+        "price": 31.42,
+        "prev": 31.42,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3296924
+        "volume": 3747892
       },
       {
         "ticker": "SAFE",
@@ -3063,7 +3072,7 @@
         "prev": 17.87,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 419747993
+        "volume": 565390705
       },
       {
         "ticker": "SAGO",
@@ -3081,7 +3090,7 @@
         "prev": 2.06,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 170475
+        "volume": 180765
       },
       {
         "ticker": "SARE",
@@ -3104,56 +3113,56 @@
       {
         "ticker": "SBBC",
         "name": "SBBC ETF",
-        "price": 8.86,
-        "prev": 8.86,
+        "price": 8.73,
+        "prev": 8.73,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4341045
+        "volume": 5113035
       },
       {
         "ticker": "SBBY",
         "name": "SBBY ETF",
-        "price": 10.92,
-        "prev": 10.92,
+        "price": 10.94,
+        "prev": 10.94,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 9123385
+        "volume": 12822231
       },
       {
         "ticker": "SBCB",
         "name": "SBCB ETF",
-        "price": 1385.5,
-        "prev": 1385.5,
-        "change": 0.0,
+        "price": 1401,
+        "prev": 1401,
+        "change": 0,
         "pct": 0.0,
-        "volume": 188969595
+        "volume": 221697314
       },
       {
         "ticker": "SBCN",
         "name": "SBCN ETF",
-        "price": 12.42,
-        "prev": 12.42,
+        "price": 12.46,
+        "prev": 12.46,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 56193081
+        "volume": 66301696
       },
       {
         "ticker": "SBDS",
         "name": "SBDS ETF",
-        "price": 3.19,
-        "prev": 3.19,
+        "price": 3.16,
+        "prev": 3.16,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 54600
+        "volume": 87625
       },
       {
         "ticker": "SBER",
         "name": "Сбербанк",
-        "price": 299.45,
-        "prev": 299.45,
+        "price": 296.21,
+        "prev": 296.21,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 20098722357,
+        "volume": 23646549166,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -3161,11 +3170,11 @@
       {
         "ticker": "SBERP",
         "name": "Сбербанк-п",
-        "price": 299.52,
-        "prev": 299.52,
+        "price": 296.35,
+        "prev": 296.35,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1938712180
+        "volume": 2255817520
       },
       {
         "ticker": "SBFR",
@@ -3174,34 +3183,34 @@
         "prev": 15.07,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1498847776
+        "volume": 1793965841
       },
       {
         "ticker": "SBGB",
         "name": "SBGB ETF",
-        "price": 15.05,
-        "prev": 15.05,
+        "price": 15.06,
+        "prev": 15.06,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 46333546
+        "volume": 46938386
       },
       {
         "ticker": "SBGD",
         "name": "SBGD ETF",
-        "price": 29.93,
-        "prev": 29.93,
+        "price": 30.05,
+        "prev": 30.05,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 48187007
+        "volume": 162182615
       },
       {
         "ticker": "SBHI",
         "name": "SBHI ETF",
-        "price": 5.9,
-        "prev": 5.9,
+        "price": 5.76,
+        "prev": 5.76,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 10674559
+        "volume": 10937270
       },
       {
         "ticker": "SBLB",
@@ -3210,7 +3219,7 @@
         "prev": 11.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 86297065
+        "volume": 91987564
       },
       {
         "ticker": "SBMM",
@@ -3219,61 +3228,61 @@
         "prev": 18.82,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3194807552
+        "volume": 3534580078
       },
       {
         "ticker": "SBMX",
         "name": "SBMX ETF",
-        "price": 15.82,
-        "prev": 15.82,
+        "price": 15.54,
+        "prev": 15.54,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 270229420
+        "volume": 307416639
       },
       {
         "ticker": "SBPS",
         "name": "SBPS ETF",
-        "price": 2.69,
-        "prev": 2.69,
+        "price": 2.67,
+        "prev": 2.67,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 11942072
+        "volume": 11981748
       },
       {
         "ticker": "SBRB",
         "name": "SBRB ETF",
-        "price": 18.71,
-        "prev": 18.71,
+        "price": 18.7,
+        "prev": 18.7,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1532246720
+        "volume": 1878648971
       },
       {
         "ticker": "SBRI",
         "name": "SBRI ETF",
-        "price": 9.76,
-        "prev": 9.76,
+        "price": 9.6,
+        "prev": 9.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2282612
+        "volume": 2332607
       },
       {
         "ticker": "SBRS",
         "name": "SBRS ETF",
-        "price": 13.84,
-        "prev": 13.84,
+        "price": 13.8,
+        "prev": 13.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 47532847
+        "volume": 53678600
       },
       {
         "ticker": "SBSC",
         "name": "SBSC ETF",
-        "price": 6.27,
-        "prev": 6.27,
+        "price": 6.2,
+        "prev": 6.2,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2255864
+        "volume": 2829101
       },
       {
         "ticker": "SCFT",
@@ -3282,7 +3291,7 @@
         "prev": 3.86,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 59931
+        "volume": 62936
       },
       {
         "ticker": "SCLI",
@@ -3291,43 +3300,43 @@
         "prev": 6.98,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 9117071
+        "volume": 11089537
       },
       {
         "ticker": "SELG",
         "name": "Селигдар",
-        "price": 34.4,
-        "prev": 34.4,
+        "price": 33.95,
+        "prev": 33.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 226828654
+        "volume": 252195598
       },
       {
         "ticker": "SFIN",
         "name": "ЭсЭфАй ао",
-        "price": 538.4,
-        "prev": 538.4,
-        "change": 0.0,
+        "price": 543,
+        "prev": 543,
+        "change": 0,
         "pct": 0.0,
-        "volume": 102597045
+        "volume": 112939760
       },
       {
         "ticker": "SGZH",
         "name": "Сегежа",
-        "price": 0.59,
-        "prev": 0.59,
+        "price": 0.57,
+        "prev": 0.57,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 607391364
+        "volume": 724157751
       },
       {
         "ticker": "SIBN",
         "name": "Газпрнефть",
-        "price": 438.3,
-        "prev": 438.3,
+        "price": 430.1,
+        "prev": 430.1,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 613786778
+        "volume": 743339118
       },
       {
         "ticker": "SILA",
@@ -3336,25 +3345,25 @@
         "prev": 109.28,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 227736
+        "volume": 228282
       },
       {
         "ticker": "SIPO",
         "name": "SIPO ETF",
-        "price": 6.39,
-        "prev": 6.39,
+        "price": 6.34,
+        "prev": 6.34,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 612115
+        "volume": 620548
       },
       {
         "ticker": "SLEN",
         "name": "Сахэнер ао",
-        "price": 2.91,
-        "prev": 2.91,
+        "price": 2.88,
+        "prev": 2.88,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 453580
+        "volume": 456482
       },
       {
         "ticker": "SMCF",
@@ -3368,137 +3377,137 @@
       {
         "ticker": "SMLT",
         "name": "Самолет ао",
-        "price": 282.6,
-        "prev": 282.6,
+        "price": 277.8,
+        "prev": 277.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3739951242
+        "volume": 4355167495
       },
       {
         "ticker": "SNGS",
         "name": "Сургнфгз",
-        "price": 16.09,
-        "prev": 16.09,
+        "price": 15.95,
+        "prev": 15.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1139008505
+        "volume": 1328815128
       },
       {
         "ticker": "SNGSP",
         "name": "Сургнфгз-п",
-        "price": 40.7,
-        "prev": 40.7,
+        "price": 40.66,
+        "prev": 40.66,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2276181585
+        "volume": 2594162286
       },
       {
         "ticker": "SOFL",
         "name": "iСофтлайн",
-        "price": 43.18,
-        "prev": 43.18,
+        "price": 42.04,
+        "prev": 42.04,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 71135092
+        "volume": 76997681
       },
       {
         "ticker": "SPBE",
         "name": "СПБ Биржа",
-        "price": 131.3,
-        "prev": 131.3,
+        "price": 125.6,
+        "prev": 125.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1621482362
+        "volume": 1854160696
       },
       {
         "ticker": "SPRN",
         "name": "SPRN ETF",
-        "price": 9.22,
-        "prev": 9.22,
+        "price": 9.21,
+        "prev": 9.21,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 10389413
+        "volume": 12078758
       },
       {
         "ticker": "STME",
         "name": "STME ETF",
-        "price": 3.75,
-        "prev": 3.75,
+        "price": 3.76,
+        "prev": 3.76,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 31607227
+        "volume": 34094155
       },
       {
         "ticker": "STSB",
         "name": "СтаврЭнСб",
-        "price": 5.21,
-        "prev": 5.21,
+        "price": 5.2,
+        "prev": 5.2,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 693225
+        "volume": 729695
       },
       {
         "ticker": "STSBP",
         "name": "СтаврЭнСбп",
-        "price": 5.22,
-        "prev": 5.22,
+        "price": 5.1,
+        "prev": 5.1,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4174070
+        "volume": 4633630
       },
       {
         "ticker": "SUGB",
         "name": "SUGB ETF",
-        "price": 1496.5,
-        "prev": 1496.5,
+        "price": 1503.5,
+        "prev": 1503.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 321814
+        "volume": 350378
       },
       {
         "ticker": "SVAV",
         "name": "СОЛЛЕРС",
-        "price": 284.5,
-        "prev": 284.5,
-        "change": 0.0,
+        "price": 278,
+        "prev": 278,
+        "change": 0,
         "pct": 0.0,
-        "volume": 87408540
+        "volume": 97679340
       },
       {
         "ticker": "SVCB",
         "name": "Совкомбанк",
-        "price": 10.97,
-        "prev": 10.97,
+        "price": 10.84,
+        "prev": 10.84,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1096005802
+        "volume": 1273639224
       },
       {
         "ticker": "SVET",
         "name": "Светофор",
-        "price": 8.8,
-        "prev": 8.8,
+        "price": 8.92,
+        "prev": 8.92,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1997449
+        "volume": 3585642
       },
       {
         "ticker": "SVETP",
         "name": "Светофор п",
-        "price": 13.75,
-        "prev": 13.75,
+        "price": 16.45,
+        "prev": 16.45,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3368554
+        "volume": 5976160
       },
       {
         "ticker": "T",
         "name": "Т-Техно ао",
-        "price": 269.58,
-        "prev": 269.58,
-        "change": 0.0,
+        "price": 264,
+        "prev": 264,
+        "change": 0,
         "pct": 0.0,
-        "volume": 6563364192,
+        "volume": 8038451766,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -3506,11 +3515,11 @@
       {
         "ticker": "TASB",
         "name": "ТамбЭнСб",
-        "price": 1.34,
-        "prev": 1.34,
+        "price": 1.27,
+        "prev": 1.27,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 677924
+        "volume": 941440
       },
       {
         "ticker": "TASBP",
@@ -3519,52 +3528,52 @@
         "prev": 0.76,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 742320
+        "volume": 757560
       },
       {
         "ticker": "TATN",
         "name": "Татнфт 3ао",
-        "price": 500,
-        "prev": 500,
-        "change": 0,
+        "price": 485.7,
+        "prev": 485.7,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 2434013438
+        "volume": 3242945025
       },
       {
         "ticker": "TATNP",
         "name": "Татнфт 3ап",
-        "price": 469.5,
-        "prev": 469.5,
+        "price": 456.8,
+        "prev": 456.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 503778801
+        "volume": 634731457
       },
       {
         "ticker": "TBEU",
         "name": "TBEU ETF",
-        "price": 11.03,
-        "prev": 11.03,
+        "price": 11.12,
+        "prev": 11.12,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 18692
+        "volume": 19795
       },
       {
         "ticker": "TBRU",
         "name": "TBRU ETF",
-        "price": 8.15,
-        "prev": 8.15,
+        "price": 8.16,
+        "prev": 8.16,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 13224894
+        "volume": 13846133
       },
       {
         "ticker": "TDIV",
         "name": "TDIV ETF",
-        "price": 9.47,
-        "prev": 9.47,
+        "price": 9.34,
+        "prev": 9.34,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 33788
+        "volume": 39385
       },
       {
         "ticker": "TEUR",
@@ -3573,7 +3582,7 @@
         "prev": 6.7,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 276595
+        "volume": 286859
       },
       {
         "ticker": "TGKA",
@@ -3582,7 +3591,7 @@
         "prev": 0.0,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 34570421
+        "volume": 38888489
       },
       {
         "ticker": "TGKB",
@@ -3591,7 +3600,7 @@
         "prev": 0.0,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4683455
+        "volume": 5149950
       },
       {
         "ticker": "TGKBP",
@@ -3600,7 +3609,7 @@
         "prev": 0.01,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 236632
+        "volume": 255155
       },
       {
         "ticker": "TGKN",
@@ -3609,34 +3618,34 @@
         "prev": 0.0,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 58828226
+        "volume": 65968781
       },
       {
         "ticker": "TGLD",
         "name": "TGLD ETF",
-        "price": 12.35,
-        "prev": 12.35,
+        "price": 12.48,
+        "prev": 12.48,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2597126
+        "volume": 6783691
       },
       {
         "ticker": "TITR",
         "name": "TITR ETF",
-        "price": 4.38,
-        "prev": 4.38,
+        "price": 4.3,
+        "prev": 4.3,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 20327
+        "volume": 22196
       },
       {
         "ticker": "TLCB",
         "name": "TLCB ETF",
-        "price": 10.29,
-        "prev": 10.29,
+        "price": 10.39,
+        "prev": 10.39,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 29507402
+        "volume": 34133136
       },
       {
         "ticker": "TMON",
@@ -3645,34 +3654,34 @@
         "prev": 159.79,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 4641195
+        "volume": 6446782
       },
       {
         "ticker": "TMOS",
         "name": "TMOS ETF",
-        "price": 5.53,
-        "prev": 5.53,
+        "price": 5.45,
+        "prev": 5.45,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 9480264
+        "volume": 10166784
       },
       {
         "ticker": "TNSE",
         "name": "ТНСэнрг ао",
-        "price": 2810,
-        "prev": 2810,
+        "price": 2795,
+        "prev": 2795,
         "change": 0,
         "pct": 0.0,
-        "volume": 218395
+        "volume": 494285
       },
       {
         "ticker": "TOFZ",
         "name": "TOFZ ETF",
-        "price": 13.58,
-        "prev": 13.58,
+        "price": 13.6,
+        "prev": 13.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1221783
+        "volume": 1225272
       },
       {
         "ticker": "TORS",
@@ -3686,56 +3695,56 @@
       {
         "ticker": "TORSP",
         "name": "РСТомск ап",
-        "price": 0.51,
-        "prev": 0.51,
+        "price": 0.5,
+        "prev": 0.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 481970
+        "volume": 552680
       },
       {
         "ticker": "TPAY",
         "name": "TPAY ETF",
-        "price": 101.86,
-        "prev": 101.86,
+        "price": 101.8,
+        "prev": 101.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 177303723
+        "volume": 209961461
       },
       {
         "ticker": "TRMK",
         "name": "ТМК ао",
-        "price": 59.8,
-        "prev": 59.8,
+        "price": 57.04,
+        "prev": 57.04,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 167574269
+        "volume": 202040992
       },
       {
         "ticker": "TRND",
         "name": "TRND ETF",
-        "price": 8.69,
-        "prev": 8.69,
+        "price": 8.62,
+        "prev": 8.62,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 134281
+        "volume": 136898
       },
       {
         "ticker": "TRNFP",
         "name": "Транснф ап",
-        "price": 1287.4,
-        "prev": 1287.4,
+        "price": 1282.4,
+        "prev": 1282.4,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 981080592
+        "volume": 1111405063
       },
       {
         "ticker": "TRUR",
         "name": "TRUR ETF",
-        "price": 9.43,
-        "prev": 9.43,
+        "price": 9.48,
+        "prev": 9.48,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 411833
+        "volume": 472271
       },
       {
         "ticker": "TTLK",
@@ -3744,7 +3753,7 @@
         "prev": 0.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2060500
+        "volume": 2408942
       },
       {
         "ticker": "TUSD",
@@ -3753,25 +3762,25 @@
         "prev": 6.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1563606
+        "volume": 1678177
       },
       {
         "ticker": "TUZA",
         "name": "ТЗА ао",
-        "price": 87.8,
-        "prev": 87.8,
+        "price": 85.8,
+        "prev": 85.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1849820
+        "volume": 2002762
       },
       {
         "ticker": "UGLD",
         "name": "ЮГК",
-        "price": 0.59,
-        "prev": 0.59,
+        "price": 0.58,
+        "prev": 0.58,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 428580783
+        "volume": 523011644
       },
       {
         "ticker": "UKUZ",
@@ -3785,11 +3794,11 @@
       {
         "ticker": "UNAC",
         "name": "iАвиастКао",
-        "price": 0.25,
-        "prev": 0.25,
+        "price": 0.24,
+        "prev": 0.24,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 63842611
+        "volume": 69153484
       },
       {
         "ticker": "UNKL",
@@ -3798,25 +3807,25 @@
         "prev": 2900,
         "change": 0,
         "pct": 0.0,
-        "volume": 1932320
+        "volume": 1981580
       },
       {
         "ticker": "UPRO",
         "name": "Юнипро ао",
-        "price": 1.03,
-        "prev": 1.03,
+        "price": 1.0,
+        "prev": 1.0,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 800577199
+        "volume": 876955412
       },
       {
         "ticker": "URKZ",
         "name": "УрКузница",
-        "price": 203.4,
-        "prev": 203.4,
-        "change": 0.0,
+        "price": 204,
+        "prev": 204,
+        "change": 0,
         "pct": 0.0,
-        "volume": 38767
+        "volume": 38971
       },
       {
         "ticker": "USBN",
@@ -3825,34 +3834,34 @@
         "prev": 0.15,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1784177
+        "volume": 3102371
       },
       {
         "ticker": "UTAR",
         "name": "ЮТэйр ао",
-        "price": 8.15,
-        "prev": 8.15,
-        "change": 0.0,
+        "price": 8,
+        "prev": 8,
+        "change": 0,
         "pct": 0.0,
-        "volume": 411356
+        "volume": 470742
       },
       {
         "ticker": "UWGN",
         "name": "ОВК ао",
-        "price": 16.48,
-        "prev": 16.48,
+        "price": 16.04,
+        "prev": 16.04,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 79815763
+        "volume": 90036212
       },
       {
         "ticker": "VDOR",
         "name": "VDOR ETF",
-        "price": 1030.2,
-        "prev": 1030.2,
+        "price": 1030.22,
+        "prev": 1030.22,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 6962981
+        "volume": 10568071
       },
       {
         "ticker": "VEON-RX",
@@ -3861,7 +3870,7 @@
         "prev": 49.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 495799
+        "volume": 499783
       },
       {
         "ticker": "VGSB",
@@ -3870,115 +3879,115 @@
         "prev": 11.85,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 677400
+        "volume": 689250
       },
       {
         "ticker": "VGSBP",
         "name": "ВолгЭнСб-п",
-        "price": 9.55,
-        "prev": 9.55,
+        "price": 9.5,
+        "prev": 9.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1560750
+        "volume": 1570250
       },
       {
         "ticker": "VJGZ",
         "name": "Варьеган",
-        "price": 1855,
-        "prev": 1855,
+        "price": 1810,
+        "prev": 1810,
         "change": 0,
         "pct": 0.0,
-        "volume": 4388165
+        "volume": 4892295
       },
       {
         "ticker": "VJGZP",
         "name": "Варьеган-п",
-        "price": 796,
-        "prev": 796,
+        "price": 780,
+        "prev": 780,
         "change": 0,
         "pct": 0.0,
-        "volume": 2627926
+        "volume": 3591104
       },
       {
         "ticker": "VKCO",
         "name": "МКПАО \"ВК\"",
-        "price": 200.65,
-        "prev": 200.65,
+        "price": 193.3,
+        "prev": 193.3,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1579461897
+        "volume": 1974368225
       },
       {
         "ticker": "VLHZ",
         "name": "ВХЗ-ао",
-        "price": 97.6,
-        "prev": 97.6,
+        "price": 97.2,
+        "prev": 97.2,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3989884
+        "volume": 4264260
       },
       {
         "ticker": "VRSB",
         "name": "ТНСэнВорон",
-        "price": 285.5,
-        "prev": 285.5,
+        "price": 278.5,
+        "prev": 278.5,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1512090
+        "volume": 2689115
       },
       {
         "ticker": "VRSBP",
         "name": "ТНСэнВор-п",
-        "price": 117,
-        "prev": 117,
-        "change": 0,
+        "price": 118.4,
+        "prev": 118.4,
+        "change": 0.0,
         "pct": 0.0,
-        "volume": 1032162
+        "volume": 1086346
       },
       {
         "ticker": "VSEH",
         "name": "ВИ.ру",
-        "price": 61.73,
-        "prev": 61.73,
+        "price": 61.63,
+        "prev": 61.63,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 22687022
+        "volume": 27261389
       },
       {
         "ticker": "VSMO",
         "name": "ВСМПО-АВСМ",
-        "price": 21440,
-        "prev": 21440,
+        "price": 20600,
+        "prev": 20600,
         "change": 0,
         "pct": 0.0,
-        "volume": 93884920
+        "volume": 103170120
       },
       {
         "ticker": "VSYD",
         "name": "ВыбСудЗ ао",
-        "price": 6800,
-        "prev": 6800,
+        "price": 6900,
+        "prev": 6900,
         "change": 0,
         "pct": 0.0,
-        "volume": 1960600
+        "volume": 2021100
       },
       {
         "ticker": "VSYDP",
         "name": "ВыбСудЗ ап",
-        "price": 5800,
-        "prev": 5800,
+        "price": 5550,
+        "prev": 5550,
         "change": 0,
         "pct": 0.0,
-        "volume": 4050750
+        "volume": 4323600
       },
       {
         "ticker": "VTBR",
         "name": "ВТБ ао",
-        "price": 72.11,
-        "prev": 72.11,
+        "price": 71.09,
+        "prev": 71.09,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 5472032958,
+        "volume": 6421128777,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -3986,56 +3995,56 @@
       {
         "ticker": "WILD",
         "name": "WILD ETF",
-        "price": 871.7,
-        "prev": 871.7,
+        "price": 865.1,
+        "prev": 865.1,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 49873
+        "volume": 57659
       },
       {
         "ticker": "WTCM",
         "name": "ЦМТ ао",
-        "price": 12.64,
-        "prev": 12.64,
+        "price": 12.6,
+        "prev": 12.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 817124
+        "volume": 818384
       },
       {
         "ticker": "WTCMP",
         "name": "ЦМТ ап",
-        "price": 11.96,
-        "prev": 11.96,
+        "price": 11.84,
+        "prev": 11.84,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 770652
+        "volume": 793222
       },
       {
         "ticker": "WUSH",
         "name": "iВУШХолднг",
-        "price": 49.27,
-        "prev": 49.27,
+        "price": 54.91,
+        "prev": 54.91,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2192583241
+        "volume": 3467860532
       },
       {
         "ticker": "X5",
         "name": "КЦ ИКС 5",
-        "price": 2196,
-        "prev": 2196,
+        "price": 2171,
+        "prev": 2171,
         "change": 0,
         "pct": 0.0,
-        "volume": 3224003991
+        "volume": 3694700139
       },
       {
         "ticker": "XACCSK",
         "name": "Акцент 5",
-        "price": 1004,
-        "prev": 1004,
+        "price": 1000,
+        "prev": 1000,
         "change": 0,
         "pct": 0.0,
-        "volume": 1323057
+        "volume": 12377347
       },
       {
         "ticker": "XHOUSE",
@@ -4044,7 +4053,7 @@
         "prev": 827,
         "change": 0,
         "pct": 0.0,
-        "volume": 204359
+        "volume": 205186
       },
       {
         "ticker": "XKLUCH",
@@ -4067,47 +4076,47 @@
       {
         "ticker": "XSKLAD",
         "name": "ЗПИФСовр10",
-        "price": 107.98,
-        "prev": 107.98,
+        "price": 107.95,
+        "prev": 107.95,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 1235302
+        "volume": 1309143
       },
       {
         "ticker": "XTRIUMF",
         "name": "ПАРУС-ТРМ",
-        "price": 835,
-        "prev": 835,
+        "price": 839,
+        "prev": 839,
         "change": 0,
         "pct": 0.0,
-        "volume": 4301681
+        "volume": 4796551
       },
       {
         "ticker": "XXXXXX",
         "name": "Рентал ПРО",
-        "price": 949.8,
-        "prev": 949.8,
+        "price": 956.6,
+        "prev": 956.6,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 7907816
+        "volume": 8295461
       },
       {
         "ticker": "YAKG",
         "name": "ЯТЭК ао",
-        "price": 27.6,
-        "prev": 27.6,
+        "price": 27.8,
+        "prev": 27.8,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 2782084
+        "volume": 3447415
       },
       {
         "ticker": "YDEX",
         "name": "ЯНДЕКС",
-        "price": 3602,
-        "prev": 3602,
+        "price": 3534,
+        "prev": 3534,
         "change": 0,
         "pct": 0.0,
-        "volume": 4205750209,
+        "volume": 5380796026,
         "vol_pattern": "neutral",
         "vol_label": "⚪ Борьба — цена стоит",
         "vol_hint": "Высокий объём без движения цены. Крупные игроки компенсируют друг друга. Жди пробоя."
@@ -4119,7 +4128,7 @@
         "prev": 0.28,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 394630
+        "volume": 425430
       },
       {
         "ticker": "YKENP",
@@ -4128,7 +4137,7 @@
         "prev": 0.21,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 217280
+        "volume": 219350
       },
       {
         "ticker": "YRSB",
@@ -4142,29 +4151,29 @@
       {
         "ticker": "YRSBP",
         "name": "ТНСэнЯр-п",
-        "price": 156.5,
-        "prev": 156.5,
-        "change": 0.0,
+        "price": 156,
+        "prev": 156,
+        "change": 0,
         "pct": 0.0,
-        "volume": 277765
+        "volume": 364275
       },
       {
         "ticker": "YUAN",
         "name": "YUAN ETF",
-        "price": 120.02,
-        "prev": 120.02,
+        "price": 121.07,
+        "prev": 121.07,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 296101
+        "volume": 298879
       },
       {
         "ticker": "ZAYM",
         "name": "Займер ао",
-        "price": 136.75,
-        "prev": 136.75,
+        "price": 136.3,
+        "prev": 136.3,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 67052363
+        "volume": 69583140
       },
       {
         "ticker": "ZILL",
@@ -4178,46 +4187,46 @@
       {
         "ticker": "ZVEZ",
         "name": "ЗВЕЗДА ао",
-        "price": 4.3,
-        "prev": 4.3,
+        "price": 4.16,
+        "prev": 4.16,
         "change": 0.0,
         "pct": 0.0,
-        "volume": 3790590
+        "volume": 3811590
       }
     ],
     "_debug": {
-      "items_total": 431,
-      "items_with_price": 428,
-      "items_with_vol": 431,
+      "items_total": 432,
+      "items_with_price": 429,
+      "items_with_vol": 432,
       "top_vol_count": 10,
       "cheap_count": 0,
       "sample": [
         {
           "ticker": "ABIO",
           "name": "iАРТГЕН ао",
-          "price": 35.58,
-          "prev": 35.58,
+          "price": 35.04,
+          "prev": 35.04,
           "change": 0.0,
           "pct": 0.0,
-          "volume": 15205664
+          "volume": 18177719
         },
         {
           "ticker": "ABRD",
           "name": "АбрауДюрсо",
-          "price": 110,
-          "prev": 110,
-          "change": 0,
+          "price": 109.2,
+          "prev": 109.2,
+          "change": 0.0,
           "pct": 0.0,
-          "volume": 9344970
+          "volume": 11836410
         },
         {
           "ticker": "AFKS",
           "name": "Система ао",
-          "price": 11.97,
-          "prev": 11.97,
+          "price": 11.74,
+          "prev": 11.74,
           "change": 0.0,
           "pct": 0.0,
-          "volume": 3471276194
+          "volume": 3961271326
         }
       ]
     }
@@ -4377,7 +4386,7 @@
   "inefficiencies": {
     "portfolio": [],
     "market": [],
-    "total": 102,
+    "total": 111,
     "timestamp": "2026-06-26"
   },
   "price_history": {
@@ -4415,12 +4424,12 @@
   "tinkoff_portfolio": {
     "account_id": "2231486341",
     "account_name": "Брокерский счет",
-    "total_invested": 318952.3,
-    "total_current": 279597.3,
-    "total_pnl": -39355.0,
-    "total_pnl_pct": -12.34,
-    "total_shares": 217826.2,
-    "total_etf": 61750.0,
+    "total_invested": 318915.54,
+    "total_current": 281641.86,
+    "total_pnl": -37273.68,
+    "total_pnl_pct": -11.69,
+    "total_shares": 218920.8,
+    "total_etf": 62712.54,
     "total_bonds": 0.0,
     "positions": [
       {
@@ -4429,11 +4438,11 @@
         "itype": "share",
         "qty": 45.0,
         "avg_price": 2907.0,
-        "curr_price": 2192.5,
+        "curr_price": 2171.0,
         "invested": 130815.0,
-        "current_val": 98662.5,
-        "pnl": -32292.5,
-        "pnl_pct": -24.69
+        "current_val": 97695.0,
+        "pnl": -33260.0,
+        "pnl_pct": -25.43
       },
       {
         "figi": "BBG0063FKTD9",
@@ -4441,11 +4450,11 @@
         "itype": "share",
         "qty": 53.0,
         "avg_price": 1742.1,
-        "curr_price": 1738.5,
+        "curr_price": 1785.0,
         "invested": 92331.3,
-        "current_val": 92140.5,
-        "pnl": -188.5,
-        "pnl_pct": -0.2
+        "current_val": 94605.0,
+        "pnl": 2276.0,
+        "pnl_pct": 2.47
       },
       {
         "figi": "BBG000TY1CD1",
@@ -4453,23 +4462,23 @@
         "itype": "share",
         "qty": 12.0,
         "avg_price": 453.6,
-        "curr_price": 255.8,
+        "curr_price": 248.4,
         "invested": 5443.2,
-        "current_val": 3069.6,
-        "pnl": -2373.6,
-        "pnl_pct": -43.61
+        "current_val": 2980.8,
+        "pnl": -2462.4,
+        "pnl_pct": -45.24
       },
       {
         "figi": "TCS80A101X50",
         "ticker": "TGLD",
         "itype": "etf",
-        "qty": 5000.0,
-        "avg_price": 13.25,
-        "curr_price": 12.35,
-        "invested": 66250.0,
-        "current_val": 61750.0,
-        "pnl": -4475.3,
-        "pnl_pct": -6.76
+        "qty": 5001.0,
+        "avg_price": 13.24,
+        "curr_price": 12.54,
+        "invested": 66213.24,
+        "current_val": 62712.54,
+        "pnl": -3525.34,
+        "pnl_pct": -5.32
       },
       {
         "figi": "BBG004730N88",
@@ -4477,11 +4486,11 @@
         "itype": "share",
         "qty": 80.0,
         "avg_price": 301.41,
-        "curr_price": 299.42,
+        "curr_price": 295.5,
         "invested": 24112.8,
-        "current_val": 23953.6,
-        "pnl": -158.96,
-        "pnl_pct": -0.66
+        "current_val": 23640.0,
+        "pnl": -472.56,
+        "pnl_pct": -1.96
       }
     ],
     "as_of": "2026-06-26"
@@ -4501,7 +4510,7 @@
     {
       "rule_id": "USD_STABLE",
       "signal": "ok",
-      "message": "Курс доллара стабилен (75.6 руб.)",
+      "message": "Курс доллара стабилен (77.1 руб.)",
       "portfolio_impact": {}
     },
     {
