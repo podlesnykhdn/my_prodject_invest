@@ -75,11 +75,19 @@ def load_collector_data():
     clog_dir = BASE_DIR / "logs" / "collector"
     if not clog_dir.exists():
         return None
-    files = sorted(clog_dir.glob("*.json"))
+    files = sorted(clog_dir.glob("*.json"), reverse=True)
     if not files:
         return None
-    with open(files[-1], encoding="utf-8") as f:
-        data = json.load(f)
+    for log_file in files:
+        try:
+            with open(log_file, encoding="utf-8") as f:
+                data = json.load(f)
+            break
+        except Exception as e:
+            print(f"  [WARN] Битый лог {log_file}: {e}")
+            continue
+    else:
+        return None
     # Проверяем свежесть данных
     data_date = data.get("meta", {}).get("date", "")
     data["_is_fresh"] = (data_date == TODAY)
