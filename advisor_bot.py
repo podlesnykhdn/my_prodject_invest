@@ -580,42 +580,31 @@ def check_alerts(data, log):
 
 def is_moex_open():
     """
-    Проверяет через MOEX ISS открылась ли биржа сегодня.
-    Возвращает True если есть торги (LAST цена не None у хотя бы одной бумаги).
+    Проверяет открыта ли MOEX по времени МСК.
+    MOEX ISS блокирует запросы с GitHub Actions поэтому используем время.
+    Биржа работает пн-пт 09:50-18:50 МСК.
     """
-    try:
-        url = ("https://iss.moex.com/iss/engines/stock/markets/shares/"
-               "boards/TQBR/securities.json?iss.meta=off&iss.only=marketdata"
-               "&securities=SBER,GAZP,LKOH&limit=3")
-        h = {
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
-            )
-        }
-        req = urllib.request.Request(url, headers=h)
-        with urllib.request.urlopen(req, timeout=8) as r:
-            data = json.loads(r.read())
-        cols = data["marketdata"]["columns"]
-        rows = data["marketdata"]["data"]
-        last_idx = cols.index("LAST")
-        # Если хотя бы одна бумага имеет LAST != None — биржа торгует
-        for row in rows:
-            if row[last_idx] is not None and row[last_idx] > 0:
-                print(f"  [MOEX] Биржа открыта, {cols[cols.index('SECID')]} = {row[last_idx]}")
-                return True
-        print("  [MOEX] Биржа закрыта или нет торгов")
+    now_msk = datetime.now(timezone(timedelta(hours=3)))
+    weekday = now_msk.weekday()  # 0=пн, 6=вс
+    hour = now_msk.hour
+    minute = now_msk.minute
+
+    # Выходные
+    if weekday >= 5:
+        print(f"  [MOEX] Выходной ({['пн','вт','ср','чт','пт','сб','вс'][weekday]})")
         return False
-    except Exception as e:
-        print(f"  [MOEX] Ошибка проверки: {e}")
-        # Если не можем проверить — используем время МСК
-        from datetime import datetime, timezone, timedelta
-        now_msk = datetime.now(timezone(timedelta(hours=3)))
-        # Биржа открыта пн-пт 10:00-18:40
-        if now_msk.weekday() < 5 and 10 <= now_msk.hour < 19:
-            print(f"  [MOEX] Fallback по времени: {now_msk.strftime('%H:%M МСК')}")
-            return True
-        return False
+
+    # Биржа открыта 09:50-18:50 МСК
+    time_now = hour * 60 + minute
+    market_open  = 9 * 60 + 50   # 09:50
+    market_close = 18 * 60 + 50  # 18:50
+
+    if market_open <= time_now <= market_close:
+        print(f"  [MOEX] Биржа открыта ({now_msk.strftime('%H:%M МСК')})")
+        return True
+
+    print(f"  [MOEX] Биржа закрыта ({now_msk.strftime('%H:%M МСК')})")
+    return False
 
 
 def run_morning():
