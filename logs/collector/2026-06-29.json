@@ -1,7 +1,11 @@
 {
   "meta": {
     "date": "2026-06-29",
+<<<<<<< Updated upstream
     "time": "17:18",
+=======
+    "time": "17:19",
+>>>>>>> Stashed changes
     "month": 6,
     "weekday": 0,
     "is_friday": false
@@ -21,19 +25,33 @@
     "is_cached": false
   },
   "portfolio": {
+<<<<<<< Updated upstream
     "total_value": 286277.0,
     "total_change": 3921.0,
     "total_pct": 1.39,
+=======
+    "total_value": 286367.0,
+    "total_change": 4011.0,
+    "total_pct": 1.42,
+>>>>>>> Stashed changes
     "positions": [
       {
         "ticker": "X5",
         "name": "ПАО «Корпоративный центр ИКС 5»",
         "qty": 45,
+<<<<<<< Updated upstream
         "price": 2235,
         "change": 32.5,
         "pct": 1.48,
         "value": 100575,
         "day_rub": 1462.0,
+=======
+        "price": 2237,
+        "change": 34.5,
+        "pct": 1.57,
+        "value": 100665,
+        "day_rub": 1552.0,
+>>>>>>> Stashed changes
         "pe": 7.3,
         "eps_ttm": 306.0,
         "pe_sector_avg": 6.5,
@@ -130,13 +148,18 @@
       "prev": 1840,
       "change": 34.5,
       "pct": 1.91,
+<<<<<<< Updated upstream
       "volume": 149378464
+=======
+      "volume": 149475984
+>>>>>>> Stashed changes
     },
     "SBER": {
       "price": 307.09,
       "prev": 307.09,
       "change": 7.91,
       "pct": 2.64,
+<<<<<<< Updated upstream
       "volume": 16956655750
     },
     "X5": {
@@ -145,6 +168,16 @@
       "change": 32.5,
       "pct": 1.48,
       "volume": 2442079020
+=======
+      "volume": 16957754819
+    },
+    "X5": {
+      "price": 2237,
+      "prev": 2237,
+      "change": 34.5,
+      "pct": 1.57,
+      "volume": 2446524960
+>>>>>>> Stashed changes
     }
   },
   "screener": {
@@ -313,16 +346,28 @@
     "prev_date": "2026-06-18",
     "curr_date": "2026-06-29",
     "prev_value": 277559.0,
+<<<<<<< Updated upstream
     "curr_value": 286277.0,
     "diff_rub": 8718.0,
     "diff_pct": 3.14,
+=======
+    "curr_value": 286367.0,
+    "diff_rub": 8808.0,
+    "diff_pct": 3.17,
+>>>>>>> Stashed changes
     "positions": [
       {
         "ticker": "X5",
         "prev_price": 2360.5,
+<<<<<<< Updated upstream
         "curr_price": 2235,
         "diff": -125.5,
         "pct": -5.32
+=======
+        "curr_price": 2237,
+        "diff": -123.5,
+        "pct": -5.23
+>>>>>>> Stashed changes
       },
       {
         "ticker": "LENT",
