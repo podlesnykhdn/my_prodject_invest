@@ -1509,12 +1509,7 @@ def _load_last_log(role):
                     continue
                 return json.loads(data)
         except (json.JSONDecodeError, Exception) as e:
-            print(f'  [Log] Битый файл {log_file.name}: {e} — пропускаем')
-            broken = log_file.with_suffix('.broken')
-            try:
-                log_file.rename(broken)
-            except Exception:
-                pass
+            print(f'  [Log] Ошибка чтения {log_file.name}: {e} — пропускаем')
             continue
     return None
 def save_biweekly_snapshot(portfolio):
