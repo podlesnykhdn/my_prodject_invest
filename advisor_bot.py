@@ -569,6 +569,15 @@ def run_morning():
     log  = load_log()
     data = load_collector_data()
 
+    # Отправляем только в рабочее время пн-пт 09:50-19:00 МСК
+    now_msk = datetime.now(timezone(timedelta(hours=3)))
+    if now_msk.weekday() >= 5:
+        print(f"  Выходной — не отправляем")
+        return
+    if not (now_msk.hour > 9 or (now_msk.hour == 9 and now_msk.minute >= 50)):
+        print(f"  {now_msk.strftime('%H:%M')} МСК — биржа ещё не открылась")
+        return
+
     if log.get("morning_sent"):
         print(f"Утренняя сводка уже отправлена в {log.get('sent_at')}")
         # Всё равно проверяем алерты
