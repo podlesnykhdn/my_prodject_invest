@@ -1,0 +1,24 @@
+[FATAL ERROR] Expecting property name enclosed in double quotes: line 4 column 1 (char 40)
+
+Traceback (most recent call last):
+  File "/home/runner/work/my_prodject_invest/my_prodject_invest/collector.py", line 2366, in <module>
+    collect()
+  File "/home/runner/work/my_prodject_invest/my_prodject_invest/collector.py", line 2268, in collect
+    last_log = _load_last_log("collector")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/my_prodject_invest/my_prodject_invest/collector.py", line 1504, in _load_last_log
+    return json.load(f)
+           ^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 4 column 1 (char 40)
