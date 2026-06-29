@@ -621,9 +621,16 @@ def run_morning():
         save_log(log)
         return
 
-    msg = build_morning_report(data)
-    result = send(msg)
-    print(f"Утренняя сводка отправлена: {result.get('ok')}")
+    try:
+        msg = build_morning_report(data)
+        result = send(msg)
+        print(f"Утренняя сводка отправлена: {result.get('ok')}")
+    except Exception as _e:
+        import traceback
+        print(f"[ERROR] build_morning_report: {_e}")
+        traceback.print_exc()
+        # Отправляем минимальное сообщение
+        send(f"⚠️ Ошибка формирования сводки: {_e}")
 
     log["morning_sent"] = True
     log["sent_at"] = (lambda u, m: f"{m.strftime('%H:%M')} МСК ({u.strftime('%H:%M')} UTC)")(datetime.utcnow(), datetime.utcnow() + __import__("datetime").timedelta(hours=3))
