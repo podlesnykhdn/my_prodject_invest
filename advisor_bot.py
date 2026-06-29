@@ -588,36 +588,25 @@ def check_alerts(data, log):
 
 def is_moex_open():
     """
-    Проверяет открыта ли MOEX по времени МСК.
-    MOEX ISS блокирует запросы с GitHub Actions поэтому используем время.
-    Биржа работает пн-пт 09:50-18:50 МСК.
+    Проверяет открыта ли биржа по времени МСК.
+    MOEX работает пн-пт 09:50-18:50 МСК.
+    GitHub Actions блокирует MOEX ISS — используем только время.
     """
-    # Явно берём UTC+3 (МСК) — на GitHub Actions системное время UTC
-    import datetime as _dt
-    now_msk = _dt.datetime.now(_dt.timezone(_dt.timedelta(hours=3)))
+    from datetime import datetime, timezone, timedelta
+    now_msk = datetime.now(timezone(timedelta(hours=3)))
     weekday = now_msk.weekday()  # 0=пн, 6=вс
     hour = now_msk.hour
     minute = now_msk.minute
-    print(f"  [MOEX] Время МСК: {now_msk.strftime('%H:%M')} weekday={weekday}")
-
-    # Выходные
+    # Биржа открыта пн-пт с 09:50 до 18:50
     if weekday >= 5:
-        print(f"  [MOEX] Выходной ({['пн','вт','ср','чт','пт','сб','вс'][weekday]})")
+        print(f"  [MOEX] Выходной ({now_msk.strftime('%A')}) — биржа закрыта")
         return False
-
-    # Биржа открыта 09:50-18:50 МСК
-    time_now = hour * 60 + minute
-    market_open  = 9 * 60 + 50   # 09:50
-    market_close = 18 * 60 + 50  # 18:50
-
-    if market_open <= time_now <= market_close:
-        print(f"  [MOEX] Биржа открыта ({now_msk.strftime('%H:%M МСК')})")
-        return True
-
-    print(f"  [MOEX] Биржа закрыта ({now_msk.strftime('%H:%M МСК')})")
-    return False
-
-
+    time_ok = (hour > 9 or (hour == 9 and minute >= 50)) and hour < 19
+    if time_ok:
+        print(f"  [MOEX] {now_msk.strftime('%H:%M МСК')} — биржа открыта ✅")
+    else:
+        print(f"  [MOEX] {now_msk.strftime('%H:%M МСК')} — биржа закрыта")
+    return time_ok
 def run_morning():
     log  = load_log()
     data = load_collector_data()
