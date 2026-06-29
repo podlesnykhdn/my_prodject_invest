@@ -8,8 +8,28 @@ import os
 import json
 import urllib.request
 import re
+import sys
 from datetime import date, datetime
 from pathlib import Path
+
+# Перехватываем stdout в файл для диагностики
+_log_path = Path(__file__).parent / "logs" / "advisor_stdout.txt"
+_log_path.parent.mkdir(parents=True, exist_ok=True)
+class _Tee:
+    def __init__(self, *files):
+        self.files = files
+    def write(self, obj):
+        for f in self.files:
+            try: f.write(obj); f.flush()
+            except: pass
+    def flush(self):
+        for f in self.files:
+            try: f.flush()
+            except: pass
+_stdout_file = open(_log_path, "w", encoding="utf-8")
+sys.stdout = _Tee(sys.__stdout__, _stdout_file)
+sys.stderr = _Tee(sys.__stderr__, _stdout_file)
+print(f"[START] advisor_bot.py запущен {datetime.now().strftime("%H:%M:%S")}")
 
 
 # Акции только для квалифицированных инвесторов — не показываем в алертах
