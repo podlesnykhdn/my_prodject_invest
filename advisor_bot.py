@@ -22,11 +22,8 @@ QUAL_ONLY_TICKERS = {
     "TGKD", "TGKDP", "VLHZ", "WTCM", "WTCMP", "YAKG",
 }
 
-TOKEN    = os.environ.get("ADVISOR_BOT_TOKEN", "")
-CHAT_ID  = os.environ.get("TELEGRAM_CHAT_ID", "")
-if not TOKEN:
-    print("[FATAL] ADVISOR_BOT_TOKEN не найден в env — выход")
-    import sys; sys.exit(0)  # exit(0) чтобы workflow не падал
+TOKEN    = os.environ.get("ADVISOR_BOT_TOKEN", "8966677527:AAFCGnxjCiVlzbrbwPsLJof8lNR4_co0YBU")
+CHAT_ID  = os.environ.get("TELEGRAM_CHAT_ID", "1828018468")
 BASE_DIR = Path(__file__).parent
 LOGS_DIR = BASE_DIR / "logs" / "advisor"
 TODAY    = date.today().isoformat()
