@@ -584,10 +584,13 @@ def is_moex_open():
     MOEX ISS блокирует запросы с GitHub Actions поэтому используем время.
     Биржа работает пн-пт 09:50-18:50 МСК.
     """
-    now_msk = datetime.now(timezone(timedelta(hours=3)))
+    # Явно берём UTC+3 (МСК) — на GitHub Actions системное время UTC
+    import datetime as _dt
+    now_msk = _dt.datetime.now(_dt.timezone(_dt.timedelta(hours=3)))
     weekday = now_msk.weekday()  # 0=пн, 6=вс
     hour = now_msk.hour
     minute = now_msk.minute
+    print(f"  [MOEX] Время МСК: {now_msk.strftime('%H:%M')} weekday={weekday}")
 
     # Выходные
     if weekday >= 5:
