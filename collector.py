@@ -815,19 +815,28 @@ def collect_screener(rules):
         cheap_growth = cheap[:10]
 
         # Растущий интерес — берём из истории если есть
-        rising_history = _load_rising_history()
         rising_tickers = set()
-        if rising_history:
-            prev_tickers = set(rising_history.get("tickers", []))
-            curr_tickers = {i["ticker"] for i in items if i["price"] > 0}
-            rising_tickers = curr_tickers & prev_tickers
+        history_path = LOGS_DIR / "rising_history.json"
+        if history_path.exists():
+            try:
+                with open(history_path, encoding="utf-8") as f:
+                    rising_history = json.load(f)
+                prev_tickers = set(rising_history.get("tickers", []))
+                curr_tickers = {i["ticker"] for i in items if i["price"] > 0}
+                rising_tickers = curr_tickers & prev_tickers
+            except Exception:
+                pass
 
         rising_interest = [i for i in items if i["ticker"] in rising_tickers][:10]
 
         print(f"  [SCREENER] top_volume={len(top_vol)} cheap={len(cheap_growth)} rising={len(rising_interest)}")
 
         # Обновляем историю
-        _save_rising_history({"tickers": [i["ticker"] for i in items if i["price"] > 0], "date": TODAY})
+        try:
+            with open(LOGS_DIR / "rising_history.json", "w", encoding="utf-8") as f:
+                json.dump({"tickers": [i["ticker"] for i in items if i["price"] > 0], "date": TODAY}, f)
+        except Exception as e:
+            print(f"  [rising_history] {e}")
 
         return {
             "top_volume":     top_vol,
