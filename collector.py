@@ -712,171 +712,93 @@ def collect_screener_tinkoff(tinkoff_token, portfolio_tickers=None):
 
 def collect_screener(rules):
     """
-    Скринер через Tinkoff Invest API.
-    MOEX ISS блокирует GitHub Actions — используем Tinkoff который работает.
+    Скринер по конкретному списку голубых фишек через MOEX ISS.
+    Используем точечные запросы (как в collect_moex который стабильно работает)
+    вместо общего запроса всех акций который MOEX блокирует.
     """
-    print("[SCREENER] Загружаем данные через Tinkoff API...")
+    print("[SCREENER] Загружаем котировки голубых фишек MOEX...")
 
-    tinkoff_token = os.environ.get("TINKOFF_TOKEN")
-    if not tinkoff_token:
-        print("  [SCREENER] TINKOFF_TOKEN не найден")
-        return {"top_volume": [], "cheap_growth": [], "rising_interest": [],
-                "rising_new": [], "rising_dropped": [], "ipo": []}
-
-    base_url = "https://invest-public-api.tinkoff.ru/rest"
-    t_headers = {
-        "Authorization": f"Bearer {tinkoff_token}",
-        "Content-Type": "application/json",
-    }
+    BLUE_CHIPS = ["SBER","LKOH","GAZP","ROSN","NVTK","GMKN","TATN","MGNT",
+                  "YDEX","MTSS","MOEX","PLZL","CHMF","NLMK","MAGN","ALRS",
+                  "SNGS","VTBR","T","SMLT","UGLD","AFKS","AFLT","PHOR",
+                  "OZON","HEAD","POSI","FLOT","RUAL","BSPB","SVCB","ASTR",
+                  "IRAO","HYDR","FEES","RTKM","PIKK","MTLR"]
 
     try:
-        # Получаем последние цены по всем акциям через GetLastPrices
-        # Сначала получаем список инструментов
-        req = urllib.request.Request(
-            f"{base_url}/tinkoff.public.invest.api.contract.v1.InstrumentsService/Shares",
-            data=json.dumps({"instrumentStatus": "INSTRUMENT_STATUS_BASE"}).encode(),
-            headers=t_headers, method="POST"
-        )
-        with urllib.request.urlopen(req, timeout=15) as r:
-            instruments_data = json.loads(r.read())
+        url = (f"https://iss.moex.com/iss/engines/stock/markets/shares/"
+               f"boards/TQBR/securities.json"
+               f"?securities={','.join(BLUE_CHIPS)}"
+               f"&iss.meta=off&iss.only=marketdata,securities")
+        data = safe_fetch(url, timeout=15)
 
-        instruments = instruments_data.get("instruments", [])
+        if not data:
+            print("  [SCREENER] MOEX недоступен")
+            return {"top_volume": [], "cheap_growth": [], "rising_interest": [],
+                    "rising_new": [], "rising_dropped": [], "ipo": []}
 
-        # Фильтр: российские акции, не квал-only, на MOEX
-        ru_shares = [
-            i for i in instruments
-            if i.get("countryOfRisk") == "RU"
-            and i.get("exchange") in ("MOEX", "MOEX_MORNING", "MOEX_EVENING")
-            and not i.get("forQualInvestorFlag", False)
-            and i.get("ticker", "") not in QUAL_ONLY_TICKERS
-        ]
-        print(f"  [SCREENER] Акций для анализа: {len(ru_shares)}")
+        d = json.loads(data)
+        mc = d["marketdata"]["columns"]
+        sc = d["securities"]["columns"]
 
-        # Приоритет: сначала голубые фишки, потом остальные
-        BLUE_CHIPS_PRIORITY = {"SBER","LKOH","GAZP","ROSN","NVTK","GMKN","TATN","MGNT",
-                      "YDEX","MTSS","MOEX","PLZL","CHMF","NLMK","MAGN","ALRS",
-                      "SNGS","VTBR","T","SMLT","UGLD","AFKS","AFLT","PHOR",
-                      "OZON","HEAD","POSI","FLOT","RUAL","BSPB","SVCB"}
-        priority_shares = [i for i in ru_shares if i.get("ticker","") in BLUE_CHIPS_PRIORITY]
-        other_shares = [i for i in ru_shares if i.get("ticker","") not in BLUE_CHIPS_PRIORITY]
-        ru_shares = priority_shares + other_shares
-        print(f"  [SCREENER] Приоритетных (blue chips) найдено: {len(priority_shares)}")
-
-        # Получаем последние цены
-        figis = [i["figi"] for i in ru_shares[:200]]
-        req2 = urllib.request.Request(
-            f"{base_url}/tinkoff.public.invest.api.contract.v1.MarketDataService/GetLastPrices",
-            data=json.dumps({"figi": figis}).encode(),
-            headers=t_headers, method="POST"
-        )
-        with urllib.request.urlopen(req2, timeout=15) as r:
-            prices_data = json.loads(r.read())
-
-        def parse_q(q):
-            if not q: return 0.0
-            return int(q.get("units", 0)) + int(q.get("nano", 0)) / 1e9
-
-        price_map = {lp["figi"]: parse_q(lp.get("price")) for lp in prices_data.get("lastPrices", [])}
-
-        # Строим список с ценами
         items = []
-        figi_to_inst = {i["figi"]: i for i in ru_shares}
-        for figi, price in price_map.items():
-            if price <= 0 or figi not in figi_to_inst:
+        sec_map = {}
+        for row in d["securities"]["data"]:
+            r = dict(zip(sc, row))
+            sec_map[r["SECID"]] = r.get("SHORTNAME", r["SECID"])
+
+        for row in d["marketdata"]["data"]:
+            r = dict(zip(mc, row))
+            ticker = r.get("SECID")
+            last = r.get("LAST") or r.get("PREVPRICE")
+            if not last or not ticker:
                 continue
-            inst = figi_to_inst[figi]
-            ticker = inst.get("ticker", "")
-            name   = inst.get("name", ticker)
-            lot    = inst.get("lot", 1)
+            prev = r.get("PREVPRICE") or last
+            change = round(last - prev, 2) if prev else 0
+            pct = round(change / prev * 100, 2) if prev else 0
+            val = r.get("VALTODAY") or 0
+
             items.append({
-                "ticker":  ticker,
-                "name":    name,
-                "figi":    figi,
-                "price":   round(price, 2),
-                "pct":     0.0,   # изменение за день — нет в lastPrices
-                "volume":  0,
-                "change":  0,
-                "lot":     lot,
+                "ticker": ticker,
+                "name":   sec_map.get(ticker, ticker),
+                "price":  round(last, 2),
+                "pct":    pct,
+                "change": change,
+                "volume": val,
             })
 
-        # Топ объёма — берём по цене (прокси ликвидности) из известных голубых фишек
-        BLUE_CHIPS = {"SBER","LKOH","GAZP","ROSN","NVTK","GMKN","TATN","MGNT",
-                      "YDEX","MTSS","MOEX","PLZL","CHMF","NLMK","MAGN","ALRS",
-                      "SNGS","VTBR","T","SMLT","UGLD","AFKS","AFLT","PHOR",
-                      "OZON","HEAD","POSI","FLOT","RUAL","BSPB","SVCB"}
+        print(f"  [SCREENER] Получено котировок: {len(items)}")
 
-        print(f"  [SCREENER DEBUG] items={len(items)}, sample tickers: {[i['ticker'] for i in items[:10]]}")
-        blue = [i for i in items if i["ticker"] in BLUE_CHIPS]
-        print(f"  [SCREENER DEBUG] blue_chips found={len(blue)}")
-        blue.sort(key=lambda x: x["price"], reverse=True)
-        top_vol = blue[:10]
-        if not top_vol:
-            # Fallback: просто топ по цене из всех items
-            all_sorted = sorted(items, key=lambda x: x["price"], reverse=True)
-            top_vol = all_sorted[:10]
-            print(f"  [SCREENER DEBUG] fallback to all items top_vol={len(top_vol)}")
+        # Топ по объёму торгов
+        items.sort(key=lambda x: x["volume"], reverse=True)
+        top_vol = items[:10]
 
-        # Паттерн объём/цена для топа
         for s in top_vol:
-            p = s["price"]
-            if p > 5000:
-                s["vol_label"] = "💎 Высокая цена"
-            elif p > 1000:
-                s["vol_label"] = "🔵 Средняя цена"
+            if s["pct"] > 1:
+                s["vol_label"] = "🟢 Покупатели"
+            elif s["pct"] < -1:
+                s["vol_label"] = "🔴 Продавцы"
             else:
-                s["vol_label"] = "🟡 Доступная цена"
+                s["vol_label"] = "⚪ Нейтрально"
 
-        # Дешёвые акции (до 500₽)
-        cheap = [i for i in items if 0 < i["price"] <= 500 and i["ticker"] not in BLUE_CHIPS]
-        cheap.sort(key=lambda x: x["price"])
+        # Дешёвые акции
+        cheap = sorted([i for i in items if 0 < i["price"] <= 500], key=lambda x: x["price"])
         cheap_growth = cheap[:10]
 
-        # Растущий интерес — берём из истории если есть
-        rising_tickers = set()
-        history_path = LOGS_DIR / "rising_history.json"
-        if history_path.exists():
-            try:
-                with open(history_path, encoding="utf-8") as f:
-                    rising_history = json.load(f)
-                prev_tickers = set(rising_history.get("tickers", []))
-                curr_tickers = {i["ticker"] for i in items if i["price"] > 0}
-                rising_tickers = curr_tickers & prev_tickers
-            except Exception:
-                pass
-
-        rising_interest = [i for i in items if i["ticker"] in rising_tickers][:10]
-
-        print(f"  [SCREENER] top_volume={len(top_vol)} cheap={len(cheap_growth)} rising={len(rising_interest)}")
-
-        # Обновляем историю
-        try:
-            with open(LOGS_DIR / "rising_history.json", "w", encoding="utf-8") as f:
-                json.dump({"tickers": [i["ticker"] for i in items if i["price"] > 0], "date": TODAY}, f)
-        except Exception as e:
-            print(f"  [rising_history] {e}")
-
         return {
-            "top_volume":     top_vol,
-            "cheap_growth":   cheap_growth,
-            "rising_interest": rising_interest,
-            "rising_new":     [],
-            "rising_dropped": [],
-            "ipo":            [],
-            "_source":        "tinkoff",
+            "top_volume":      top_vol,
+            "cheap_growth":    cheap_growth,
+            "rising_interest": [],
+            "rising_new":      [],
+            "rising_dropped":  [],
+            "ipo":             [],
+            "_source":         "moex_targeted",
         }
 
     except Exception as e:
-        print(f"  [SCREENER] Ошибка Tinkoff: {e}")
-        import traceback
-        tb = traceback.format_exc()
-        traceback.print_exc()
-        try:
-            with open(BASE_DIR / "logs" / "screener_error.txt", "w") as f:
-                f.write(f"[SCREENER ERROR] {e}\n\n{tb}")
-        except Exception:
-            pass
+        print(f"  [SCREENER] Ошибка: {e}")
+        import traceback; traceback.print_exc()
         return {"top_volume": [], "cheap_growth": [], "rising_interest": [],
-                "rising_new": [], "rising_dropped": [], "ipo": [], "_source": "moex_fallback_error"}
+                "rising_new": [], "rising_dropped": [], "ipo": []}
 
 
 def _score_stock(stock, rules):
