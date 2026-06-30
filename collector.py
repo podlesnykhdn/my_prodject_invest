@@ -2185,6 +2185,8 @@ def collect():
         div_info = dividends.get(stock["ticker"], {})
         stock["pays_dividends"] = div_info.get("pays_dividends", False)
         stock["dividend_next"]  = div_info.get("next_payment")
+        if "score" not in stock:
+            stock["score"] = 50
         if stock["pays_dividends"]:
             stock["score"] = min(stock["score"] + 10, 100)
             stock["grade"] = _grade(stock["score"])
