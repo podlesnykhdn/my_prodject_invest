@@ -494,7 +494,7 @@ def check_ticker_qual_status(ticker, tinkoff_token):
     if not tinkoff_token:
         return None  # не можем проверить
     try:
-        base_url = "https://invest-public-api.tinkoff.ru/rest"
+        base_url = "https://invest-public-api.tbank.ru/rest"
         t_headers = {
             "Authorization": f"Bearer {tinkoff_token}",
             "Content-Type": "application/json",
@@ -630,7 +630,7 @@ def collect_screener_tinkoff(tinkoff_token, portfolio_tickers=None):
         return None
 
     print("  [Screener] Загружаем данные через Tinkoff API...")
-    base_url = "https://invest-public-api.tinkoff.ru/rest"
+    base_url = "https://invest-public-api.tbank.ru/rest"
     t_headers = {
         "Authorization": f"Bearer {tinkoff_token}",
         "Content-Type": "application/json",
@@ -1865,7 +1865,7 @@ def check_tinkoff_token(tinkoff_token):
     Возвращает True если токен рабочий, False если истёк (ошибка 40003).
     При истечении отправляет уведомление в Telegram.
     """
-    base_url = "https://invest-public-api.tinkoff.ru/rest"
+    base_url = "https://invest-public-api.tbank.ru/rest"
     t_headers = {
         "Authorization": f"Bearer {tinkoff_token}",
         "Content-Type": "application/json",
@@ -1915,7 +1915,7 @@ def fetch_tinkoff_portfolio():
 
     print("  [Tinkoff] Получаем данные портфеля...")
 
-    base_url = "https://invest-public-api.tinkoff.ru/rest"
+    base_url = "https://invest-public-api.tbank.ru/rest"
     t_headers = {
         "Authorization": f"Bearer {tinkoff_token}",
         "Content-Type": "application/json",
