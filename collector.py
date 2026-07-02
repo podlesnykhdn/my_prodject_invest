@@ -1986,7 +1986,7 @@ def fetch_tinkoff_portfolio():
             headers=t_headers,
             method="POST"
         )
-        with urllib.request.urlopen(req2, timeout=10) as r:
+        with urllib.request.urlopen(req2, timeout=10, context=_get_tbank_ctx()) as r:
             portfolio_data = json.loads(r.read())
 
         # Справочник FIGI → тикер (обновляется автоматически)
