@@ -2,39 +2,38 @@ name: Watchdog — резервный запуск
 
 on:
   schedule:
-    - cron: '15 4,5,6,7,8,9,10,11,12,13 * * 1-5'
+    - cron: '0,10,20,30,40,50 6 * * 1-5'
+    - cron: '0 7,8,9,10,11,12,13,14,15 * * 1-5'
   workflow_dispatch: {}
 
 jobs:
   check-and-trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Проверить — запускался ли основной workflow сегодня
+      - name: Запустить цепочку если не работает
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
           REPO: ${{ github.repository }}
         run: |
-          TODAY=$(date -u +%Y-%m-%d)
+          SINCE=$(date -u -d '20 minutes ago' +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -v-20M +%Y-%m-%dT%H:%M:%SZ)
           RUNS=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
-            "https://api.github.com/repos/$REPO/actions/workflows/bots.yml/runs?per_page=5")
-          SUCCESS_TODAY=$(echo "$RUNS" | python3 -c "
-          import sys, json
-          from datetime import datetime, timezone
-          data = json.load(sys.stdin)
-          today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-          runs = data.get('workflow_runs', [])
-          found = any(r.get('created_at','').startswith(today) and r.get('status') != 'queued' for r in runs)
-          print('yes' if found else 'no')
-          ")
-          echo "Запуск сегодня: $SUCCESS_TODAY"
-          if [ "$SUCCESS_TODAY" = "no" ]; then
-            echo "Запускаем bots.yml..."
+            "https://api.github.com/repos/$REPO/actions/workflows/bots.yml/runs?per_page=5" \
+            | python3 -c "
+import sys,json
+from datetime import datetime,timezone,timedelta
+runs=json.load(sys.stdin).get('workflow_runs',[])
+since=datetime.fromisoformat('$SINCE'.replace('Z','+00:00'))
+active=[r for r in runs if datetime.fromisoformat(r['created_at'].replace('Z','+00:00'))>since]
+print(len(active))")
+          echo "Активных запусков за 20 мин: $RUNS"
+          if [ "$RUNS" -eq "0" ]; then
+            echo "Цепочка не работает — запускаем!"
             curl -s -X POST \
               -H "Authorization: Bearer $GH_TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
               "https://api.github.com/repos/$REPO/actions/workflows/bots.yml/dispatches" \
-              -d '{"ref":"main","inputs":{"mode":"auto"}}'
-            echo "Запущен!"
+              -d '{"ref":"main","inputs":{"mode":"auto","chain":"true"}}'
+            echo "Запущено"
           else
-            echo "Уже запускался — пропускаем"
+            echo "Цепочка активна — OK"
           fi
