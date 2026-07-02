@@ -2034,6 +2034,14 @@ def fetch_tinkoff_portfolio():
               f"PnL: {total_pnl:+.0f}₽ ({total_pnl_pct:+.1f}%)")
         return result
 
+    except urllib.error.HTTPError as e:
+        body = e.read().decode('utf-8', errors='replace')
+        print(f"  [Tinkoff] HTTP {e.code}: {body[:300]}")
+        try:
+            with open(BASE_DIR / 'logs' / 'tinkoff_error.txt', 'w') as f:
+                f.write(f'HTTP {e.code}: {body}')
+        except Exception: pass
+        return None
     except Exception as e:
         print(f"  [Tinkoff] Ошибка: {e}")
         import traceback
