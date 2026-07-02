@@ -1360,6 +1360,15 @@ def save_log(data):
         json.dump(data, f, ensure_ascii=False, indent=2, default=str)
     print(f"  Лог сохранён: {log_file}")
 
+def _clean_git_conflicts(text):
+    """Убирает git merge conflict маркеры из файла."""
+    import re
+    # Удаляем блоки <<<<<<< ... ======= ... >>>>>>>
+    # Берём только версию HEAD (между <<<< и ====)
+    text = re.sub(r'<<<<<<< [^\n]*\n', '', text)
+    text = re.sub(r'=======\n[\s\S]*?>>>>>>> [^\n]*\n', '', text)
+    return text
+
 def _load_last_log(role):
     log_dir = LOGS_DIR / role
     if not log_dir.exists():
@@ -1371,10 +1380,14 @@ def _load_last_log(role):
         try:
             with open(log_file, encoding='utf-8') as f:
                 data = f.read().strip()
-                if not data or data[0] != '{':
-                    print(f'  [Log] Пропускаем некорректный файл: {log_file.name}')
-                    continue
-                return json.loads(data)
+            if not data or data[0] != '{':
+                print(f'  [Log] Пропускаем некорректный файл: {log_file.name}')
+                continue
+            # Очищаем git merge conflict маркеры если есть
+            if '<<<<<<<' in data:
+                print(f'  [Log] Обнаружен git конфликт в {log_file.name} — очищаем')
+                data = _clean_git_conflicts(data)
+            return json.loads(data)
         except (json.JSONDecodeError, Exception) as e:
             print(f'  [Log] Ошибка чтения {log_file.name}: {e} — пропускаем')
             continue
