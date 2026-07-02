@@ -1,7 +1,11 @@
 {
   "meta": {
     "date": "2026-07-02",
+<<<<<<< Updated upstream
     "time": "07:26",
+=======
+    "time": "07:27",
+>>>>>>> Stashed changes
     "month": 7,
     "weekday": 3,
     "is_friday": false
@@ -14,16 +18,26 @@
     "usd_change": 0.0
   },
   "oil": {
+<<<<<<< Updated upstream
     "price": 70.59,
+=======
+    "price": 70.58,
+>>>>>>> Stashed changes
     "change": 0.0,
     "change_pct": 0.0,
     "source": "Yahoo Finance ✅",
     "is_cached": false
   },
   "portfolio": {
+<<<<<<< Updated upstream
     "total_value": 221694.0,
     "total_change": -1259.0,
     "total_pct": -0.56,
+=======
+    "total_value": 221692.0,
+    "total_change": -1261.0,
+    "total_pct": -0.57,
+>>>>>>> Stashed changes
     "positions": [
       {
         "ticker": "X5",
@@ -65,11 +79,19 @@
         "ticker": "SBER",
         "name": "ПАО Сбербанк",
         "qty": 80,
+<<<<<<< Updated upstream
         "price": 306.21,
         "change": -0.83,
         "pct": -0.27,
         "value": 24497.0,
         "day_rub": -66.0,
+=======
+        "price": 306.25,
+        "change": -0.79,
+        "pct": -0.26,
+        "value": 24500.0,
+        "day_rub": -63.0,
+>>>>>>> Stashed changes
         "pe": 3.9,
         "eps_ttm": 78.4,
         "pe_sector_avg": 5.0,
@@ -83,11 +105,19 @@
         "ticker": "BELU",
         "name": "ПАО «НоваБев Групп»",
         "qty": 12,
+<<<<<<< Updated upstream
         "price": 248.4,
         "change": -1.6,
         "pct": -0.64,
         "value": 2981.0,
         "day_rub": -19.0,
+=======
+        "price": 248,
+        "change": -2,
+        "pct": -0.8,
+        "value": 2976,
+        "day_rub": -24,
+>>>>>>> Stashed changes
         "pe": 3.9,
         "eps_ttm": 63.0,
         "pe_sector_avg": 8.0,
@@ -119,17 +149,26 @@
   },
   "quotes": {
     "BELU": {
+<<<<<<< Updated upstream
       "price": 248.4,
       "prev": 248.4,
       "change": -1.6,
       "pct": -0.64,
       "volume": 5516991
+=======
+      "price": 248,
+      "prev": 248,
+      "change": -2,
+      "pct": -0.8,
+      "volume": 5523439
+>>>>>>> Stashed changes
     },
     "LENT": {
       "price": 1740.5,
       "prev": 1740.5,
       "change": -14.5,
       "pct": -0.83,
+<<<<<<< Updated upstream
       "volume": 10306041
     },
     "SBER": {
@@ -138,13 +177,27 @@
       "change": -0.83,
       "pct": -0.27,
       "volume": 701950781
+=======
+      "volume": 10330410
+    },
+    "SBER": {
+      "price": 306.25,
+      "prev": 306.25,
+      "change": -0.79,
+      "pct": -0.26,
+      "volume": 735750115
+>>>>>>> Stashed changes
     },
     "X5": {
       "price": 2266,
       "prev": 2266,
       "change": -9,
       "pct": -0.4,
+<<<<<<< Updated upstream
       "volume": 123025219
+=======
+      "volume": 126724944
+>>>>>>> Stashed changes
     }
   },
   "screener": {
@@ -155,25 +208,43 @@
         "price": 306.22,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 703584771,
+=======
+        "volume": 736927769,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       },
       {
         "ticker": "T",
         "name": "Т-Техно ао",
+<<<<<<< Updated upstream
         "price": 269.76,
         "pct": 0.0,
         "change": 0.0,
         "volume": 689799071,
+=======
+        "price": 269.8,
+        "pct": 0.0,
+        "change": 0.0,
+        "volume": 692454198,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       },
       {
         "ticker": "ROSN",
         "name": "Роснефть",
+<<<<<<< Updated upstream
         "price": 319.75,
         "pct": 0.0,
         "change": 0.0,
         "volume": 625994050,
+=======
+        "price": 319.5,
+        "pct": 0.0,
+        "change": 0.0,
+        "volume": 632422024,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       },
       {
@@ -182,61 +253,107 @@
         "price": 4482.5,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 544779932,
+=======
+        "volume": 551007078,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       },
       {
         "ticker": "GAZP",
         "name": "ГАЗПРОМ ао",
+<<<<<<< Updated upstream
         "price": 100.36,
         "pct": 0.0,
         "change": 0.0,
         "volume": 326757929,
+=======
+        "price": 100.35,
+        "pct": 0.0,
+        "change": 0.0,
+        "volume": 328727789,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       },
       {
         "ticker": "SMLT",
         "name": "Самолет ао",
+<<<<<<< Updated upstream
         "price": 306.4,
         "pct": 0.0,
         "change": 0.0,
         "volume": 298191312,
+=======
+        "price": 306.2,
+        "pct": 0.0,
+        "change": 0.0,
+        "volume": 299685977,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       },
       {
         "ticker": "VTBR",
         "name": "ВТБ ао",
+<<<<<<< Updated upstream
         "price": 72.92,
         "pct": 0.0,
         "change": 0.0,
         "volume": 214892923,
+=======
+        "price": 72.94,
+        "pct": 0.0,
+        "change": 0.0,
+        "volume": 216888321,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       },
       {
         "ticker": "AFLT",
         "name": "Аэрофлот",
+<<<<<<< Updated upstream
         "price": 40.04,
         "pct": 0.0,
         "change": 0.0,
         "volume": 206748143,
+=======
+        "price": 40.09,
+        "pct": 0.0,
+        "change": 0.0,
+        "volume": 207390013,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       },
       {
         "ticker": "NVTK",
         "name": "Новатэк ао",
+<<<<<<< Updated upstream
         "price": 960.7,
         "pct": 0.0,
         "change": 0.0,
         "volume": 189288958,
+=======
+        "price": 958.9,
+        "pct": 0.0,
+        "change": 0.0,
+        "volume": 197600088,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       },
       {
         "ticker": "MOEX",
         "name": "МосБиржа",
+<<<<<<< Updated upstream
         "price": 170.93,
         "pct": 0.0,
         "change": 0.0,
         "volume": 180856571,
+=======
+        "price": 171.09,
+        "pct": 0.0,
+        "change": 0.0,
+        "volume": 182517123,
+>>>>>>> Stashed changes
         "vol_label": "⚪ Нейтрально"
       }
     ],
@@ -247,7 +364,11 @@
         "price": 0.05,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 8715308,
+=======
+        "volume": 8717629,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -259,7 +380,11 @@
         "price": 0.32,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 8432118,
+=======
+        "volume": 8432762,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -271,7 +396,11 @@
         "price": 0.59,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 26576177,
+=======
+        "volume": 26576769,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -283,7 +412,11 @@
         "price": 2.58,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 29003645,
+=======
+        "volume": 29210119,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -292,10 +425,14 @@
       {
         "ticker": "SVCB",
         "name": "Совкомбанк",
-        "price": 11.02,
+        "price": 11.01,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 30390455,
+=======
+        "volume": 30720755,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -307,7 +444,11 @@
         "price": 11.37,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 108761197,
+=======
+        "volume": 109155713,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -319,7 +460,11 @@
         "price": 16.43,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 21267819,
+=======
+        "volume": 22204146,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -331,7 +476,11 @@
         "price": 18.7,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 122678117,
+=======
+        "volume": 124170790,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -340,10 +489,14 @@
       {
         "ticker": "ALRS",
         "name": "АЛРОСА ао",
-        "price": 21.24,
+        "price": 21.25,
         "pct": 0.0,
         "change": 0.0,
+<<<<<<< Updated upstream
         "volume": 47079301,
+=======
+        "volume": 47116268,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -352,10 +505,17 @@
       {
         "ticker": "RUAL",
         "name": "РУСАЛ ао",
+<<<<<<< Updated upstream
         "price": 28.15,
         "pct": 0.0,
         "change": 0.0,
         "volume": 97458901,
+=======
+        "price": 28.18,
+        "pct": 0.0,
+        "change": 0.0,
+        "volume": 97531561,
+>>>>>>> Stashed changes
         "score": 60,
         "grade": "🟡 B",
         "pays_dividends": true,
@@ -393,7 +553,11 @@
       "ticker": "Brent",
       "in_portfolio": false,
       "why_watch": "Влияет на курс рубля и весь российский рынок. Рост нефти → укрепление рубля → позитив для акций.",
+<<<<<<< Updated upstream
       "price": 70.59,
+=======
+      "price": 70.58,
+>>>>>>> Stashed changes
       "change": 0,
       "pct": 0,
       "volume": 0,
@@ -736,8 +900,13 @@
     "prev_date": "2026-06-18",
     "curr_date": "2026-07-02",
     "prev_value": 277559.0,
+<<<<<<< Updated upstream
     "curr_value": 221694.0,
     "diff_rub": -55865.0,
+=======
+    "curr_value": 221692.0,
+    "diff_rub": -55867.0,
+>>>>>>> Stashed changes
     "diff_pct": -20.13,
     "positions": [
       {
@@ -757,31 +926,55 @@
       {
         "ticker": "SBER",
         "prev_price": 314.32,
+<<<<<<< Updated upstream
         "curr_price": 306.21,
         "diff": -8.11,
         "pct": -2.58
+=======
+        "curr_price": 306.25,
+        "diff": -8.07,
+        "pct": -2.57
+>>>>>>> Stashed changes
       },
       {
         "ticker": "BELU",
         "prev_price": 294.2,
+<<<<<<< Updated upstream
         "curr_price": 248.4,
         "diff": -45.8,
         "pct": -15.57
+=======
+        "curr_price": 248,
+        "diff": -46.2,
+        "pct": -15.7
+>>>>>>> Stashed changes
       }
     ],
     "best": {
       "ticker": "SBER",
       "prev_price": 314.32,
+<<<<<<< Updated upstream
       "curr_price": 306.21,
       "diff": -8.11,
       "pct": -2.58
+=======
+      "curr_price": 306.25,
+      "diff": -8.07,
+      "pct": -2.57
+>>>>>>> Stashed changes
     },
     "worst": {
       "ticker": "BELU",
       "prev_price": 294.2,
+<<<<<<< Updated upstream
       "curr_price": 248.4,
       "diff": -45.8,
       "pct": -15.57
+=======
+      "curr_price": 248,
+      "diff": -46.2,
+      "pct": -15.7
+>>>>>>> Stashed changes
     }
   },
   "inefficiencies": {
