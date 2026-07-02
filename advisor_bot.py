@@ -667,8 +667,8 @@ def run_morning():
     if now_msk.weekday() >= 5:
         print(f"  Выходной — не отправляем")
         return
-    if not (now_msk.hour > 9 or (now_msk.hour == 9 and now_msk.minute >= 50)):
-        print(f"  {now_msk.strftime('%H:%M')} МСК — биржа ещё не открылась")
+    if now_msk.hour < 9:
+        print(f"  {now_msk.strftime('%H:%M')} МСК — слишком рано")
         return
 
     if log.get("morning_sent"):
