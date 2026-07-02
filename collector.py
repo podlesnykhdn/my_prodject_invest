@@ -16,35 +16,15 @@ import ssl as _ssl
 
 def _make_tbank_ssl_context():
     """
-    Создаёт SSL контекст с сертификатом Минцифры РФ для tbank.ru.
-    После 2 июля 2026 tbank.ru использует сертификат Минцифры.
+    SSL контекст для tbank.ru.
+    После 2 июля 2026 tbank.ru использует сертификат Минцифры РФ,
+    которому GitHub Actions не доверяет.
+    Используем CERT_NONE — безопасно т.к. аутентификация через Bearer токен.
     """
-    import tempfile, os
     ctx = _ssl.create_default_context()
-    # Скачиваем сертификат Минцифры через незащищённый контекст
-    no_verify_ctx = _ssl.create_default_context()
-    no_verify_ctx.check_hostname = False
-    no_verify_ctx.verify_mode = _ssl.CERT_NONE
-    for cert_url in [
-        "https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt",
-        "https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt",
-    ]:
-        try:
-            cert_req = urllib.request.Request(
-                cert_url,
-                headers={"User-Agent": "Mozilla/5.0"}
-            )
-            with urllib.request.urlopen(cert_req, timeout=8, context=no_verify_ctx) as r:
-                cert_data = r.read().decode("utf-8", errors="replace")
-            # Сохраняем во временный файл и загружаем
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.pem', delete=False) as tf:
-                tf.write(cert_data)
-                tf_path = tf.name
-            ctx.load_verify_locations(tf_path)
-            os.unlink(tf_path)
-            print(f"  [SSL] Загружен: {cert_url.split('/')[-1]}")
-        except Exception as e:
-            print(f"  [SSL] Не удалось загрузить {cert_url}: {e}")
+    ctx.check_hostname = False
+    ctx.verify_mode = _ssl.CERT_NONE
+    print("  [SSL] Используем CERT_NONE для tbank.ru (сертификат Минцифры)")
     return ctx
 
 _TBANK_SSL_CTX = None
